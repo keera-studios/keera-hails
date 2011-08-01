@@ -11,11 +11,19 @@ loadInterface = do
   builder <- builderNew
   builderAddFromFile builder "Interface.glade"
   return builder
-  
+
+onBuilder :: (GObjectClass cls)
+          => (GObject -> cls) -> String -> Builder -> IO cls
+onBuilder f s b = builderGetObject b f s
+
 -- | Returns the IDE's main window.
 mainWindow :: Builder -> IO Window
 mainWindow = onBuilder castToWindow "mainWindow"
 
-onBuilder :: (GObjectClass cls) =>
-               (GObject -> cls) -> String -> Builder -> IO cls
-onBuilder f s b = builderGetObject b f s
+-- | Returns a label to show a message to the user
+mainWindowMessageLbl :: Builder -> IO Label
+mainWindowMessageLbl = onBuilder castToLabel "mainWindowMessageLbl"
+
+-- | Returns an entry to get a message to the user
+mainWindowFilenameEntry :: Builder -> IO Entry 
+mainWindowFilenameEntry = onBuilder castToEntry "mainWindowFilenameEntry"
