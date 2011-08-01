@@ -62,7 +62,7 @@ Executable ElementaryGtkProgram
   -- Packages needed in order to build this package.
   -- Build-depends:       
   --, mtl, stm, containers, filepath, directory, process,
-  Build-depends: glade, gtk, base >= 4.0,
+  Build-depends: glade, gtk, base >= 4.0, gd, directory,
                  protected-objects, generic-view, combined-environment, haskell-prmvc-helpers
   -- , process, containers, mtl, glib, stateref
   
