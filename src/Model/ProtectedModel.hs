@@ -8,3 +8,4 @@ module Model.ProtectedModel
 
 import Model.ProtectedModel.ProtectedModelInternals
 import Model.ReactiveModel.ModelEvents as Exported
+import Model.ProtectedModel.Filename as Exported

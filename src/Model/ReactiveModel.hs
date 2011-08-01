@@ -14,7 +14,9 @@ module Model.ReactiveModel
    -- * Modification
    , getPendingHandler
    , onEvent
+   , module Exported
    )
   where
 
 import Model.ReactiveModel.ReactiveModelInternals
+import Model.ReactiveModel.Filename as Exported

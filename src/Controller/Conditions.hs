@@ -22,6 +22,8 @@ import qualified Graphics.UI.Simplify.NameAndVersionTitleBar as Title
 import CombinedEnvironment
 import View
 import View.MainWindow.Objects
+import qualified Controller.Conditions.FilenameEntry as Filename
+import qualified Controller.Conditions.ResultLabel as Result
 
 -- Internal libraries: specific conditions
 
@@ -29,3 +31,5 @@ installHandlers :: CRef -> IO()
 installHandlers cref = do
   PMW.installHandlers cref (mainWindow . mainWindowBuilder . getGUI)
   Title.installHandlers cref (mainWindow . mainWindowBuilder . getGUI)
+  Filename.installHandlers cref
+  Result.installHandlers cref
