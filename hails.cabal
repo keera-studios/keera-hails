@@ -58,6 +58,7 @@ Library
                  , Hails.Graphics.UI.Gtk.Reactive
                  , Hails.MVC.View.DefaultView
                  , Hails.MVC.View.GtkView
+                 , Hails.MVC.View.GladeView
                  , Hails.MVC.View.Reactive
                  , Hails.MVC.Controller.ConditionDirection
                  , Hails.MVC.Controller.Conditions.Config
@@ -75,6 +76,7 @@ Library
                  , Hails.MVC.Model.ReactiveModel.Events
                  , Graphics.UI.View
                  , Graphics.UI.Gtk.GtkView
+                 , Graphics.UI.Gtk.Reactive
                  , Data.Stack
                  , Control.Exception.Extra
 

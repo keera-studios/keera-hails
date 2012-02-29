@@ -21,7 +21,6 @@ import Graphics.UI.Gtk
 
 -- Internal libraries
 import Hails.Graphics.UI.Gtk.Helpers.Combo
-import Hails.MVC.View.Reactive
 import Hails.MVC.Controller.Reactive as Exported
 
 -- An Entry's main reactive view field is a string with the contents

@@ -9,10 +9,7 @@ module Hails.MVC.Model.ProtectedModel.Initialisation where
 
 import qualified Hails.MVC.Model.ReactiveModel.Initialisation as RM
 import Hails.MVC.Model.ReactiveModel.Events
-import Hails.MVC.Model.ReactiveModel
 import Hails.MVC.Model.ProtectedModel
 
 initialiseSystem :: InitialisedEvent c => ProtectedModel a c -> IO ()
-initialiseSystem x = do
-   putStrLn "System initialisation"
-   x`applyToReactiveModel` RM.initialiseSystem
+initialiseSystem = (`applyToReactiveModel` RM.initialiseSystem)

@@ -14,7 +14,7 @@ module Hails.MVC.DefaultGtkEnvironment
   where
 
 -- Internal libraries
-import qualified Graphics.UI.Gtk.GtkView                as GtkView
+import qualified Graphics.UI.Gtk.GtkView              as GtkView
 import qualified Hails.MVC.GenericCombinedEnvironment as GEnv
 import Hails.MVC.Model.ReactiveModel
 
