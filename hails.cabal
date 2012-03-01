@@ -38,6 +38,12 @@ Category:            Development
 
 Build-type:          Simple
 
+Data-files:
+  templates/*.hs
+  templates/Model/*.hs
+  templates/Model/ProtectedModel/*.hs
+  templates/Model/ReactiveModel/*.hs
+
 -- Extra files to be distributed with the package, such as examples or
 -- a README.
 -- Extra-source-files:  
@@ -45,6 +51,27 @@ Build-type:          Simple
 -- Constraint on the version of Cabal needed to build this package.
 Cabal-version:       >=1.2
 
+Executable hails
+  hs-source-dirs: src/
+
+  main-is: Main.hs
+
+  ghc-options: -Wall -fno-warn-unused-do-bind -O2
+
+  Build-depends: base >= 4
+
+               -- Data.Default
+               , data-default
+
+               -- File access
+               , directory
+               , filepath
+
+               -- CLI
+               , cmdargs
+               -- , containers
+               -- , stm
+               -- , gtk
 
 Library
   hs-source-dirs: src/
