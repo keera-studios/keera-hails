@@ -16,13 +16,10 @@ module Graphics.UI.Gtk.Reactive
   where
 
 -- External libraries
-import Control.Monad
 import Graphics.UI.Gtk
 
 -- Internal libraries
--- import CombinedEnvironment
 import qualified Graphics.UI.Gtk.GtkView              as GtkView
-import Hails.Graphics.UI.Gtk.Helpers.Combo
 import Hails.Graphics.UI.Gtk.Reactive
 import Hails.MVC.Model.ReactiveModel
 import Hails.MVC.View.Reactive
