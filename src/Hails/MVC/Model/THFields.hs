@@ -11,7 +11,7 @@ import Language.Haskell.TH.Lib
 
 -- | Creates a setter and a getter that works at ProtectedModel level
 -- inside the IO Monad
-protectedField :: String -> String -> String -> String -> Q [Dec]
+protectedField :: String -> Q Type -> String -> String -> Q [Dec]
 protectedField fname ftype pmodel event = sequenceQ
   -- Declare plain field
   [ sigD setterName setterType
@@ -85,20 +85,20 @@ protectedField fname ftype pmodel event = sequenceQ
        fieldType  = appT
                      (appT
                        (appT (conT (mkName "ReactiveElement")) 
-                             (conT (mkName ftype))
+                             ftype
                        )
                        (conT (mkName pmodel))
                      )
                      (conT (mkName event))
        pmTo       = appT arrowT (conT (mkName "ProtectedModel"))
-       typeToIO   = appT (appT arrowT (conT (mkName ftype))) ioNil
+       typeToIO   = appT (appT arrowT ftype) ioNil
        ioNil      = appT (conT (mkName "IO")) (conT (mkName "()"))
-       ioType     = appT (conT (mkName "IO")) (conT (mkName ftype))
+       ioType     = appT (conT (mkName "IO")) ftype
                     
        fnamelc    = lcFst fname
 
 -- | Creates a setter and a getter that works at ReactiveModel level.
-reactiveField :: String -> String -> Q [Dec]
+reactiveField :: String -> Q Type -> Q [Dec]
 reactiveField fname ftype = sequenceQ
   -- Declare plain setter
   [ sigD setterName setterType
@@ -146,13 +146,13 @@ reactiveField fname ftype = sequenceQ
        getterName = mkName ("get" ++ fname)
        fieldName  = mkName (fnamelc ++ "Field")
        setterType = appT rmTo typeToRM
-       getterType = appT rmTo (conT (mkName ftype))
-       fieldType  = appT (conT (mkName "Field")) (conT (mkName ftype))
+       getterType = appT rmTo ftype
+       fieldType  = appT (conT (mkName "Field")) ftype
        rmTo       = appT arrowT (conT (mkName "ReactiveModel"))
-       typeToRM   = appT (appT arrowT (conT (mkName ftype))) 
+       typeToRM   = appT (appT arrowT ftype) 
                          (conT (mkName "ReactiveModel"))
        fnamelc    = lcFst fname
-       
+
 lcFst :: String -> String         
 lcFst []     = []
 lcFst (x:xs) = (toLower x) : xs

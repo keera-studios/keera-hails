@@ -104,6 +104,55 @@ reactiveModelAccessors fname ftype = sequenceQ
        typeToRM   = appT (appT arrowT (conT (mkName ftype))) (conT (mkName "ReactiveModel"))
        fnamelc    = lcFst fname
        
+-- | Creates a setter and a getter that works at ReactiveModel level.
+nonReactiveModelAccessors :: String -> Q Type -> Q [Dec]
+nonReactiveModelAccessors fname ftype = sequenceQ
+  -- Declare plain setter
+  [ sigD setterName setterType
+  , funD setterName 
+                    [clause 
+                     -- Setter args: rm (reactive model), n (value)
+                     [varP (mkName "rm"), varP (mkName "n")]
+                     -- Main result: triggerEvent rm' ev
+                     (normalB (varE (mkName "rm'")))
+                     -- Where rm' = updated rm
+                     [valD (varP (mkName "rm'"))
+                           (normalB (infixE (Just (varE (mkName "rm")))
+                                            (varE (mkName "onBasicModel"))
+                                            (Just (lamE [varP (mkName "b")]
+                                                        (recUpdE (varE (mkName "b"))
+                                                                 [fieldExp 
+                                                                   (mkName fnamelc)
+                                                                   (varE (mkName "n"))
+                                                                 ]
+                                                        )
+                                                  )
+                                            )
+                                    )
+                           )
+                           []
+                      ]
+                    ]                     
+  -- Declare plain getter
+  , sigD getterName getterType
+  , funD getterName [clause []
+                     -- recordField . basicModel
+                     (normalB (infixE (Just (varE (mkName fnamelc)))
+                                      (varE (mkName ".")) 
+                                      (Just (varE (mkName "basicModel")))
+                              )
+                     )
+                     []
+                     ]
+  ]
+ where setterName = mkName ("set" ++ fname)
+       getterName = mkName ("get" ++ fname)
+       setterType = appT rmTo typeToRM
+       getterType = appT rmTo ftype
+       rmTo       = appT arrowT (conT (mkName "ReactiveModel"))
+       typeToRM   = appT (appT arrowT ftype) (conT (mkName "ReactiveModel"))
+       fnamelc    = lcFst fname
+
 lcFst :: String -> String         
 lcFst []     = []
 lcFst (x:xs) = (toLower x) : xs
