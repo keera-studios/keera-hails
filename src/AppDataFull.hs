@@ -7,7 +7,8 @@ import AppDataBasic (HailsAction)
 -- existing files, for instance, from cabal files, from Haskell
 -- source, etc.
 data AppDataFull = AppDataFull
- { action  :: HailsAction
+ { action    :: HailsAction
+ , outputDir :: FilePath
  }
  deriving (Show)
 

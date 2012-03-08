@@ -7,7 +7,8 @@ import Data.Default
 
 -- This is the CLI app definition : what we get from the user
 data AppDataBasic = AppDataBasic {
-    action  :: HailsAction
+    action    :: HailsAction
+  , outputDir :: Maybe FilePath
   }
  deriving (Show, Data, Typeable)
 

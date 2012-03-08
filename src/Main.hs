@@ -2,6 +2,7 @@
 {-# LANGUAGE NamedFieldPuns #-}
 
 -- External
+import Data.Maybe
 import System.Console.CmdArgs
 import System.Directory
 import System.FilePath
@@ -26,23 +27,23 @@ main = do
   executeHailsAction act
 
 buildHailsAction :: AppDataBasic -> IO AppDataFull          
-buildHailsAction (AppDataBasic { action }) = return $
- AppDataFull 
-  { action  = action }
+buildHailsAction (AppDataBasic { action, outputDir }) =
+   return $ AppDataFull { action  = action, outputDir = dir' }
+ where dir' = fromMaybe "." outputDir
 
 -- This is the action execution
 executeHailsAction :: AppDataFull -> IO ()
-executeHailsAction _ = copyTemplates
+executeHailsAction (AppDataFull { action, outputDir }) = copyTemplates outputDir
 
 -- Copy all the templates
-copyTemplates :: IO ()
-copyTemplates = mapM_ copyTemplate templates
+copyTemplates :: FilePath -> IO ()
+copyTemplates dir = mapM_ (copyTemplate dir) templates
        
 -- Copy one template
-copyTemplate :: FilePath -> IO()
-copyTemplate fp = do
+copyTemplate :: FilePath -> FilePath -> IO()
+copyTemplate dir fp = do
   fullpath <- getDataFileName $ "templates" </> fp
-  copyFile fullpath fp
+  copyFile fullpath (dir </> fp)
 
 -- Standard template list
 templates :: [ FilePath ]

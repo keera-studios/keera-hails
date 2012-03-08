@@ -16,6 +16,11 @@ sample = AppDataBasic
                              ]
              &= help "Hails action to execute (init)"
              &= typ "ACTION"
+             , outputDir = def
+             &= explicit
+             &= name "output-dir"
+             &= help "Directory where generated files will be placed"
+             &= typ "DIR"
              }
          &= summary "Hails"
          &= program "hails"
