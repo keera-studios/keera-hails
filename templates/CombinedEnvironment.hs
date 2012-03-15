@@ -1,9 +1,5 @@
 -- | The environment that contains both the view and the model.
 --
--- | FIXME: In a very rails-like move, this module will probably be
--- exactly the same for all programs, so we should try to put
--- a "Convention-over-configuration" policy in place and remove this
--- unless it must be adapted by the user.
 module CombinedEnvironment
    ( CEnv
    , module Exported
