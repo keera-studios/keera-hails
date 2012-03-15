@@ -7,7 +7,7 @@ Name:                hails
 -- The package version. See the Haskell package versioning policy
 -- (http://www.haskell.org/haskellwiki/Package_versioning_policy) for
 -- standards guiding when and how versions should be incremented.
-Version:             0.0.2
+Version:             0.0.3
 
 -- A short (one-line) description of the package.
 Synopsis:            Rapid Gtk Application Development
@@ -87,6 +87,7 @@ Library
                  , Hails.Graphics.UI.Gtk.Helpers.Combo
                  , Hails.Graphics.UI.Gtk.Builder
                  , Hails.Graphics.UI.Gtk.Reactive
+                 , Hails.I18N.Gettext
                  , Hails.MVC.View.DefaultView
                  , Hails.MVC.View.GtkView
                  , Hails.MVC.View.GladeView
@@ -141,6 +142,10 @@ Library
                , HTTP
                , network
                , mtl
+
+               -- Gettext-related
+               , utf8-string
+               , hgettext
   
   -- Modules not exported by this package.
   -- Other-modules:       
