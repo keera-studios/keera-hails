@@ -9,6 +9,7 @@ import AppDataBasic (HailsAction)
 data AppDataFull = AppDataFull
  { action    :: HailsAction
  , outputDir :: FilePath
+ , overwrite :: Bool
  }
  deriving (Show)
 

@@ -10,9 +10,13 @@ import AppDataBasic
 sample :: AppDataBasic
 sample = AppDataBasic
              { action = enum [ HailsInit 
-                               &= explicit 
-                               &= name "init" 
-                               &= help "(Re-)start a project" 
+                             &= explicit 
+                             &= name "init" 
+                             &= help "(Re-)start a project" 
+                             , HailsClean
+                             &= explicit
+                             &= name "clean"
+                             &= help "Delete unmodified templates"
                              ]
              &= help "Hails action to execute (init)"
              &= typ "ACTION"
@@ -21,6 +25,8 @@ sample = AppDataBasic
              &= name "output-dir"
              &= help "Directory where generated files will be placed"
              &= typ "DIR"
+             , overwrite = def
+             &= help "Overwrite existing files"
              }
          &= summary "Hails"
          &= program "hails"

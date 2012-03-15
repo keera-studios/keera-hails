@@ -11,17 +11,17 @@ import Control.Exception.Extra
 -- an environment from a string. It's like a
 -- read/show combination for configuration files
 -- to and from Environments
-type ConfigIO e = ( String -> e -> IO () -- Writer
-                  , e -> IO String       -- Reader
+type ConfigIO e = ( Maybe String -> e -> IO () -- Reader
+                  , e -> IO String             -- Shower
                   )
 
 defaultRead :: ConfigIO e -> String -> e -> IO()
 defaultRead (readConf, _) app cenv = 
-  void $ E.handle (anyway (return ())) $ do
+  void $ E.handle (anyway (readConf Nothing cenv)) $ do
     dir <- getAppUserDataDirectory app
     let file = dir </> "config"
     c <- readFile file
-    readConf c cenv
+    readConf (Just c) cenv
 
 defaultWrite :: ConfigIO e -> String -> e -> IO()
 defaultWrite (_, showConf) app cenv = 

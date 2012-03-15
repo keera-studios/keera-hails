@@ -60,6 +60,10 @@ Executable hails
 
   Build-depends: base >= 4
 
+               , bytestring
+
+               , IfElse
+
                -- Data.Default
                , data-default
 
@@ -107,6 +111,22 @@ Library
                  , Data.Stack
                  , Control.Exception.Extra
 
+                 -- from haskell-prmvc-helpers
+                 , Hails.MVC.Model.ProtectedModel.VersionedModel
+                 , Hails.MVC.Model.ProtectedModel.LoggedModel
+                 , Hails.MVC.Model.ProtectedModel.NamedModel
+                 , Hails.MVC.Model.ProtectedModel.UpdatableModel
+                 , Hails.Graphics.UI.Gtk.Simplify.VersionNumberTitleBar
+                 , Hails.Graphics.UI.Gtk.Simplify.NameAndVersionTitleBar
+                 , Hails.Graphics.UI.Gtk.Simplify.ProgramMainWindow
+                 , Hails.Graphics.UI.Gtk.Simplify.AboutDialog
+                 , Hails.Graphics.UI.Gtk.Simplify.Logger
+                 , Hails.Graphics.UI.Gtk.Simplify.RootLogger
+                 , Hails.Graphics.UI.Gtk.Simplify.UpdateCheck
+                 , Hails.Graphics.UI.Gtk.Simplify.ReactiveGtk
+                 , Language.Haskell.TH.DeriveField
+                 , Data.ExtraVersion
+                 , Data.ReactiveValue
   
   -- Packages needed in order to build this package.
   Build-depends: base >= 4
@@ -115,7 +135,12 @@ Library
                , filepath
                , containers
                , stm
+               , glib
                , gtk
+               , hslogger
+               , HTTP
+               , network
+               , mtl
   
   -- Modules not exported by this package.
   -- Other-modules:       

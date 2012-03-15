@@ -9,10 +9,12 @@ import Data.Default
 data AppDataBasic = AppDataBasic {
     action    :: HailsAction
   , outputDir :: Maybe FilePath
+  , overwrite :: Bool
   }
  deriving (Show, Data, Typeable)
 
 data HailsAction = HailsInit
+                 | HailsClean
  deriving (Show, Data, Typeable)
           
 instance Default HailsAction where          

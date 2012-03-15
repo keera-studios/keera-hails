@@ -2,14 +2,17 @@
 {-# LANGUAGE NamedFieldPuns #-}
 
 -- External
+import Control.Monad
+import Control.Monad.IfElse
 import Data.Maybe
 import System.Console.CmdArgs
 import System.Directory
 import System.FilePath
+import qualified Data.ByteString.Lazy as L
 
 -- Internal
 import AppDataBasic
-import AppDataFull
+import AppDataFull  as F
 import HailsArgs
 import Paths_hails
 
@@ -21,29 +24,61 @@ main = do
   
   -- Try to build a complete action with those values that can be
   -- guessed from existing files.
-  act <- buildHailsAction appState
+  conf <- buildHailsConf appState
   
   -- Execute that action.
-  executeHailsAction act
+  executeHailsAction conf
 
-buildHailsAction :: AppDataBasic -> IO AppDataFull          
-buildHailsAction (AppDataBasic { action, outputDir }) =
-   return $ AppDataFull { action  = action, outputDir = dir' }
+buildHailsConf :: AppDataBasic -> IO AppDataFull          
+buildHailsConf (AppDataBasic { action, outputDir, overwrite }) =
+   return $ AppDataFull { action    = action
+                        , outputDir = dir'
+                        , overwrite = overwrite
+                        }
  where dir' = fromMaybe "." outputDir
 
 -- This is the action execution
 executeHailsAction :: AppDataFull -> IO ()
-executeHailsAction (AppDataFull { action, outputDir }) = copyTemplates outputDir
+executeHailsAction app =
+  case F.action app of
+   HailsInit  -> copyTemplates app
+   HailsClean -> cleanTemplates app
+
+-- Clean unmodified templates
+cleanTemplates :: AppDataFull -> IO ()
+cleanTemplates conf = mapM_ (cleanTemplate conf) templates
+
+cleanTemplate :: AppDataFull -> FilePath -> IO()
+cleanTemplate conf fp = do
+  fullpath <- getDataFileName $ "templates" </> fp
+  let dir    = F.outputDir conf
+      dest   = (dir </> fp)
+  exists <- doesFileExist dest
+  when exists $ whenM (fileEq fullpath dest) $ 
+     removeFile dest
+
+fileEq :: FilePath -> FilePath -> IO Bool
+fileEq fp1 fp2 = do
+  c1 <- L.readFile fp1
+  c2 <- L.readFile fp2
+  return (c1 == c2)
 
 -- Copy all the templates
-copyTemplates :: FilePath -> IO ()
-copyTemplates dir = mapM_ (copyTemplate dir) templates
+copyTemplates :: AppDataFull -> IO ()
+copyTemplates conf = mapM_ (copyTemplate conf) templates
        
 -- Copy one template
-copyTemplate :: FilePath -> FilePath -> IO()
-copyTemplate dir fp = do
+copyTemplate :: AppDataFull -> FilePath -> IO()
+copyTemplate conf fp = do
   fullpath <- getDataFileName $ "templates" </> fp
-  copyFile fullpath (dir </> fp)
+  let dir    = F.outputDir conf
+      dest   = (dir </> fp)
+      parent = takeDirectory dest
+      overw  = F.overwrite conf
+  exists <- doesFileExist dest
+  when (not exists || overw) $ do
+    createDirectoryIfMissing True parent
+    copyFile fullpath dest
 
 -- Standard template list
 templates :: [ FilePath ]

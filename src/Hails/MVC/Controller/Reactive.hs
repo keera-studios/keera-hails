@@ -42,8 +42,7 @@ cond vField mField cd cenv = onViewAsync $ do
   let pm = GEnv.model cenv
   mShould <- rvfGet vField
   vShould <- getter mField pm
-  let diff = mShould /= vShould
-  
-  case cd of
-   MV -> when diff $ rvfSet vField vShould
-   VM -> when diff $ setter mField pm mShould
+  when (mShould /= vShould) $ 
+    case cd of
+     MV -> rvfSet vField vShould
+     VM -> setter mField pm mShould
