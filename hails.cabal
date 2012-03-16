@@ -108,6 +108,7 @@ Library
                  , Hails.MVC.Model.ReactiveModel
                  , Hails.MVC.Model.ReactiveModel.Events
                  , Data.Stack
+                 , Data.String.Extra
                  , Control.Exception.Extra
                  , Graphics.UI.View
                  , Graphics.UI.Gtk.GtkView
