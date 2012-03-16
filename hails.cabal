@@ -88,6 +88,7 @@ Library
                  , Hails.Graphics.UI.Gtk.Builder
                  , Hails.Graphics.UI.Gtk.Reactive
                  , Hails.I18N.Gettext
+                 , Hails.I18N.Language
                  , Hails.MVC.View.DefaultView
                  , Hails.MVC.View.GtkView
                  , Hails.MVC.View.GladeView
@@ -106,11 +107,13 @@ Library
                  , Hails.MVC.Model.ReactiveModel.Initialisation
                  , Hails.MVC.Model.ReactiveModel
                  , Hails.MVC.Model.ReactiveModel.Events
+                 , Data.Stack
+                 , Control.Exception.Extra
                  , Graphics.UI.View
                  , Graphics.UI.Gtk.GtkView
                  , Graphics.UI.Gtk.Reactive
-                 , Data.Stack
-                 , Control.Exception.Extra
+                 , System.Application
+                 , System.Environment.SetEnv
 
                  -- from haskell-prmvc-helpers
                  , Hails.MVC.Model.ProtectedModel.VersionedModel
@@ -138,14 +141,17 @@ Library
                , stm
                , glib
                , gtk
+               , gio
                , hslogger
                , HTTP
                , network
                , mtl
+               , process
 
                -- Gettext-related
                , utf8-string
                , hgettext
+               , setlocale
   
   -- Modules not exported by this package.
   -- Other-modules:       
