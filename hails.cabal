@@ -85,6 +85,9 @@ Library
   -- Modules exported by the library.
   Exposed-modules: Hails.Graphics.UI.Gtk.THBuilderAccessor
                  , Hails.Graphics.UI.Gtk.Helpers.Combo
+                 , Hails.Graphics.UI.Gtk.Helpers.FileDialog
+                 , Hails.Graphics.UI.Gtk.Helpers.MenuItem
+                 , Hails.Graphics.UI.Gtk.Helpers.MessageDialog
                  , Hails.Graphics.UI.Gtk.Builder
                  , Hails.Graphics.UI.Gtk.Reactive
                  , Hails.I18N.Gettext
