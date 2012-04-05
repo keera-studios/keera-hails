@@ -15,7 +15,7 @@ import Model.ReactiveModel.ModelEvents                as Exported
 import Model.ProtectedModel                           as Exported
 import Model.Model  
 import View                                           as Exported
-import View.MainWindow.Objects                        as Exported
+import View.Objects                                   as Exported
 
 -- The simplest definition: a view, a model, and a set of events
 type CEnv = GEnv.CEnv View Model ModelEvent

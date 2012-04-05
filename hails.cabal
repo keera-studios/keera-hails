@@ -7,7 +7,7 @@ Name:                hails
 -- The package version. See the Haskell package versioning policy
 -- (http://www.haskell.org/haskellwiki/Package_versioning_policy) for
 -- standards guiding when and how versions should be incremented.
-Version:             0.0.3
+Version:             0.0.3.1
 
 -- A short (one-line) description of the package.
 Synopsis:            Rapid Gtk Application Development
@@ -40,9 +40,12 @@ Build-type:          Simple
 
 Data-files:
   templates/*.hs
+  templates/Controller/*.hs
   templates/Model/*.hs
   templates/Model/ProtectedModel/*.hs
   templates/Model/ReactiveModel/*.hs
+  templates/Paths/*.hs
+  templates/View/*.hs
 
 -- Extra files to be distributed with the package, such as examples or
 -- a README.

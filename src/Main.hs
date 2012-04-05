@@ -84,10 +84,18 @@ copyTemplate conf fp = do
 templates :: [ FilePath ]
 templates = [ "Main.hs"
             , "CombinedEnvironment.hs"
+            , "Model/Model.hs"
             , "Model/ProtectedModel.hs"
+            , "Model/ProtectedModel/ProtectedFields.hs"
             , "Model/ProtectedModel/ProtectedModelInternals.hs"
             , "Model/ReactiveModel.hs"
+            , "Model/ReactiveModel/ModelEvents.hs"
+            , "Model/ReactiveModel/ReactiveFields.hs"
             , "Model/ReactiveModel/ReactiveModelInternals.hs"
             , "Controller.hs"
+            , "Controller/Conditions.hs"
+            , "Paths.hs"
+            , "Paths/CustomPaths.hs"
             , "View.hs"
+            , "View/Objects.hs"
             ]

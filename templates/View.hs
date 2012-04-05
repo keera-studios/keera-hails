@@ -8,7 +8,7 @@ import Graphics.UI.Gtk.GtkView (GtkGUI(..))
 -- Internal libraries
 import Hails.MVC.View.GtkView     as Exported
 import Hails.MVC.View.DefaultView as Exported
-import View.MainWindow.Objects
+import View.Objects
 
 -- | Add all initialisers to the initialise operation and store
 -- everything we'll need in the view. We need this operation here
