@@ -2,9 +2,7 @@
 -- implemented in the Controller.* subsystem. This module simply
 -- initialises program.
 
--- FIXME: This module can be parameterised and included in Hails as
--- the default Deployment controller.
--- The debug version could be included as a separate controller.
+-- FIXME: A debug version could be included as a separate controller.
 
 module Controller where
 
@@ -18,7 +16,7 @@ import Model.Model
 
 -- | Starts the program by creating the model,
 -- the view, starting all the concurrent threads,
--- installing the hanlders for all the conditions
+-- installing the handlers for all the conditions
 -- and starting the view.
 startController :: IO ()
 startController = do
