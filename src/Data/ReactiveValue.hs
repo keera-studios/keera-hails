@@ -1,4 +1,4 @@
-{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, FunctionalDependencies #-}
 -- | This is a more general, cleaner interface that allows Model to Model
 -- synchronization and view to view.
 --
@@ -7,7 +7,7 @@
 -- reactiveValueOnCanRead.
 module Data.ReactiveValue where
 
-class ReactiveValueRead a b where
+class ReactiveValueRead a b | a -> b where
   reactiveValueOnCanRead :: a -> b -> IO () -> IO ()
   reactiveValueRead :: a -> IO b
 
@@ -23,17 +23,20 @@ instance ReactiveValueActivatable a => ReactiveValueRead a () where
   reactiveValueOnCanRead act () op = reactiveValueOnActivate act op
   reactiveValueRead _ = return ()
 
+(=:>) :: (ReactiveValueRead a b, ReactiveValueWrite c b) => a -> c -> IO ()
 (=:>) v1 v2 = do
   reactiveValueOnCanRead v1 undefined sync1
   where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
 
+(<:=) :: (ReactiveValueRead a b, ReactiveValueWrite c b) => c -> a -> IO ()
 (<:=) v2 v1 = do
   reactiveValueOnCanRead v1 undefined sync1
   where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
 
+(=:=) :: (ReactiveValueReadWrite a b, ReactiveValueReadWrite c b) => a -> c -> IO ()
 (=:=) v1 v2 = do
-   reactiveValueOnCanRead v1 undefined sync1
-   reactiveValueOnCanRead v2 undefined sync2
+  reactiveValueOnCanRead v1 undefined sync1
+  reactiveValueOnCanRead v2 undefined sync2
   where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
         sync2 = reactiveValueRead v2 >>= reactiveValueWrite v1
 
