@@ -131,17 +131,17 @@ Library
                  , Hails.MVC.Model.ProtectedModel.LoggedModel
                  , Hails.MVC.Model.ProtectedModel.NamedModel
                  , Hails.MVC.Model.ProtectedModel.UpdatableModel
-                 -- , Hails.Graphics.UI.Gtk.Simplify.VersionNumberTitleBar
+                 , Hails.Graphics.UI.Gtk.Simplify.VersionNumberTitleBar
                  , Hails.Graphics.UI.Gtk.Simplify.NameAndVersionTitleBar
                  , Hails.Graphics.UI.Gtk.Simplify.ProgramMainWindow
                  , Hails.Graphics.UI.Gtk.Simplify.AboutDialog
                  , Hails.Graphics.UI.Gtk.Simplify.Logger
                  , Hails.Graphics.UI.Gtk.Simplify.RootLogger
-                 -- , Hails.Graphics.UI.Gtk.Simplify.UpdateCheck
-                 -- , Hails.Graphics.UI.Gtk.Simplify.ReactiveGtk
+                 , Hails.Graphics.UI.Gtk.Simplify.UpdateCheck
+                 , Hails.Graphics.UI.Gtk.Simplify.ReactiveGtk
                  , Language.Haskell.TH.DeriveField
                  , Data.ExtraVersion
-                 -- , Data.ReactiveValue
+                 , Data.ReactiveValue
   
   -- Packages needed in order to build this package.
   Build-depends: base >= 4

@@ -1,23 +1,30 @@
 {-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
 module Hails.Graphics.UI.Gtk.Simplify.ReactiveGtk where
 
+import Control.Monad (void)
 import Control.Monad.Reader (liftIO)
 
 import Graphics.UI.Gtk
 
 import Data.ReactiveValue
 
-instance ReactiveValueActivatable MenuItem where
-  reactiveValueOnActivate mn op = do
-    _  <- mn `on` menuItemActivate $ liftIO op
-    return ()
+menuItemActivateField :: MenuItem -> ReactiveFieldActivatable 
+menuItemActivateField m = mkActivatable op
+ where op f = void (m `on` menuItemActivate $ liftIO f)
 
-instance ReactiveValueActivatable Button where
-  reactiveValueOnActivate bt op = do
-    _ <- bt `onClicked` op
-    return ()
+buttonActivateField :: Button -> ReactiveFieldActivatable 
+buttonActivateField b = mkActivatable op
+ where op f = void (b `onClicked` f)
+
+toolButtonActivateField :: ToolButton -> ReactiveFieldActivatable 
+toolButtonActivateField t = mkActivatable op
+ where op f = void (t `onToolButtonClicked` f)
 
 instance ReactiveValueActivatable ToolButton where
-  reactiveValueOnActivate bt op = do
-    _ <- bt `onToolButtonClicked` op
-    return ()
+  defaultActivation = toolButtonActivateField
+
+instance ReactiveValueActivatable Button where
+  defaultActivation = buttonActivateField
+
+instance ReactiveValueActivatable MenuItem where
+  defaultActivation = menuItemActivateField

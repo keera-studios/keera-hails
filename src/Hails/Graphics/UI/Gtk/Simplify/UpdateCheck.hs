@@ -25,7 +25,7 @@ installHandlers :: (GtkGUI a, UpdatableBasicModel b,
 installHandlers cenv mF = do
   let vw = view cenv
   mn <- mF vw
-  mn `reactiveValueOnActivate` onViewAsync vw (condition cenv)
+  defaultActivation mn `reactiveValueOnCanRead` onViewAsync vw (condition cenv)
 
 condition :: (GtkGUI a, UpdatableBasicModel b, UpdateNotifiableEvent c)
           => CEnv a b c
