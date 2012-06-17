@@ -10,7 +10,7 @@ Name:                hails-mvc-environment-gtk
 Version:             0.0.3.3
 
 -- A short (one-line) description of the package.
-Synopsis:            Rapid Gtk Application Development - Common MVC Environment for GTK
+Synopsis:            Haskell on Gtk rails - Gtk-based global environment for MVC applications
 
 -- A longer description of the package.
 -- Description:         
