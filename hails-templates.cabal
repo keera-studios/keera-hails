@@ -10,7 +10,7 @@ Name:                hails-templates
 Version:             0.0.3.3
 
 -- A short (one-line) description of the package.
-Synopsis:            Rapid Gtk Application Development
+Synopsis:            Haskell on Gtk rails - Template file generator
 
 -- A longer description of the package.
 -- Description:         
@@ -80,6 +80,3 @@ Executable hails
 
                -- CLI
                , cmdargs
-               -- , containers
-               -- , stm
-               -- , gtk
