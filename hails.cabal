@@ -123,8 +123,10 @@ Library
                  , Graphics.UI.View
                  , Graphics.UI.Gtk.GtkView
                  , Graphics.UI.Gtk.Reactive
+                 , Graphics.UI.Gtk.Reactive.Entry
                  , System.Application
                  , System.Environment.SetEnv
+                 , Data.ReactiveValue
 
                  -- from haskell-prmvc-helpers
                  , Hails.MVC.Model.ProtectedModel.VersionedModel
@@ -141,7 +143,6 @@ Library
                  , Hails.Graphics.UI.Gtk.Simplify.ReactiveGtk
                  , Language.Haskell.TH.DeriveField
                  , Data.ExtraVersion
-                 , Data.ReactiveValue
   
   -- Packages needed in order to build this package.
   Build-depends: base >= 4

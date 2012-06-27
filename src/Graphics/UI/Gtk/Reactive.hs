@@ -20,13 +20,15 @@ import Graphics.UI.Gtk
 
 -- Internal libraries
 import qualified Graphics.UI.Gtk.GtkView              as GtkView
-import Hails.Graphics.UI.Gtk.Reactive
-import Hails.MVC.Model.ReactiveModel
-import Hails.MVC.View.Reactive
-import Hails.MVC.View.GladeView
-import Hails.MVC.Controller.Reactive                  as Exported
 import qualified Hails.MVC.GenericCombinedEnvironment as GEnv
-import Hails.MVC.DefaultGtkEnvironment
+import           Hails.MVC.Controller.Reactive        as Exported
+import           Hails.Graphics.UI.Gtk.Reactive
+import           Hails.MVC.Model.ReactiveModel
+import           Hails.MVC.View.Reactive
+import           Hails.MVC.View.GladeView
+import           Hails.MVC.DefaultGtkEnvironment
+import           Data.ReactiveValue
+import           Graphics.UI.Gtk.Reactive.Entry
 
 type GtkCEnv a b c = GEnv.CEnv a b c
 
@@ -42,6 +44,13 @@ cenvReactiveEntry :: (GtkView.GtkGUI a, GladeView a, Event c)
                      => Accessor Entry -> GtkCEnv a b c
                      -> IO ReactiveViewEntry
 cenvReactiveEntry = cenvReactiveField reactiveEntry
+
+-- An entry's text reactive field
+cenvReactiveEntryText :: (GtkView.GtkGUI a, GladeView a, Event c)
+                      => GtkCEnv a b c -> Accessor Entry
+                      -> IO (ReactiveFieldReadWrite String)
+cenvReactiveEntryText cenv entryF = do
+  fmap entryTextReactive $ entryF $ ui $ view cenv
 
 -- A Menu Item's reactive view is a boolean that represents whether
 -- the item is active or not

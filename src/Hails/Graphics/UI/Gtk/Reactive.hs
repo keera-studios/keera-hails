@@ -17,6 +17,7 @@ module Hails.Graphics.UI.Gtk.Reactive
 
 -- External libraries
 import Control.Monad
+import GHC.Float
 import Graphics.UI.Gtk
 
 -- Internal libraries
@@ -53,6 +54,13 @@ reactiveSpinButton item = ReactiveViewField
  { onChange = void . (onValueSpinned item)
  , rvfGet   = spinButtonGetValueAsInt item
  , rvfSet   = spinButtonSetValue item . fromIntegral
+ }
+
+reactiveScale :: RangeClass a => a -> ReactiveViewField Float
+reactiveScale item = ReactiveViewField
+ { onChange = void . (on item valueChanged)
+ , rvfGet   = fmap double2Float $ get item rangeValue
+ , rvfSet   = \t -> set item [ rangeValue := float2Double t ]
  }
 
 reactiveTypedComboBoxUnsafe :: (Eq a) => ListStore a -> ComboBox -> ReactiveViewField a

@@ -205,7 +205,7 @@ clearUndoStack rm =
   case (previousModels rm, nextModels rm) of
    ([],[]) -> rm
    _       -> let rm' = rm { previousModels = Stk.empty
-                           , nextModels = Stk.empty 
+                           , nextModels     = Stk.empty 
                            }
               in triggerEvent rm' undoStackChangedEvent
 
