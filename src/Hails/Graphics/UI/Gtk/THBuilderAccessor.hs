@@ -28,8 +28,8 @@ gtkBuilderAccessor name kind = sequenceQ
 
 -- | Accessor for Glade objects from Gtk Builders encapsulated in
 -- Views, by name and -- type.
-gtkViewAccessor :: String -> String -> String -> Q [Dec]
-gtkViewAccessor uiAccessor name kind = sequenceQ
+gtkViewAccessor :: String -> String -> String -> String -> Q [Dec]
+gtkViewAccessor builderModule uiAccessor name kind = sequenceQ
   -- Declaration
   [ sigD funcName
          -- Builder -> IO Kind
@@ -39,16 +39,15 @@ gtkViewAccessor uiAccessor name kind = sequenceQ
   , funD funcName                                                 
          -- castedOnBuilder objectName
          [clause [varP builderName]
-                 (normalB (appE ((appE castedAccess                   
-                                 (litE (stringL name)))
-                                )
+                 (normalB (appE (varE funcNameInBuilder)
                                 (appE (varE (mkName uiAccessor))
                                       (varE builderName)
                                 )
                           )) []]
   ]
 
-  where castedAccess = appE (varE (mkName "fromBuilder")) casting
-        casting      = varE (mkName ("castTo" ++ kind))
-        funcName     = mkName name
-        builderName  = mkName "b"
+  where castedAccess      = appE (varE (mkName "fromBuilder")) casting
+        casting           = varE (mkName ("castTo" ++ kind))
+        funcName          = mkName name
+        funcNameInBuilder = mkName $ builderModule ++ ('.' : name) 
+        builderName       = mkName "b"
