@@ -6,6 +6,7 @@ module Model.ProtectedModel.ProtectedModelInternals
    , GPM.onReactiveModel
    , GPM.applyToReactiveModel
    , GPM.onEvent
+   , GPM.onEvents
    , GPM.waitFor
    )
   where

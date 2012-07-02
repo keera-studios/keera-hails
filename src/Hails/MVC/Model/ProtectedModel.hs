@@ -17,7 +17,9 @@ module Hails.MVC.Model.ProtectedModel
    -- * Access
    , onReactiveModel
    , onEvent
+   , onEvents
    , applyToReactiveModel
+   , fromReactiveModel
    , waitFor
    )
   where
@@ -27,6 +29,8 @@ import Control.Concurrent
 import Control.Concurrent.STM
 import Control.Monad
 import Data.Maybe
+import Data.Map      as M
+import Data.Foldable as F
 import Data.Sequence as Seq
 
 -- Internal libraries
@@ -35,6 +39,8 @@ import Hails.MVC.Model.ReactiveModel
   , getPendingHandler
   , pendingEvents
   , pendingHandlers
+  , eventHandlers
+  , prepareEventHandlers
   , Event
   , ReactiveModel
   )
@@ -93,6 +99,7 @@ dispatcherThread rmvar = forever $ do
     
     -- Return the next handler to execute
     return op
+
   -- Execute the handler
   when (isJust pa) $ fromJust pa  
   
@@ -102,6 +109,10 @@ dispatcherThread rmvar = forever $ do
 -- | Execute an event handler for a given Event.
 onEvent :: Event b => ProtectedModel a b -> b -> IO () -> IO ()
 onEvent pm ev f = applyToReactiveModel pm (\rm -> RM.onEvent rm ev f)
+
+-- | Execute an event handler for a given Event.
+onEvents :: (F.Foldable container, Event b) => ProtectedModel a b -> container b -> IO () -> IO ()
+onEvents pm evs f = applyToReactiveModel pm (\rm -> RM.onEvents rm evs f)
 
 -- | Perform a modification to the underlying reactive model.
 applyToReactiveModel :: Event b 
@@ -117,3 +128,14 @@ onReactiveModel :: Event b
                    -> (ReactiveModelIO a b -> c) 
                    -> IO c
 onReactiveModel p f = fmap f $ atomically $ readTVar $ reactiveModel p
+
+-- | Calculate a value from the reactive model and update it at the same time
+fromReactiveModel :: Event b
+                  => ProtectedModel a b
+                  -> (ReactiveModelIO a b -> (ReactiveModelIO a b, c))
+                  -> IO c
+fromReactiveModel p f = atomically $ do
+  rm <- readTVar (reactiveModel p)
+  let (rm', v) = f rm
+  writeTVar (reactiveModel p) rm'
+  return v

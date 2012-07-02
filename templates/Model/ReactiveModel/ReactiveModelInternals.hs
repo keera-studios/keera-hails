@@ -17,6 +17,7 @@ module Model.ReactiveModel.ReactiveModelInternals
    -- * Modification
    , GRM.getPendingHandler
    , GRM.onEvent
+   , GRM.onEvents
    , GRM.onBasicModel
    , GRM.triggerEvent
    )

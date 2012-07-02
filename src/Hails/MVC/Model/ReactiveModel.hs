@@ -1,5 +1,4 @@
 {-# LANGUAGE ExistentialQuantification #-} 
-{-# LANGUAGE DeriveDataTypeable #-}
 -- | This module holds a reactive program model. It holds a program model, but
 -- includes events that other threads can listen to, so that a change in a part
 -- of the model is notified to another part of the program. The reactive model
@@ -23,7 +22,10 @@ module Hails.MVC.Model.ReactiveModel
    -- * Modification
    , onBasicModel
    , onEvent
+   , onEvents
    , getPendingHandler
+   , eventHandlers
+   , prepareEventHandlers
    , triggerEvent
    , triggerEvents
 
@@ -42,15 +44,11 @@ module Hails.MVC.Model.ReactiveModel
 
 -- External imports
 import           Control.Arrow    (first)
-import           Control.Monad    (join)
 import qualified Data.Foldable    as F
-import           Data.Maybe       (fromJust)
 import qualified Data.Map         as M
-import           Data.Sequence    ((<|),(|>), (><), Seq, ViewL(..), ViewR(..), viewl, viewr)
+import           Data.Sequence    ((|>), (><), Seq, ViewL(..), viewl)
 import qualified Data.Sequence    as Seq
 import           Data.Stack       as Stk
-import           Data.Traversable as T
-import           Data.Typeable    
 
 -- | A reactive model uses an event datatype with all the events that our model
 -- must trigger. An heterogenous container cannot be used because we need an Eq
@@ -120,6 +118,9 @@ onEvent rm ev f = rm { eventHandlers = m' }
        m   = eventHandlers rm
        m'  = M.insert ev ls' m
 
+onEvents :: (F.Foldable container, Event b) => ReactiveModel a b c -> container b -> c -> ReactiveModel a b c
+onEvents rm evs f = F.foldl (\rm' e' -> onEvent rm' e' f) rm evs
+
 -- | Trigger an event (execute all handlers associated to it)
 triggerEvent :: Event b => ReactiveModel a b c -> b -> ReactiveModel a b c
 triggerEvent rm e = rm { pendingEvents = ps' }
@@ -151,7 +152,8 @@ prepareEventHandlers rm =
  where evs = pendingEvents rm
        m   = eventHandlers rm
        hs1 = pendingHandlers rm
-       hs2 = join $ T.mapM (\e -> M.findWithDefault Seq.empty e m) evs
+       hs2 = F.foldl (><) Seq.empty $ 
+                  fmap (\e -> M.findWithDefault Seq.empty e m) evs
 
 -- | Record a change in the undo stack, with a list of associated events for
 -- that change. Events are expected to work bi-directionally (the same event
