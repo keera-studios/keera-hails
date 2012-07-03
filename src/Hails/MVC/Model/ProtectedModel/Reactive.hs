@@ -69,4 +69,4 @@ mkFieldAccessor :: InitialisedEvent c => ReactiveElement a b c -> ProtectedModel
 mkFieldAccessor (ReactiveElement evs setter' getter') pm = ReactiveFieldReadWrite setter getter notifier
   where setter     = setter' pm
         getter     = getter' pm
-        notifier p = mapM_ (\e -> onEvent pm e p) (initialisedEvent : evs)
+        notifier p = onEvents pm (initialisedEvent : evs) p 
