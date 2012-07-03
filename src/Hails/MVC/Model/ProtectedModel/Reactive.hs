@@ -13,7 +13,7 @@ module Hails.MVC.Model.ProtectedModel.Reactive where
 import Data.ReactiveValue
 import Hails.MVC.Model.ProtectedModel
 import Hails.MVC.Model.ReactiveModel.Events
-import Hails.MVC.Model.ReactiveModel hiding (onEvent)
+import Hails.MVC.Model.ReactiveModel hiding (onEvent, onEvents)
 
 type Setter a b c = ProtectedModel b c -> a -> IO()
 type Getter a b c = ProtectedModel b c -> IO a
