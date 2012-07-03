@@ -4,6 +4,7 @@
 module Model.ProtectedModel.ProtectedModelInternals
    ( ProtectedModel
    , GPM.onReactiveModel
+   , GPM.fromReactiveModel
    , GPM.applyToReactiveModel
    , GPM.onEvent
    , GPM.onEvents
