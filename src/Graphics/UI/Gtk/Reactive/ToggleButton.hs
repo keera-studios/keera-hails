@@ -5,7 +5,7 @@ import Control.Monad
 import Graphics.UI.Gtk
 import Data.ReactiveValue
 
-toggleButtonActiveReactive :: ToggleButton -> ReactiveFieldReadWrite Bool
+toggleButtonActiveReactive :: ToggleButtonClass t => t -> ReactiveFieldReadWrite Bool
 toggleButtonActiveReactive e = ReactiveFieldReadWrite setter getter notifier
  where getter   = toggleButtonGetActive e
        setter   = toggleButtonSetActive e
