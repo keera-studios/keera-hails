@@ -12,11 +12,13 @@ module Hails.MVC.Model.ProtectedModel.Reactive where
 
 import Data.ReactiveValue
 import Hails.MVC.Model.ProtectedModel
-import Hails.MVC.Model.ReactiveModel hiding (onEvent)
+import Hails.MVC.Model.ReactiveModel hiding (onEvent, onEvents)
 import Hails.MVC.Model.ReactiveModel.Events
 
 type Setter a b c = ProtectedModel b c -> a -> IO()
 type Getter a b c = ProtectedModel b c -> IO a
+type Modifier a b c = ProtectedModel b c -> (a -> a) -> IO()
+type ModifierIO a b c = ProtectedModel b c -> (a -> IO a) -> IO()
 
 class ReactiveField a b c d | a -> b, a -> c, a -> d where
   events    :: a -> [ d ]
@@ -31,6 +33,18 @@ class ReactiveWriteField a b c d where
   setter :: a -> Setter b c d
 
 class (ReactiveField a b c d, ReactiveReadField a b c d, ReactiveWriteField a b c d) => ReactiveReadWriteField a b c d where
+
+  modifier :: a -> Modifier b c d
+  modifier x pm f = do
+    v <- getter x pm
+    let v' = f v
+    setter x pm v'
+
+  modifierIO :: a -> ModifierIO b c d
+  modifierIO x pm f = do
+    v  <- getter x pm
+    v' <- f v
+    setter x pm v'
 
 data Event c => ReactiveElement a b c = ReactiveElement
   { reEvents :: [ c ]
@@ -55,4 +69,4 @@ mkFieldAccessor :: (InitialisedEvent c, Event c) => ReactiveElement a b c -> Pro
 mkFieldAccessor (ReactiveElement evs setter' getter') pm = ReactiveFieldReadWrite set get notify
   where set      = setter' pm
         get      = getter' pm
-        notify p = mapM_ (\e -> onEvent pm e p) (initialisedEvent : evs)
+        notify p = onEvents pm (initialisedEvent : evs) p
