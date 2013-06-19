@@ -1,0 +1,57 @@
+Reactive Values
+==================================
+
+This library defines values that can be read/written and may trigger events
+when doing so. They are used in the rest of the Keera Hails framework to define
+models and views and establish relationships between them.
+
+For instance, in Hails programs, a field of the model that holds a String (for
+instance, with the name of the file that the user is editing) may be a
+read-write reactive value. The title of a Gtk window may be a Write-only
+reactive value.  
+
+So we can always keep them in sync in our programs by writing:
+
+    titleOfMainWindow <:= liftR ("My program - " ++) filenameFieldOfModel
+
+This will update the window title every time the file name changes.
+
+If titleOfMainWindow were instead a RW reactive value, we could have said:
+
+    titleOfMainWindow =:= filenameFieldOfModel
+
+That would also update the file name in the model if the title changed for
+some reason (although that is not something we'd like to do in this particular
+example, but we might want to sync a text box with a string field).
+
+You can also lift functions in =:= equations by defining them bijective:
+
+      titleOfMainWindow =:= liftRW f filenameFieldOfModel
+    where f = BijectiveFunc (s ++) (drop (len s))
+          s = "My program -"
+
+And if your function is equal to its inverse, you can declare it an involution:
+
+      titleOfMainWindow =:= liftRW (involution reverse) filenameFieldOfModel
+
+The above line would keep the fields in sync, but one would be the reversed
+representation of the other. Note that reverse here has nothing to do with
+inverse functions, it is the normal list reverse operation.
+
+=====
+
+Installation
+
+
+This package has no dependencies other than base, so you can install it and use
+it in your own programs.
+
+
+=====
+
+Support
+
+Open a ticket or send me a message if you use this and have a problem.
+
+Also, I'd be happy to know (and publish a list of) programs that use
+hails-reactivevalues. Please, let me know if you write something that uses it.
