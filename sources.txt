@@ -1,0 +1,3 @@
+gtk2hs-buildtools
+./
+https://github.com/keera-studios/hails-mvc-view
