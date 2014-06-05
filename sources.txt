@@ -1,0 +1,4 @@
+./
+https://github.com/keera-studios/hails-mvc-model-protectedmodels
+https://github.com/keera-studios/hails-mvc-view
+https://github.com/keera-studios/hails-mvc-view-gtk
