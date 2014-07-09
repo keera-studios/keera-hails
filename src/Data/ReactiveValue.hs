@@ -85,7 +85,8 @@ liftR e f = ReactiveFieldRead getter notifier
  where notifier = reactiveValueOnCanRead e
        getter   = liftM f (reactiveValueRead e)
 
-liftR2 :: (Monad m, ReactiveValueRead a b m, ReactiveValueRead c d m) => a -> c -> (b -> d -> e) -> ReactiveFieldRead m e
+liftR2 :: (Monad m, ReactiveValueRead a b m, ReactiveValueRead c d m)
+       => a -> c -> (b -> d -> e) -> ReactiveFieldRead m e
 liftR2 e1 e2 f = ReactiveFieldRead getter notifier
   where getter = do v1 <- reactiveValueRead e1
                     v2 <- reactiveValueRead e2
@@ -93,11 +94,13 @@ liftR2 e1 e2 f = ReactiveFieldRead getter notifier
         notifier p = do reactiveValueOnCanRead e1 p
                         reactiveValueOnCanRead e2 p
 
-liftW :: (Monad m, ReactiveValueWrite a b m) => a -> (c -> b) -> ReactiveFieldWrite m c
+liftW :: (Monad m, ReactiveValueWrite a b m)
+      => a -> (c -> b) -> ReactiveFieldWrite m c
 liftW e f = ReactiveFieldWrite setter
   where setter = reactiveValueWrite e . f
 
-liftW2 :: (Monad m, ReactiveValueWrite a b m, ReactiveValueWrite d e m) => a -> d -> (c -> (b,e)) -> ReactiveFieldWrite m c
+liftW2 :: (Monad m, ReactiveValueWrite a b m, ReactiveValueWrite d e m)
+       => a -> d -> (c -> (b,e)) -> ReactiveFieldWrite m c
 liftW2 e1 e2 f = ReactiveFieldWrite setter
   where setter x = do let (v1,v2) = f x
                       reactiveValueWrite e1 v1
@@ -109,18 +112,21 @@ type Involution a = BijectiveFunc a a
 involution :: (a -> a) -> Involution a
 involution f = BijectiveFunc (f, f)
 
-liftRW :: (Monad m, ReactiveValueReadWrite a b m) => a -> BijectiveFunc b c -> ReactiveFieldReadWrite m c
+liftRW :: (Monad m, ReactiveValueReadWrite a b m)
+       => a -> BijectiveFunc b c -> ReactiveFieldReadWrite m c
 liftRW e (BijectiveFunc (f1, f2)) = ReactiveFieldReadWrite setter getter notifier
   where ReactiveFieldRead getter notifier = liftR e f1
         ReactiveFieldWrite setter         = liftW e f2
 
-liftRW2 :: (Monad m, ReactiveValueReadWrite a b m, ReactiveValueReadWrite c d m) => a -> c -> BijectiveFunc e (b,d) -> ReactiveFieldReadWrite m e
+liftRW2 :: (Monad m, ReactiveValueReadWrite a b m, ReactiveValueReadWrite c d m)
+        => a -> c -> BijectiveFunc e (b,d) -> ReactiveFieldReadWrite m e
 liftRW2 e1 e2 (BijectiveFunc (f1, f2)) = ReactiveFieldReadWrite setter getter notifier
   where ReactiveFieldRead getter notifier = liftR2 e1 e2 (curry f2)
         ReactiveFieldWrite setter         = liftW2 e1 e2 f1
 
 -- | Lifting modification functions
-modRW :: (Monad m, ReactiveValueReadWrite a b m) => (b -> c -> b) -> a -> ReactiveFieldWrite m c
+modRW :: (Monad m, ReactiveValueReadWrite a b m)
+      => (b -> c -> b) -> a -> ReactiveFieldWrite m c
 modRW f rv = ReactiveFieldWrite setter
   where setter c = do b <- reactiveValueRead rv
                       let b' = f b c
@@ -132,11 +138,15 @@ modRW f rv = ReactiveFieldWrite setter
 -- values will not get propagated when they change. It is useful in combination
 -- with lifts, to achieve things similar to Yampa's tagging, but this might
 -- be more general.
-passivelyR :: (Monad m, ReactiveValueRead a b m) => a -> ReactiveFieldRead m b
-passivelyR rv = ReactiveFieldRead (reactiveValueRead rv) (\_ -> return ())
+passivelyR :: (Monad m, ReactiveValueRead a b m)
+           => a -> ReactiveFieldRead m b
+passivelyR rv =
+  ReactiveFieldRead (reactiveValueRead rv) (\_ -> return ())
 
-passivelyRW :: (Monad m, ReactiveValueReadWrite a b m) => a -> ReactiveFieldReadWrite m b
-passivelyRW rv = ReactiveFieldReadWrite (reactiveValueWrite rv) (reactiveValueRead rv) (\_ -> return ())
+passivelyRW :: (Monad m, ReactiveValueReadWrite a b m)
+            => a -> ReactiveFieldReadWrite m b
+passivelyRW rv =
+  ReactiveFieldReadWrite (reactiveValueWrite rv) (reactiveValueRead rv) (\_ -> return ())
 
 -- Functor definitions
 instance (Functor m, Monad m) => Functor (ReactiveFieldRead m) where
@@ -148,4 +158,3 @@ instance (Monad m) => Contravariant (ReactiveFieldWrite m) where
 
 instance Monad m => GFunctor (ReactiveFieldReadWrite m) BijectiveFunc where
   gmap = flip liftRW
-
