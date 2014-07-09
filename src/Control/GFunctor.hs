@@ -23,4 +23,3 @@ instance (Functor a) => GFunctor a (->) where
 -- class GFunctor f m => GApplicative f m where
 --   gpure :: a -> f a
 --   (<**>) :: f (m a b) -> f a -> f b
-
