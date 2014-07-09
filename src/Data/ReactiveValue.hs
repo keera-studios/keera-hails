@@ -41,10 +41,12 @@ class (ReactiveValueRead a b m, ReactiveValueWrite a b m) => ReactiveValueReadWr
 -- | Bidirectional
 (=:=) :: Monad m => (ReactiveValueReadWrite a b m, ReactiveValueReadWrite c b m) => a -> c -> m ()
 (=:=) v1 v2 = do
-  reactiveValueOnCanRead v1 sync1
-  reactiveValueOnCanRead v2 sync2
-  where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
-        sync2 = reactiveValueRead v2 >>= reactiveValueWrite v1
+  v1 =:> v2
+  v1 <:= v2
+  -- reactiveValueOnCanRead v1 sync1
+  -- reactiveValueOnCanRead v2 sync2
+  -- where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
+  --       sync2 = reactiveValueRead v2 >>= reactiveValueWrite v1
 
 -- * Purely functional implementation
 
@@ -181,7 +183,9 @@ passivelyRW rv =
 instance (Functor m, Monad m) => Functor (ReactiveFieldRead m) where
   fmap = flip liftR
 
-    -- (ReactiveFieldRead getter notifier) = ReactiveFieldRead (fmap f getter) notifier
+-- FIXME: I might not want to provide this: the contravariant library
+-- depends on transformers.
+-- (ReactiveFieldRead getter notifier) = ReactiveFieldRead (fmap f getter) notifier
 instance (Monad m) => Contravariant (ReactiveFieldWrite m) where
   contramap = flip liftW
 
