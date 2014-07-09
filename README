@@ -1,0 +1,15 @@
+Reactive Values combined with Lenses
+====================================
+
+Lenses allow you to focus on a specific part of a reactive value. When
+you have a lens, you can use it to turn a reactive value into another that
+represents only a subpart of your original structure.
+
+=====
+
+Support
+
+Open a ticket or send me a message if you use this and have a problem.
+
+Also, I'd be happy to know (and publish a list of) programs that use
+hails-reactivevalues. Please, let me know if you write something that uses it.
