@@ -53,6 +53,7 @@ Library
 
   -- Modules exported by the library.
   Exposed-modules: Data.ReactiveValue
+  Other-modules:   Control.GFunctor
   
   -- Packages needed in order to build this package.
-  Build-depends: base >= 4
+  Build-depends: base >= 4, contravariant
