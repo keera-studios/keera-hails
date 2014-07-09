@@ -1,10 +1,9 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE FlexibleInstances     #-}
 -- {-# LANGUAGE RankNTypes           #-}
 -- {-# LANGUAGE TypeSynonymInstances #-}
 -- Functors parameterised over the morphisms in the source category
 module Control.GFunctor where
-
-import Control.Monad
 
 infixl 4 <$$>
 
@@ -15,6 +14,8 @@ infixl 4 <$$>
 class GFunctor f m where
   gmap :: m a b -> f a -> f b
  
+instance (Functor a) => GFunctor a (->) where
+  gmap = fmap
 
 (<$$>) :: GFunctor f m =>m a b -> f a -> f b
 (<$$>) = gmap
