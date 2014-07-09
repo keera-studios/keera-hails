@@ -119,6 +119,25 @@ liftRW2 e1 e2 (BijectiveFunc (f1, f2)) = ReactiveFieldReadWrite setter getter no
   where ReactiveFieldRead getter notifier = liftR2 e1 e2 (curry f2)
         ReactiveFieldWrite setter         = liftW2 e1 e2 f1
 
+-- | Lifting modification functions
+modRW :: (Monad m, ReactiveValueReadWrite a b m) => (b -> c -> b) -> a -> ReactiveFieldWrite m c
+modRW f rv = ReactiveFieldWrite setter
+  where setter c = do b <- reactiveValueRead rv
+                      let b' = f b c
+                      reactiveValueWrite rv b'
+
+-- | Turning an active RV into a passive one (does not propagate changes)
+-- Note that this does not really affect the RV itself, only produces a new
+-- RV that will not propagate changes. So, if used in a reactive relation,
+-- values will not get propagated when they change. It is useful in combination
+-- with lifts, to achieve things similar to Yampa's tagging, but this might
+-- be more general.
+passivelyR :: (Monad m, ReactiveValueRead a b m) => a -> ReactiveFieldRead m b
+passivelyR rv = ReactiveFieldRead (reactiveValueRead rv) (\_ -> return ())
+
+passivelyRW :: (Monad m, ReactiveValueReadWrite a b m) => a -> ReactiveFieldReadWrite m b
+passivelyRW rv = ReactiveFieldReadWrite (reactiveValueWrite rv) (reactiveValueRead rv) (\_ -> return ())
+
 -- Functor definitions
 instance (Functor m, Monad m) => Functor (ReactiveFieldRead m) where
   fmap = flip liftR
