@@ -15,6 +15,13 @@ So we can always keep them in sync in our programs by writing:
     titleOfMainWindow <:= liftR ("My program - " ++) filenameFieldOfModel
 
 This will update the window title every time the file name changes.
+Because read-only values are functors, you can also use applicative style:
+
+    titleOfMainWindow <:= ("My program - " ++) <$> filenameFieldOfModelRO
+
+(where filenameFieldOfModelRO is a read-only RV.) Note that RW RVs are *not*
+Functors (the targets of the morphisms would be read-only variables,
+even if we originally had an RW, so it does not fulfill the functor laws).
 
 If titleOfMainWindow were instead a RW reactive value, we could have said:
 
@@ -30,9 +37,17 @@ You can also lift functions in =:= equations by defining them bijective:
     where f = BijectiveFunc (s ++) (drop (len s))
           s = "My program -"
 
-And if your function is equal to its inverse, you can declare it an involution:
+We use a definition of Functor that is parametric also on the morphisms of the
+source category, which means that you can regard them as functors:
 
-      titleOfMainWindow =:= liftRW (involution reverse) filenameFieldOfModel
+      titleOfMainWindow =:= f <$$> filenameFieldOfModel
+    where f = BijectiveFunc (s ++) (drop (len s))
+          s = "My program -"
+
+(<$$> is to GFunctor what <$> is to Functor). And if the function being lifted
+is equal to its inverse, you can declare it an involution:
+
+      titleOfMainWindow =:= (involution reverse) <$$> filenameFieldOfModel
 
 The above line would keep the fields in sync, but one would be the reversed
 representation of the other. Note that reverse here has nothing to do with
