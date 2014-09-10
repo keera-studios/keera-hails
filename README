@@ -9,6 +9,9 @@ Reactive Values
 ===============
 
 Reactive values are a form of mutable, reactive, thread-safe memory locations.
+They are great to create reactive anchors in your GUI and your model, and then
+write declarative rules that bridge those two together during runtime.
+
 For more information, see:
 
 https://github.com/keera-studios/hails-reactivevalues
