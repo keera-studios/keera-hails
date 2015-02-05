@@ -7,6 +7,10 @@ import Text.I18N.GetText
 import System.IO.Unsafe
 import Codec.Binary.UTF8.String
  
+-- | Translate a string using gettext.
+--
+--   Note: This implementation decodes UTF-8 strings only in Linux. If it
+--   should also in other OSs, please open an issue on github.
 __ :: String -> String
 __ s 
 #ifdef linux_HOST_OS
