@@ -41,6 +41,8 @@ class (ReactiveValueRead a b m, ReactiveValueWrite a b m) => ReactiveValueReadWr
 -- | Bidirectional
 (=:=) :: Monad m => (ReactiveValueReadWrite a b m, ReactiveValueReadWrite c b m) => a -> c -> m ()
 (=:=) v1 v2 = do
+  -- This is often async, so the fact that one comes before the other does not guarantee
+  -- that they will be refreshed in that order.
   v1 =:> v2
   v1 <:= v2
   -- reactiveValueOnCanRead v1 sync1
