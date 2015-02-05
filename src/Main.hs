@@ -14,7 +14,7 @@ import qualified Data.ByteString.Lazy as L
 import AppDataBasic
 import AppDataFull  as F
 import HailsArgs
-import Paths_hails
+import Paths_keera_hails
 
 main :: IO ()
 main = do

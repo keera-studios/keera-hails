@@ -5,7 +5,7 @@ module System.Environment.SetEnv (setEnv) where
 #ifdef linux_HOST_OS
 import           Foreign.C.Error  ( throwErrnoIfMinus1_ )
 import           Foreign.C.String
-import           Foreign.C.Types  ( CInt )
+import           Foreign.C.Types  ( CInt(..) )
 import           System.Posix.Internals
 
 {- |The 'setEnv' function inserts or resets the environment variable name in
