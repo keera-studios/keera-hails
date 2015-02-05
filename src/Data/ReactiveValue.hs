@@ -8,66 +8,86 @@
 module Data.ReactiveValue where
 
 import Control.Monad
+import Control.GFunctor -- Functors parameterised over the morphisms
+                        -- in the source category
+import Data.Functor.Contravariant
 
-class ReactiveValueRead a b | a -> b where
-  reactiveValueOnCanRead :: a -> IO () -> IO ()
-  reactiveValueRead :: a -> IO b
+-- * Reactive values: common interface
 
-class ReactiveValueWrite a b where
-  reactiveValueWrite :: a -> b -> IO ()
+-- | Readable reactive values
+class ReactiveValueRead a b m | a -> b where
+  reactiveValueOnCanRead :: a -> m () -> m ()
+  reactiveValueRead :: a -> m b
 
-class (ReactiveValueRead a b, ReactiveValueWrite a b) => ReactiveValueReadWrite a b
+-- | Writable reactive values
+class ReactiveValueWrite a b m where
+  reactiveValueWrite :: a -> b -> m ()
 
-(=:>) :: (ReactiveValueRead a b, ReactiveValueWrite c b) => a -> c -> IO ()
-(=:>) v1 v2 = do
-  reactiveValueOnCanRead v1 sync1
+-- | Read-write reactive values
+class (ReactiveValueRead a b m, ReactiveValueWrite a b m) => ReactiveValueReadWrite a b m
+
+-- * Reactive rules (data dependency/passing building combinators)
+
+-- | Left to right
+(=:>) :: Monad m => (ReactiveValueRead a b m, ReactiveValueWrite c b m) => a -> c -> m ()
+(=:>) v1 v2 = reactiveValueOnCanRead v1 sync1
   where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
 
-(<:=) :: (ReactiveValueRead a b, ReactiveValueWrite c b) => c -> a -> IO ()
-(<:=) v2 v1 = do
-  reactiveValueOnCanRead v1 sync1
+-- | Right-to-left
+(<:=) :: Monad m => (ReactiveValueRead a b m, ReactiveValueWrite c b m) => c -> a -> m ()
+(<:=) v2 v1 = reactiveValueOnCanRead v1 sync1
   where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
 
-(=:=) :: (ReactiveValueReadWrite a b, ReactiveValueReadWrite c b) => a -> c -> IO ()
+-- | Bidirectional
+(=:=) :: Monad m => (ReactiveValueReadWrite a b m, ReactiveValueReadWrite c b m) => a -> c -> m ()
 (=:=) v1 v2 = do
-  reactiveValueOnCanRead v1 sync1
-  reactiveValueOnCanRead v2 sync2
-  where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
-        sync2 = reactiveValueRead v2 >>= reactiveValueWrite v1
+  -- This is often async, so the fact that one comes before the other does not guarantee
+  -- that they will be refreshed in that order.
+  v1 =:> v2
+  v1 <:= v2
+  -- reactiveValueOnCanRead v1 sync1
+  -- reactiveValueOnCanRead v2 sync2
+  -- where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
+  --       sync2 = reactiveValueRead v2 >>= reactiveValueWrite v1
 
-type FieldGetter a   = IO a
-type FieldSetter a   = a -> IO ()
-type FieldNotifier a = IO () -> IO () -- FIXME: why does fieldnotifier have an argument
+-- * Purely functional implementation
 
-data ReactiveFieldRead      a = ReactiveFieldRead (FieldGetter a) (FieldNotifier a)
-data ReactiveFieldWrite     a = ReactiveFieldWrite (FieldSetter a)
-data ReactiveFieldReadWrite a = ReactiveFieldReadWrite (FieldSetter a) (FieldGetter a) (FieldNotifier a)
+-- ** Setters, getters and notifiers
+type FieldGetter m a   = m a
+type FieldSetter m a   = a -> m ()
+type FieldNotifier m a = m () -> m () -- FIXME: why does fieldnotifier have an argument
 
-instance ReactiveValueRead (ReactiveFieldRead a) a where
+-- ** Concrete types implementing the above interface
+data ReactiveFieldRead      m a = ReactiveFieldRead (FieldGetter m a) (FieldNotifier m a)
+data ReactiveFieldWrite     m a = ReactiveFieldWrite (FieldSetter m a)
+data ReactiveFieldReadWrite m a = ReactiveFieldReadWrite (FieldSetter m a) (FieldGetter m a) (FieldNotifier m a)
+
+instance ReactiveValueRead (ReactiveFieldRead m a) a m where
   reactiveValueOnCanRead (ReactiveFieldRead _ notifier) = notifier
   reactiveValueRead (ReactiveFieldRead getter _)        = getter
 
-instance ReactiveValueWrite (ReactiveFieldWrite a) a where
+instance ReactiveValueWrite (ReactiveFieldWrite m a) a m where
   reactiveValueWrite (ReactiveFieldWrite setter) = setter
 
-instance ReactiveValueRead (ReactiveFieldReadWrite a) a where
+instance ReactiveValueRead (ReactiveFieldReadWrite m a) a m where
   reactiveValueOnCanRead (ReactiveFieldReadWrite _ _ notifier) = notifier
   reactiveValueRead (ReactiveFieldReadWrite _ getter _)        = getter
 
-instance ReactiveValueWrite (ReactiveFieldReadWrite a) a where
+instance ReactiveValueWrite (ReactiveFieldReadWrite m a) a m where
   reactiveValueWrite (ReactiveFieldReadWrite setter _ _) = setter
 
-instance ReactiveValueReadWrite (ReactiveFieldReadWrite a) a
+instance ReactiveValueReadWrite (ReactiveFieldReadWrite m a) a m
 
-type ReactiveFieldActivatable = ReactiveFieldRead ()
+-- ** Activatable reactive values (producing units)
+type ReactiveFieldActivatable m = ReactiveFieldRead m ()
 
-mkActivatable :: (IO () -> IO ()) -> ReactiveFieldActivatable
+mkActivatable :: Monad m => (m () -> m ()) -> ReactiveFieldActivatable m
 mkActivatable f = ReactiveFieldRead getter notifier
  where getter   = return ()
        notifier = f
 
-class ReactiveValueActivatable a where
-   defaultActivation :: a -> ReactiveFieldActivatable
+class ReactiveValueActivatable m a where
+   defaultActivation :: a -> ReactiveFieldActivatable m
 
 -- instance (ReactiveValueWrite a b) => ReactiveValueWrite (TypedReactiveValue a b) b where
 --   reactiveValueWrite (TypedReactiveValue x _) v = reactiveValueWrite x v
@@ -76,12 +96,16 @@ class ReactiveValueActivatable a where
 --   reactiveValueOnCanRead (TypedReactiveValue x _) v op = (reactiveValueOnCanRead x) v op
 --   reactiveValueRead (TypedReactiveValue x _)           = reactiveValueRead x
 
-liftR :: (ReactiveValueRead a b) => a -> (b -> c) -> ReactiveFieldRead c
+-- * Creating RVs based on other RVs
+
+-- ** Lifting onto readable values
+liftR :: (Monad m, ReactiveValueRead a b m) => a -> (b -> c) -> ReactiveFieldRead m c
 liftR e f = ReactiveFieldRead getter notifier
  where notifier = reactiveValueOnCanRead e
        getter   = liftM f (reactiveValueRead e)
 
-liftR2 :: (ReactiveValueRead a b, ReactiveValueRead c d) => a -> c -> (b -> d -> e) -> ReactiveFieldRead e
+liftR2 :: (Monad m, ReactiveValueRead a b m, ReactiveValueRead c d m)
+       => a -> c -> (b -> d -> e) -> ReactiveFieldRead m e
 liftR2 e1 e2 f = ReactiveFieldRead getter notifier
   where getter = do v1 <- reactiveValueRead e1
                     v2 <- reactiveValueRead e2
@@ -89,28 +113,83 @@ liftR2 e1 e2 f = ReactiveFieldRead getter notifier
         notifier p = do reactiveValueOnCanRead e1 p
                         reactiveValueOnCanRead e2 p
 
-liftW :: (ReactiveValueWrite a b) => a -> (c -> b) -> ReactiveFieldWrite c
+-- ** Lifting onto writeable values
+liftW :: (Monad m, ReactiveValueWrite a b m)
+      => a -> (c -> b) -> ReactiveFieldWrite m c
 liftW e f = ReactiveFieldWrite setter
   where setter = reactiveValueWrite e . f
 
-liftW2 :: (ReactiveValueWrite a b, ReactiveValueWrite d e) => a -> d -> (c -> (b,e)) -> ReactiveFieldWrite c
+liftW2 :: (Monad m, ReactiveValueWrite a b m, ReactiveValueWrite d e m)
+       => a -> d -> (c -> (b,e)) -> ReactiveFieldWrite m c
 liftW2 e1 e2 f = ReactiveFieldWrite setter
   where setter x = do let (v1,v2) = f x
                       reactiveValueWrite e1 v1
                       reactiveValueWrite e2 v2
 
+-- ** Lifting onto read-write values
+
+-- *** Bijections
 newtype BijectiveFunc a b = BijectiveFunc (a -> b, b -> a)
 
 type Involution a = BijectiveFunc a a
 involution :: (a -> a) -> Involution a
 involution f = BijectiveFunc (f, f)
 
-liftRW :: (ReactiveValueReadWrite a b) => a -> BijectiveFunc b c -> ReactiveFieldReadWrite c
+-- *** Actual lifting
+liftRW :: (Monad m, ReactiveValueReadWrite a b m)
+       => a -> BijectiveFunc b c -> ReactiveFieldReadWrite m c
 liftRW e (BijectiveFunc (f1, f2)) = ReactiveFieldReadWrite setter getter notifier
   where ReactiveFieldRead getter notifier = liftR e f1
         ReactiveFieldWrite setter         = liftW e f2
 
-liftRW2 :: (ReactiveValueReadWrite a b, ReactiveValueReadWrite c d) => a -> c -> BijectiveFunc e (b,d) -> ReactiveFieldReadWrite e
+liftRW2 :: (Monad m, ReactiveValueReadWrite a b m, ReactiveValueReadWrite c d m)
+        => a -> c -> BijectiveFunc e (b,d) -> ReactiveFieldReadWrite m e
 liftRW2 e1 e2 (BijectiveFunc (f1, f2)) = ReactiveFieldReadWrite setter getter notifier
   where ReactiveFieldRead getter notifier = liftR2 e1 e2 (curry f2)
         ReactiveFieldWrite setter         = liftW2 e1 e2 f1
+
+-- ** Modifying reactive values (applying modification transformations)
+
+-- | Lifting modification functions
+modRW :: (Monad m, ReactiveValueReadWrite a b m)
+      => (b -> c -> b) -> a -> ReactiveFieldWrite m c
+modRW f rv = ReactiveFieldWrite setter
+  where setter c = do b <- reactiveValueRead rv
+                      let b' = f b c
+                      reactiveValueWrite rv b'
+
+reactiveValueModify :: (Monad m, ReactiveValueReadWrite a b m) => a -> (b -> b) -> m ()
+reactiveValueModify r f = reactiveValueWrite r . f =<< reactiveValueRead r
+
+-- * Deactivating reactive values
+
+-- | Turning an active RV into a passive one (does not propagate changes)
+-- Note that this does not really affect the RV itself, only produces a new
+-- RV that will not propagate changes. So, if used in a reactive relation,
+-- values will not get propagated when they change. It is useful in combination
+-- with lifts, to achieve things similar to Yampa's tagging, but this might
+-- be more general.
+passivelyR :: (Monad m, ReactiveValueRead a b m)
+           => a -> ReactiveFieldRead m b
+passivelyR rv =
+  ReactiveFieldRead (reactiveValueRead rv) (\_ -> return ())
+
+passivelyRW :: (Monad m, ReactiveValueReadWrite a b m)
+            => a -> ReactiveFieldReadWrite m b
+passivelyRW rv =
+  ReactiveFieldReadWrite (reactiveValueWrite rv) (reactiveValueRead rv) (\_ -> return ())
+
+-- * Category theoritic definitions
+
+-- Functor definitions
+instance (Functor m, Monad m) => Functor (ReactiveFieldRead m) where
+  fmap = flip liftR
+
+-- FIXME: I might not want to provide this: the contravariant library
+-- depends on transformers.
+-- (ReactiveFieldRead getter notifier) = ReactiveFieldRead (fmap f getter) notifier
+instance (Monad m) => Contravariant (ReactiveFieldWrite m) where
+  contramap = flip liftW
+
+instance Monad m => GFunctor (ReactiveFieldReadWrite m) BijectiveFunc where
+  gmap = flip liftRW
