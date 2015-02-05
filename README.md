@@ -11,7 +11,7 @@ in the other direction, I often decided to create only one and pass the directio
 of the update as a parameter.
 
 This package contains that pattern: direction of updates in MVC Controller's
-handlers.
+handlers. It is only useful in combination with the rest of Keera Hails suite.
 
 Installation
 ====================
