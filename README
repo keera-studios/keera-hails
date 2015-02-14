@@ -23,3 +23,8 @@ wrapped in a reactive container and connected to others.
   http://github.com/keera-studios/hails-mvc-environment
   http://github.com/keera-studios/hails-mvc-view
   http://github.com/keera-studios/hails-mvc-view-gtk
+
+For an short introduction to reactive values, see:
+* http://github.com/keera-studios/hails-reactivevalues
+* http://www.cs.nott.ac.uk/~ixp/papers/2014-Perez-1st-year-report.pdf (last
+  chapter, which is a paper on its own)
