@@ -1,14 +1,19 @@
 Keera Hails is a toolkit to create reactive applications quickly.
 
-The toolkit is divided in two parts:
-* Reactive Values: they are read/write mutable values with listening/change
-event dispatching. There is a rule-based interface to describe dependencies
-and connections declaratively. Widget properties/attributes can be seen as
-reactive values. Files can be seen as reactive values. And so can application
-models. The idea is that, at the highest application level (controller), each
-layer is wrapped in a reactive container and connected to others.
+The toolkit is divided in three parts:
+* Reactive Values: they are typed mutable values with event dispatching and
+access properties. They can be modified by lifting functions and applying
+lenses to them. They can also be connected so that they stay in sync during
+program execution.
+
   http://github.com/keera-studios/hails-reactivevalues
   http://github.com/keera-studios/hails-reactivelenses
+
+* Reactive bindings: Widget properties/attributes can be seen as
+reactive values. So can network sockets, files and application models ('model'
+as in MVC). The idea is that, at the highest application level (controller),
+each layer is wrapped in a reactive container and connected to others.
+
   http://github.com/keera-studios/hails-reactive-fs
   http://github.com/keera-studios/hails-reactive-network
   http://github.com/keera-studios/hails-reactive-gtk
