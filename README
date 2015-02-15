@@ -40,7 +40,8 @@ each layer is wrapped in a reactive container and connected to others.
 For an short introduction to reactive values, see:
 * http://github.com/keera-studios/hails-reactivevalues
 * http://www.cs.nott.ac.uk/~ixp/papers/2014-Perez-1st-year-report.pdf (page
-  40, which is a paper on its own)
+  40, which is a paper of its own, and page 29, the thesis proposal, which
+  outlines the core ideas and problems that remain to be solved.)
 
 Applications:
 * http://github.com/keera-studios/keera-posture
