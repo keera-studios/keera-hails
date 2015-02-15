@@ -3,28 +3,39 @@ Keera Hails is a toolkit to create reactive applications quickly.
 The toolkit is divided in two parts:
 * Reactive Values: they are read/write mutable values with listening/change
 event dispatching. There is a rule-based interface to describe dependencies
-and connections declaratively. Gtk widget properties can be seen as reactive
-values. Files can be seen as reactive values. And so can application models.
-The idea is that, at the highest application level (controller), each layer
-is wrapped in a reactive container and connected to others.
+and connections declaratively. Widget properties/attributes can be seen as
+reactive values. Files can be seen as reactive values. And so can application
+models. The idea is that, at the highest application level (controller), each
+layer is wrapped in a reactive container and connected to others.
   http://github.com/keera-studios/hails-reactivevalues
+  http://github.com/keera-studios/hails-reactivelenses
   http://github.com/keera-studios/hails-reactive-fs
   http://github.com/keera-studios/hails-reactive-network
   http://github.com/keera-studios/hails-reactive-gtk
+  http://github.com/keera-studios/hails-reactive-wx
 
-* Hails: a series of tools and libraries to create MVC Gtk+ programs using
+* Hails: a series of tools and libraries to create MVC programs using
   a reactive interface. The application architecture takes the approach of
   "convention over configuration", which means that certain modules will be
   expected to have predetermined names. If this is much of a problem, open a
   bug report.
 
   http://github.com/keera-studios/keera-hails (this repository)
-  http://github.com/keera-studios/hails-mvc-controller
-  http://github.com/keera-studios/hails-mvc-environment
-  http://github.com/keera-studios/hails-mvc-view
+  http://github.com/keera-studios/hails-mvc-model-lightmodel
+  http://github.com/keera-studios/hails-mvc-model-protectedmodels
   http://github.com/keera-studios/hails-mvc-view-gtk
+  http://github.com/keera-studios/hails-mvc-view
+  http://github.com/keera-studios/hails-mvc-controller
+  http://github.com/keera-studios/hails-mvc-environment-gtk
+  http://github.com/keera-studios/hails-mvc-solutions-gtk
+  http://github.com/keera-studios/hails-mvc-solutions-config
+  http://github.com/keera-studios/hails-i18n
+  http://github.com/keera-studios/hails-templates
 
 For an short introduction to reactive values, see:
 * http://github.com/keera-studios/hails-reactivevalues
 * http://www.cs.nott.ac.uk/~ixp/papers/2014-Perez-1st-year-report.pdf (page
   40, which is a paper on its own)
+
+Applications:
+* http://github.com/keera-studios/keera-posture
