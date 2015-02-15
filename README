@@ -1,0 +1,8 @@
+This is an experimental layer for WX as reactive values.
+
+So far only buttons clicks and entry text texts work. The file 'Example.hs' should demonstrate what this is about.
+
+See also:
+
+http://github.com/keerastudios/keera-hails
+http://github.com/keerastudios/hails-reactivevalues
