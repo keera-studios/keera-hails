@@ -30,6 +30,5 @@ the button determines when changes to the text are propagated.
 ![Text transfers up, reverses down](http://ivanperez-keera.github.com/images/screenshots/reactive-qt-button-click2.png "Text transfers up (rule 2), text reverses down (rule 1)")
 
 See also:
-
-http://github.com/keera-studios/keera-hails
-http://github.com/keera-studios/hails-reactivevalues
+- http://github.com/keera-studios/keera-hails
+- http://github.com/keera-studios/hails-reactivevalues
