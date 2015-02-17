@@ -13,7 +13,7 @@ called l1 and l2, and a button called tb, we connect them with the following cod
     e2 <- lineEditText l2
     btn <- buttonClick tb
     
-    -- Connection: rule
+    -- Connection rules
     e1 =:= (involution reverse <$$> e2)
     e1 <:= (btn `governingR` e2 :: ReactiveFieldRead IO String)
 
