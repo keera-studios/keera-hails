@@ -28,8 +28,7 @@ data CReactQLineEdit = CReactQLineEdit
 reactiveQLineEdit :: IO ReactQLineEdit 
 reactiveQLineEdit = qSubClass $ qLineEdit () 
 
--- | Make a line edit's text reactive. Does not fully work yet
---   read/write work but the changes are not detected.
+-- | Make a line edit's text reactive.
 lineEditText :: ReactQLineEdit -> IO (ReactiveFieldReadWrite IO String)
 lineEditText entry = do
   notifiers <- notifiersNew
