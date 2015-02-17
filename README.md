@@ -23,7 +23,8 @@ This makes:
 - Whenever the button is pressed, the text from e2 is copied (literally)
 onto e1. (Consequently, e2 also changes as per rule #1.)
 
-![Button click transfers text](http://ivanperez-keera.github.com/images/screenshots/reactive-qt-button-click.png "Button click")
+![Button click](http://ivanperez-keera.github.com/images/screenshots/reactive-qt-button-click.png "Click the button")
+![Text transfers up, reverses down](http://ivanperez-keera.github.com/images/screenshots/reactive-qt-button-click2.png "Text transfers up (rule 2), text reverses down (rule 1)")
 
 See also:
 
