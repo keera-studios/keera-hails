@@ -26,7 +26,6 @@ This makes:
 onto e1. (Consequently, e2 also changes as per rule #1.)
 We say that the button click is '''governing''' the line edit text, because
 the button determines when changes to the text are propagated.
-
 ![Button click](http://ivanperez-keera.github.com/images/screenshots/reactive-qt-button-click.png "Click the button")
 ![Text transfers up, reverses down](http://ivanperez-keera.github.com/images/screenshots/reactive-qt-button-click2.png "Text transfers up (rule 2), text reverses down (rule 1)")
 
