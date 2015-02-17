@@ -1,8 +1,0 @@
-This is an experimental layer for Qt as reactive values.
-
-So far only buttons clicks and line edit texts have been added.
-
-See also:
-
-http://github.com/keera-studios/keera-hails
-http://github.com/keera-studios/hails-reactivevalues
