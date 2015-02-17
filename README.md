@@ -19,6 +19,8 @@ called l1 and l2, and a button called tb, we connect them with the following cod
 
 This makes:
 - e1 and e2 always show the same text, reversed from one another.
+![Typing in top box](http://ivanperez-keera.github.com/images/screenshots/reactive-qt-type-box1.png "Type in top box")
+![Typing in bottom box](http://ivanperez-keera.github.com/images/screenshots/reactive-qt-type-box2.png "Type in bottom box")
 
 - Whenever the button is pressed, the text from e2 is copied (literally)
 onto e1. (Consequently, e2 also changes as per rule #1.)
