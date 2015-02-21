@@ -5,7 +5,7 @@
 -- Functors parameterised over the morphisms in the source category
 module Control.GFunctor where
 
-infixl 4 <$$>
+infixl 8 <$$>
 
 -- class ContravariantFunctor f where
 --   cmap :: (b -> a) -> f a -> f b
