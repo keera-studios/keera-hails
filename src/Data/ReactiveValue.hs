@@ -28,6 +28,11 @@ class (ReactiveValueRead a b m, ReactiveValueWrite a b m) => ReactiveValueReadWr
 
 -- * Reactive rules (data dependency/passing building combinators)
 
+-- | Priorities so that we can write them infix without parenthesising
+infix 9 =:=
+infix 9 =:>
+infix 9 <:=
+
 -- | Left to right
 (=:>) :: Monad m => (ReactiveValueRead a b m, ReactiveValueWrite c b m) => a -> c -> m ()
 (=:>) v1 v2 = reactiveValueOnCanRead v1 sync1
@@ -193,3 +198,10 @@ instance (Monad m) => Contravariant (ReactiveFieldWrite m) where
 
 instance Monad m => GFunctor (ReactiveFieldReadWrite m) BijectiveFunc where
   gmap = flip liftRW
+
+-- | Temporary: will be moved to Keera Hails' Reactive Values library.
+governingR :: (ReactiveValueRead a b m,  ReactiveValueRead c d m)
+           => a -> c -> ReactiveFieldRead m d
+governingR r c = ReactiveFieldRead getter notifier
+  where getter   = reactiveValueRead c
+        notifier = reactiveValueOnCanRead r
