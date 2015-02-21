@@ -9,4 +9,6 @@ cabal-dev
 .cabal-sandbox/
 cabal.sandbox.config
 cabal.config
+!examples/*.*
 *~
+examples/*
