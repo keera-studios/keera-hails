@@ -43,7 +43,9 @@ For a introduction to reactive values, see:
   40, which is a paper of its own, and page 29, the thesis proposal, which
   outlines the core ideas and problems that remain to be solved.)
 * TFP 2014 Pre-proceedings, pages 59-68:
-  http://www.staff.science.uu.nl/~hage0101/preproceedingstfp2014.pdf 
+  http://www.staff.science.uu.nl/~hage0101/preproceedingstfp2014.pdf
+  
+For bibtex references to these articles, see Publications in http://www.cs.nott.ac.uk/~ixp/.
 
 Applications:
 * http://github.com/keera-studios/keera-posture
