@@ -11,13 +11,16 @@ program execution.
 
 * Reactive bindings: Widget properties/attributes can be seen as
 reactive values. So can network sockets, files and application models ('model'
-as in MVC). The idea is that, at the highest application level (controller),
-each layer is wrapped in a reactive container and connected to others.
+as in MVC). Uni-directional, Functional Reactive Programming signal
+functions can also be wrapped into a pair of RVs (see Yampa). The idea is
+that, at the highest application level (controller), each layer is wrapped
+in a reactive container and connected to others.
 
   http://github.com/keera-studios/hails-reactive-fs
   http://github.com/keera-studios/hails-reactive-network
   http://github.com/keera-studios/hails-reactive-gtk
   http://github.com/keera-studios/hails-reactive-wx
+  http://github.com/keera-studios/keera-hails-reactive-yampa
 
 * Hails: a series of tools and libraries to create MVC programs using
   a reactive interface. The application architecture takes the approach of
