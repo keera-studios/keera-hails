@@ -1,0 +1,8 @@
+This library contains functions to define RVs connected to Yampa signal
+functions. The main function is yampaReactiveDual, which returns two RVs (a
+readable end, or source, and a writable end, or sink).  You can write values to
+the writable end, and changes will be processed by the SF and made available in
+the readable end.
+
+Yampa is a Functional Reactive Programming DSL.
+See also: http://github.com/ivanperez-keera/Yampa
