@@ -5,7 +5,7 @@ import Control.Monad (void)
 import Graphics.UI.Gtk
 import Data.ReactiveValue
 
-textViewTextReactive :: TextView -> ReactiveFieldReadWrite String
+textViewTextReactive :: TextView -> ReactiveFieldReadWrite IO String
 textViewTextReactive e = ReactiveFieldReadWrite setter getter notifier
  where getter     = get e textViewBuffer >>= (`get` textBufferText)
        setter v   = get e textViewBuffer >>= (\b -> set b [textBufferText := v])

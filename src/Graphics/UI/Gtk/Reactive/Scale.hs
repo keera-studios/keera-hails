@@ -6,7 +6,7 @@ import GHC.Float
 import Graphics.UI.Gtk
 import Data.ReactiveValue
 
-scaleValueReactive :: RangeClass a => a -> ReactiveFieldReadWrite Float
+scaleValueReactive :: RangeClass a => a -> ReactiveFieldReadWrite IO Float
 scaleValueReactive e = ReactiveFieldReadWrite setter getter notifier
  where getter     = fmap double2Float $ get e rangeValue
        setter v   = set e [ rangeValue := float2Double v ]

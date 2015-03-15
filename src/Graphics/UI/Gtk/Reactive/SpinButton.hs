@@ -5,7 +5,7 @@ import Control.Monad
 import Graphics.UI.Gtk
 import Data.ReactiveValue
 
-spinButtonActiveReactive :: SpinButton -> ReactiveFieldReadWrite Int
+spinButtonActiveReactive :: SpinButton -> ReactiveFieldReadWrite IO Int
 spinButtonActiveReactive e = ReactiveFieldReadWrite setter getter notifier
  where getter   = spinButtonGetValueAsInt e
        setter   = spinButtonSetValue e . fromIntegral

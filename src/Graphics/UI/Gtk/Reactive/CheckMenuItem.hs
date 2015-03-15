@@ -5,7 +5,7 @@ import Control.Monad
 import Graphics.UI.Gtk
 import Data.ReactiveValue
 
-checkMenuItemActiveReactive :: CheckMenuItem -> ReactiveFieldReadWrite Bool
+checkMenuItemActiveReactive :: CheckMenuItem -> ReactiveFieldReadWrite IO Bool
 checkMenuItemActiveReactive e = ReactiveFieldReadWrite setter getter notifier
  where getter   = checkMenuItemGetActive e
        setter   = checkMenuItemSetActive e
