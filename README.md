@@ -1,11 +1,20 @@
-This is a sample reactive program that shows the data received from
-a Nintendo Wiimote's accelerometer using a Gtk GUI.
+This repo contains sample reactive programs that showsthe data received from a
+Nintendo Wiimote's accelerometer using a Gtk GUI.
 
-The program is very simple, there are two kinds of Reactive Values:
+Both programs are very simple. In
+![Minimal.hs](/hails-reactive-wiimote-demo/blob/master/Minimal.hs) there are
+two kinds of Reactive Values:
+
 * Wiimote Accelerometer RVs, polled regularly.
 * GUI RVs, representing the texts in the entries.
 
-Rules are used to keep all in sync. See Minimal for more details.
+![MinimalFRP.hs](/hails-reactive-wiimote-demo/blob/master/MinimalFRP.hs)
+contains an additional pair of RVs for each field, and uses the Functional
+Reactive Programming DSL ![Yampa](http://github.com/ivanperez-keera/Yampa) to
+integrate the values of the acceleration over time using Signal Functions.
+
+In both cases, simple, declarative reactive relations/rules are used to keep
+all in sync.
 
 # Compilation
 
@@ -24,6 +33,8 @@ You should expect to see the following:
 
 - http://github.com/keera-studios/keera-hails
 - http://github.com/keera-studios/keera-hails-reactive-polling
+- http://github.com/keera-studios/keera-hails-reactive-yampa
 - http://github.com/keera-studios/hails-reactive-gtk
 - http://github.com/keera-studios/hails-reactivevalues
 - http://github.com/ivanperez-keera/hcwiid
+- http://github.com/ivanperez-keera/Yampa
