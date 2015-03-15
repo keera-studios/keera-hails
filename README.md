@@ -13,7 +13,7 @@ contains an additional pair of RVs for each field, and uses the Functional
 Reactive Programming DSL [Yampa](http://github.com/ivanperez-keera/Yampa) to
 integrate the values of the acceleration over time using Signal Functions.
 
-In both cases, simple, declarative reactive relations/rules are used to keep
+In both cases, simple, declarative, reactive relations/rules are used to keep
 all Reactive Values in sync.
 
 # Compilation
