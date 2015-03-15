@@ -19,17 +19,20 @@ main = do
 
       -- View
       initGUI
+      -- View: Widgets
       window  <- windowNew
       hbox    <- hBoxNew True 10
       text1   <- entryNew
       text2   <- entryNew
       text3   <- entryNew
+      -- View: layout
       set window [ windowDefaultWidth   := 200, windowDefaultHeight := 200
                  , containerBorderWidth := 10,  containerChild      := hbox
                  ]
       boxPackStart hbox text1 PackGrow 0
       boxPackStart hbox text2 PackGrow 0
       boxPackStart hbox text3 PackGrow 0
+      -- View: show
       widgetShowAll window
 
       -- Keera Hails - Reactive Controller
