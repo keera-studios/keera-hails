@@ -20,9 +20,9 @@ main = do
       wiimoteRV <- pollingReactive (cwiidGetAcc wm')
                                    (Just 10000) -- Every 10ms
 
+      -- Use Yampa to create reactive integrators
       let integrateAcc :: SF Int Float
           integrateAcc = arr ((-) 128) >>> arr fromIntegral >>> integral
-                         
       (wX,rX) <- yampaReactiveDual 0 integrateAcc
       (wY,rY) <- yampaReactiveDual 0 integrateAcc
       (wZ,rZ) <- yampaReactiveDual 0 integrateAcc
