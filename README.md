@@ -22,7 +22,7 @@ Apart from installing all the dependencies, you should compile
 the program with the flags -threaded and -rtsopts, and run it
 with +RTS -V0.
 
-Once the program launches, press 1+2 (or sync near the battery slot)
+Once the program is launched, press 1+2 (or sync near the battery slot)
 on your wiimote to connect to the computer.
 
 You should expect to see the following:
