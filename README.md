@@ -1,5 +1,5 @@
-This repo contains sample reactive programs that shows the data received from a
-Nintendo Wiimote's accelerometer using a Gtk GUI.
+This repo contains sample reactive programs that show data received from a
+Nintendo Wiimote using a Gtk GUI.
 
 Both programs are very simple. In
 ![Minimal.hs](/Minimal.hs) there are
