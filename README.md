@@ -16,6 +16,10 @@ with +RTS -V0.
 Once the program launches, press 1+2 (or sync near the battery slot)
 on your wiimote to connect to the computer.
 
+You should expect to see the following:
+
+![Wiimote demo](https://github.com/keera-studios/hails-reactive-wiimote-demo/raw/master/screenshots/gui.png)
+
 # See also
 
 - http://github.com/keera-studios/keera-hails
