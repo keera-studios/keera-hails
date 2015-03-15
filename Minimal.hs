@@ -14,6 +14,7 @@ main = do
    wm <- initialiseWiimote
 
    awhen wm $ \wm' -> do
+      -- Keera Hails - External RV by polling the Wiimote
       wiimoteRV <- pollingReactive (cwiidGetAcc wm')
                                    (Just 10000) -- Every 10ms
 
