@@ -1,4 +1,4 @@
-This repo contains sample reactive programs that showsthe data received from a
+This repo contains sample reactive programs that shows the data received from a
 Nintendo Wiimote's accelerometer using a Gtk GUI.
 
 Both programs are very simple. In
@@ -14,7 +14,7 @@ Reactive Programming DSL [Yampa](http://github.com/ivanperez-keera/Yampa) to
 integrate the values of the acceleration over time using Signal Functions.
 
 In both cases, simple, declarative reactive relations/rules are used to keep
-all in sync.
+all Reactive Values in sync.
 
 # Compilation
 
