@@ -7,7 +7,17 @@ The program is very simple, there are two kinds of Reactive Values:
 
 Rules are used to keep all in sync. See Minimal for more details.
 
-See also:
+# Compilation
+
+Apart from installing all the dependencies, you should compile
+the program with the flags -threaded and -rtsopts, and run it
+with +RTS -V0.
+
+Once the program launches, press 1+2 (or sync near the battery slot)
+on your wiimote to connect to the computer.
+
+# See also
+
 - http://github.com/keera-studios/keera-hails
 - http://github.com/keera-studios/keera-hails-reactive-polling
 - http://github.com/keera-studios/hails-reactive-gtk
