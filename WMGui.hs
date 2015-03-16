@@ -17,7 +17,7 @@ main = do
 
    awhen wm $ \wm' -> do
       -- Keera Hails - External RV by polling the Wiimote
-      wiimoteRV <- pollingReactive (cwiidGetAcc wm')
+      wiimoteRV <- pollingReactive (pollWiimote wm')
                                    (Just 10000) -- Every 10ms
 
       -- View
@@ -27,17 +27,20 @@ main = do
       builderAddFromFile builder "UI.glade"
 
       -- Retrieve some objects from the UI
-      window <- builderGetObject builder castToWindow "mainWindow"
-      labelA <- builderGetObject builder castToLabel  "labelA"
+      window        <- builderGetObject builder castToWindow "mainWindow"
+      labelA        <- builderGetObject builder castToLabel  "labelA"
+      labelAccVal   <- builderGetObject builder castToLabel  "labelAccVal"
+      labelPitchVal <- builderGetObject builder castToLabel  "labelPitchVal"
+      labelRollVal  <- builderGetObject builder castToLabel  "labelRollVal"
 
       -- View: show
       widgetShowAll window
 
       -- Keera Hails - Reactive Controller
-      (buttonA <$> wiimoteRV) =:> liftW buttonColorF (labelBackground labelA)
-      ((show.head.unCWiidAcc)  <$> wiimoteRV) =:> entryTextReactive text1
-      ((show.(!!1).unCWiidAcc) <$> wiimoteRV) =:> entryTextReactive text2
-      ((show.(!!2).unCWiidAcc) <$> wiimoteRV) =:> entryTextReactive text3
+      (buttonA           <$> wiimoteRV) =:> liftW buttonColorF (labelBackground labelA)
+      ((show.accValue)   <$> wiimoteRV) =:> labelText labelAccVal 
+      ((show.pitchValue) <$> wiimoteRV) =:> labelText labelPitchVal 
+      ((show.rollValue)  <$> wiimoteRV) =:> labelText labelRollVal 
       onDestroy window mainQuit
 
       mainGUI
@@ -52,23 +55,23 @@ data Wiimote = Wiimote {
  , buttonB     :: Bool
  , buttonMinux :: Bool
  , buttonPlus  :: Bool
- , rollValue   :: Int
- , pitchValue  :: Int
  , accValue    :: Int
+ , pitchValue  :: Int
+ , rollValue   :: Int
   -- ...
  }
  deriving Eq
 
 pollWiimote :: CWiidWiimote -> IO Wiimote
 pollWiimote wm = do
-  [a,p,r] <- cwiidGetAcc wm
+  [a,p,r] <- unCWiidAcc <$> cwiidGetAcc wm
   return Wiimote { buttonA     = False 
                  , buttonB     = False 
                  , buttonMinux = False 
                  , buttonPlus  = False 
-                 , rollValue   = r
-                 , pitchValue  = p
                  , accValue    = a
+                 , pitchValue  = p
+                 , rollValue   = r
                  }
 
 initialiseWiimote :: IO (Maybe CWiidWiimote)
