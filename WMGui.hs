@@ -48,7 +48,7 @@ main = do
 -- Auxiliary functions
 buttonColorF :: Bool -> Pango.Color
 buttonColorF s = if s then green else defColor
-  where green    = undefined
+  where green    = Pango.Color 0 65535 0
         defColor = undefined
 
 -- Wiimote sensing
