@@ -37,10 +37,10 @@ main = do
       widgetShowAll window
 
       -- Keera Hails - Reactive Controller
-      (buttonA           <$> wiimoteRV) =:> liftW buttonColorF (labelBackground labelA)
-      ((show.accValue)   <$> wiimoteRV) =:> labelText labelAccVal 
-      ((show.pitchValue) <$> wiimoteRV) =:> labelText labelPitchVal 
-      ((show.rollValue)  <$> wiimoteRV) =:> labelText labelRollVal 
+      ((buttonColorF.buttonA) <$> wiimoteRV) =:> labelBackground labelA
+      ((show.accValue)        <$> wiimoteRV) =:> labelText labelAccVal 
+      ((show.pitchValue)      <$> wiimoteRV) =:> labelText labelPitchVal 
+      ((show.rollValue)       <$> wiimoteRV) =:> labelText labelRollVal 
       onDestroy window mainQuit
 
       mainGUI
