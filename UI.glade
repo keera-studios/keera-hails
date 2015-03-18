@@ -232,7 +232,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label12">
+                      <object class="GtkLabel" id="label1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">1</property>
@@ -245,7 +245,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="label">
+                      <object class="GtkLabel" id="label2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">2</property>
@@ -262,7 +262,7 @@
               </object>
             </child>
             <child type="label">
-              <object class="GtkLabel" id="label1">
+              <object class="GtkLabel" id="labelBtns">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Buttons</property>
@@ -552,7 +552,7 @@
               </object>
             </child>
             <child type="label">
-              <object class="GtkLabel" id="label2">
+              <object class="GtkLabel" id="labelSensors">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Motion Sensors</property>
