@@ -78,4 +78,4 @@ main = do
 buttonColorF :: Bool -> Pango.Color
 buttonColorF s = if s then green else defColor
   where green    = Pango.Color 0 65535 0
-        defColor = Pango.Color 32768 32768 32768
+        defColor = Pango.Color 61952 61696 61240
