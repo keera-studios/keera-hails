@@ -1,19 +1,18 @@
 This repo contains sample reactive programs that show data received from a
-Nintendo Wiimote using a Gtk GUI.
+Nintendo Wiimote using a Gtk GUI. All the programs are very simple; you
+are encouraged to open the haskell code and try to understand it. If the meaning
+is not obvious, you should open a bug report in keera-hails.
 
-All the programs are very simple. In
-![Minimal.hs](/Minimal.hs) there are
-two kinds of Reactive Values:
+* In ![Minimal.hs](/Minimal.hs) there are two kinds of Reactive Values:
+    * Wiimote Accelerometer RVs, polled regularly.
+    * GUI RVs, representing the texts in the entries.
 
-* Wiimote Accelerometer RVs, polled regularly.
-* GUI RVs, representing the texts in the entries.
+* ![MinimalFRP.hs](/MinimalFRP.hs) contains an additional pair of RVs for each
+  field, and uses the Functional Reactive Programming DSL
+[Yampa](http://github.com/ivanperez-keera/Yampa) to integrate the values of the
+acceleration over time using Signal Functions.
 
-![MinimalFRP.hs](/MinimalFRP.hs)
-contains an additional pair of RVs for each field, and uses the Functional
-Reactive Programming DSL [Yampa](http://github.com/ivanperez-keera/Yampa) to
-integrate the values of the acceleration over time using Signal Functions.
-
-![WMGui.hs](/WMGui.hs)
+* ![WMGui.hs](/WMGui.hs)
 is a larger example featuring a glade gtk3 UI to show the state of a wiimote.
 All the buttons, plus accelerometer data, are supported.
 
