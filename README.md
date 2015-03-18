@@ -1,7 +1,7 @@
 This repo contains sample reactive programs that show data received from a
 Nintendo Wiimote using a Gtk GUI.
 
-Both programs are very simple. In
+All the programs are very simple. In
 ![Minimal.hs](/Minimal.hs) there are
 two kinds of Reactive Values:
 
@@ -13,7 +13,11 @@ contains an additional pair of RVs for each field, and uses the Functional
 Reactive Programming DSL [Yampa](http://github.com/ivanperez-keera/Yampa) to
 integrate the values of the acceleration over time using Signal Functions.
 
-In both cases, simple, declarative, reactive relations/rules are used to keep
+![WMGui.hs](/WMGui.hs)
+is a larger example featuring a glade gtk3 UI to show the state of a wiimote.
+All the buttons, plus accelerometer data, are supported.
+
+In all cases, simple, declarative, reactive relations/rules are used to keep
 all Reactive Values in sync.
 
 # Compilation
@@ -25,8 +29,9 @@ with +RTS -V0.
 Once the program is launched, press 1+2 (or sync near the battery slot)
 on your wiimote to connect to the computer.
 
-You should expect to see the following:
+You should expect to see the following (respectively, WMGui.hs and Minimal.hs):
 
+![WMGUI demo](https://github.com/keera-studios/hails-reactive-wiimote-demo/raw/master/screenshots/hwgui.png)
 ![Wiimote demo](https://github.com/keera-studios/hails-reactive-wiimote-demo/raw/master/screenshots/gui.png)
 
 # See also
