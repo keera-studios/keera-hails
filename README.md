@@ -13,3 +13,10 @@ See also:
 - http://github.com/keera-studios/keera-hails
 - http://github.com/ivanperez-keera/Yampa
 - http://github.com/keera-studios/hails-reactivevalues
+
+# TODO
+
+* Different update policies are possible. For instance, one could update only
+  on demand, or update using a push policy. The yampa system could be running
+  continuously, producing new outputs every time, and modifying the input only
+  when it really changes.
