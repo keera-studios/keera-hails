@@ -30,7 +30,7 @@ on your wiimote to connect to the computer.
 
 You should expect to see the following (respectively, WMGui.hs and Minimal.hs):
 
-![WMGUI demo](https://github.com/keera-studios/hails-reactive-wiimote-demo/raw/master/screenshots/hwgui.png)
+![WMGUI demo](https://github.com/keera-studios/hails-reactive-wiimote-demo/raw/master/screenshots/hwguiIR.png)
 ![Wiimote demo](https://github.com/keera-studios/hails-reactive-wiimote-demo/raw/master/screenshots/gui.png)
 
 # See also
