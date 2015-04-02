@@ -17,7 +17,7 @@ import System.IO.Unsafe
 import Wiimote
 
 main :: IO ()
-main = do 
+main = do
    wm <- initialiseWiimote
 
    awhen wm $ \wm' -> do
@@ -71,9 +71,9 @@ main = do
       ((buttonColorF.buttonMinus) <$> wiimoteRV) =:> labelBackground labelMinus
 
       -- Controller: synchronise accelerometre data
-      ((show.accValue)            <$> wiimoteRV) =:> labelTextReactive labelAccVal 
-      ((show.pitchValue)          <$> wiimoteRV) =:> labelTextReactive labelPitchVal 
-      ((show.rollValue)           <$> wiimoteRV) =:> labelTextReactive labelRollVal 
+      ((show.accValue)            <$> wiimoteRV) =:> labelTextReactive labelAccVal
+      ((show.pitchValue)          <$> wiimoteRV) =:> labelTextReactive labelPitchVal
+      ((show.rollValue)           <$> wiimoteRV) =:> labelTextReactive labelRollVal
 
       -- Controller: sync IR data
       ((paintCircles.irData)      <$> wiimoteRV) =:> drawWindowDrawing irArea
