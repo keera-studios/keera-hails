@@ -86,7 +86,7 @@ main = do
       -- Controller: main loop
       mainGUI
 
--- Auxiliary functions
+-- * Auxiliary functions
 
 -- | Give a 'Pango.Color' for a button depending on whether it's
 -- depressed or released.
@@ -101,11 +101,13 @@ buttonColorF s = if s then green else defColor
 
 -- | Render cairo circles at positions with size (ie. tuples (x, y, size)).
 paintCircles :: [(Int, Int, Int)] -> Render ()
-paintCircles = mapM_ paintCircle
+paintCircles = mapM_ blackCircle
+
+-- * Cairo
 
 -- | Render a Cairo circle at a position with a size (ie. tuple (x, y, size)).
-paintCircle :: (Int, Int, Int) -> Render ()
-paintCircle (x,y,sz) = do
+blackCircle :: (Int, Int, Int) -> Render ()
+blackCircle (x,y,sz) = do
  -- debug
  trace (show (x,y,sz)) (return ())
 
