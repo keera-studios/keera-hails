@@ -120,5 +120,5 @@ drawWindowDrawing :: DrawWindowClass area
                   => area
                   -> ReactiveFieldWrite IO (Render ())
 drawWindowDrawing area = ReactiveFieldWrite r
- where r x = postGUISync $ void (renderWithDrawWindow area x)
+ where r = postGUISync . void . renderWithDrawWindow area
 
