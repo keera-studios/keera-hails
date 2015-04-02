@@ -2,12 +2,17 @@
 module Main where
 
 import Control.Applicative
+import Control.Monad
 import Control.Monad.IfElse
 import Data.ReactiveValue
 import Graphics.Rendering.Pango as Pango
 import Graphics.UI.Gtk
+import Graphics.UI.Gtk.Cairo
 import Graphics.UI.Gtk.Reactive
+import Graphics.Rendering.Cairo
 import Hails.Polling
+import System.IO.Unsafe
+import Debug.Trace
 
 import Wiimote
 
@@ -28,6 +33,9 @@ main = do
 
       -- Retrieve some objects from the UI
       window        <- builderGetObject builder castToWindow "mainWindow"
+      -- View: show
+      widgetShowAll window
+
       labelA        <- builderGetObject builder castToLabel  "labelA"
       labelB        <- builderGetObject builder castToLabel  "labelB"
       label1        <- builderGetObject builder castToLabel  "label1"
@@ -43,9 +51,9 @@ main = do
       labelPitchVal <- builderGetObject builder castToLabel  "labelValPitch"
       labelRollVal  <- builderGetObject builder castToLabel  "labelValRoll"
 
+      -- layout1       <- builderGetObject builder castToLayout "layout1"
+      irArea        <- layoutGetDrawWindow =<< builderGetObject builder castToLayout "layout1"
 
-      -- View: show
-      widgetShowAll window
 
       -- Keera Hails - Reactive Controller
 
@@ -66,6 +74,11 @@ main = do
       ((show.accValue)            <$> wiimoteRV) =:> labelTextReactive labelAccVal 
       ((show.pitchValue)          <$> wiimoteRV) =:> labelTextReactive labelPitchVal 
       ((show.rollValue)           <$> wiimoteRV) =:> labelTextReactive labelRollVal 
+      ((show.accValue)            <$> wiimoteRV) =:> labelTextReactive labelAccVal 
+
+      -- Controller: sync IR data
+      ((paintCircles.irData)      <$> wiimoteRV) =:> drawWindowDrawing irArea
+
       -- onDestroy window mainQuit
 
       -- Controller: main loop
@@ -79,3 +92,22 @@ buttonColorF :: Bool -> Pango.Color
 buttonColorF s = if s then green else defColor
   where green    = Pango.Color 0 65535 0
         defColor = Pango.Color 61952 61696 61240
+
+drawWindowDrawing :: DrawWindowClass area
+                  => area
+                  -> ReactiveFieldWrite IO (Render ())
+drawWindowDrawing area = ReactiveFieldWrite r
+ where r x = postGUISync $ void (renderWithDrawWindow area x)
+
+paintCircles :: [(Int, Int, Int)] -> Render ()
+paintCircles = mapM_ paintCircle
+
+paintCircle :: (Int, Int, Int) -> Render ()
+paintCircle (x,y,sz) = do
+ trace (show (x,y,sz)) (return ())
+ translate (fromIntegral x / 3.2) (fromIntegral y / 3.2)
+ setSourceRGBA 0.0 0.0 0.0 1.0
+ setLineWidth 1.0
+ arc 0 0 (2*fromIntegral sz) 0 (2 * 3.14)
+ strokePreserve
+ fill

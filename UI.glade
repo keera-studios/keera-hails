@@ -526,7 +526,9 @@
                             <property name="can_focus">False</property>
                             <property name="left_padding">12</property>
                             <child>
-                              <object class="GtkFixed" id="fixed8">
+                              <object class="GtkLayout" id="layout1">
+                                <property name="width_request">320</property>
+                                <property name="height_request">240</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                               </object>

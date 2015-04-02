@@ -4,6 +4,7 @@ module Wiimote where
 import Control.Applicative
 import Control.Monad
 import Control.Monad.IfElse
+import Data.Maybe
 import System.CWiid
 
 -- * Wiimote
@@ -25,6 +26,7 @@ data Wiimote = Wiimote {
  , accValue    :: Int
  , pitchValue  :: Int
  , rollValue   :: Int
+ , irData      :: [(Int, Int, Int)]
   -- ...
  }
  deriving Eq
@@ -35,6 +37,7 @@ data Wiimote = Wiimote {
 pollWiimote :: CWiidWiimote -> IO Wiimote
 pollWiimote wm = do
   [a,p,r] <- unCWiidAcc <$> cwiidGetAcc wm
+  irs     <- (catMaybes . map irCircle) <$> cwiidGetIR wm
   enabledBtns <- cwiidGetBtnState wm
   return Wiimote { buttonA     = cwiidIsBtnPushed enabledBtns cwiidBtnA 
                  , buttonB     = cwiidIsBtnPushed enabledBtns cwiidBtnB
@@ -50,6 +53,7 @@ pollWiimote wm = do
                  , accValue    = a
                  , pitchValue  = p
                  , rollValue   = r
+                 , irData      = irs
                  }
 
 -- | Connect to a wiimote. Enable button reception, acc and IR
@@ -59,3 +63,11 @@ initialiseWiimote = do
   wm <- cwiidOpen
   awhen wm (void . (`cwiidSetRptMode` 15))
   return wm
+
+irCircle :: CWiidIRSrc -> Maybe (Int, Int, Int)
+irCircle ir
+  | cwiidIRSrcValid ir = Just ( cwiidIRSrcPosX ir
+                              , cwiidIRSrcPosY ir
+                              , cwiidIRSrcSize ir
+                              )
+  | otherwise          = Nothing
