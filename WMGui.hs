@@ -54,9 +54,8 @@ main = do
       labelAccVal   <- builderGetObject builder castToLabel  "labelValAcc"
       labelPitchVal <- builderGetObject builder castToLabel  "labelValPitch"
       labelRollVal  <- builderGetObject builder castToLabel  "labelValRoll"
-
-      -- layout1       <- builderGetObject builder castToLayout "layout1"
-      irArea        <- layoutGetDrawWindow =<< builderGetObject builder castToLayout "layout1"
+      irArea        <- layoutGetDrawWindow
+                       =<< builderGetObject builder castToLayout "layout1"
 
 
       -- Keera Hails - Reactive Controller
