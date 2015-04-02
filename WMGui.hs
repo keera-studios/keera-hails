@@ -5,14 +5,14 @@ import Control.Applicative
 import Control.Monad
 import Control.Monad.IfElse
 import Data.ReactiveValue
+import Debug.Trace
+import Graphics.Rendering.Cairo
 import Graphics.Rendering.Pango as Pango
 import Graphics.UI.Gtk
 import Graphics.UI.Gtk.Cairo
 import Graphics.UI.Gtk.Reactive
-import Graphics.Rendering.Cairo
 import Hails.Polling
 import System.IO.Unsafe
-import Debug.Trace
 
 import Wiimote
 
