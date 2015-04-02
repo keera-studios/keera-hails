@@ -74,7 +74,6 @@ main = do
       ((show.accValue)            <$> wiimoteRV) =:> labelTextReactive labelAccVal 
       ((show.pitchValue)          <$> wiimoteRV) =:> labelTextReactive labelPitchVal 
       ((show.rollValue)           <$> wiimoteRV) =:> labelTextReactive labelRollVal 
-      ((show.accValue)            <$> wiimoteRV) =:> labelTextReactive labelAccVal 
 
       -- Controller: sync IR data
       ((paintCircles.irData)      <$> wiimoteRV) =:> drawWindowDrawing irArea
