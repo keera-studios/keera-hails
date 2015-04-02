@@ -1,4 +1,8 @@
 -- NOTE: This module is work in progress, incomplete and contains errors.
+--
+-- Compile with gtk3, threaded RTS (-threaded) and CLI RTS options (-rtsopts).
+--
+-- Execute with +RTS -V0, press 1+2 on your wiimote, and run.
 module Main where
 
 import Control.Applicative
@@ -85,22 +89,22 @@ main = do
 
 -- Auxiliary functions
 
+-- | Give a 'Pango.Color' for a button depending on whether it's
+-- depressed or released.
+--
 -- TODO: This may not be the default color. It's theme dependent.
 -- There must be some function to obtain it.
-buttonColorF :: Bool -> Pango.Color
+buttonColorF :: Bool         -- ^ Depressed
+             -> Pango.Color
 buttonColorF s = if s then green else defColor
   where green    = Pango.Color 0 65535 0
         defColor = Pango.Color 61952 61696 61240
 
-drawWindowDrawing :: DrawWindowClass area
-                  => area
-                  -> ReactiveFieldWrite IO (Render ())
-drawWindowDrawing area = ReactiveFieldWrite r
- where r x = postGUISync $ void (renderWithDrawWindow area x)
-
+-- | Render cairo circles at positions with size (ie. tuples (x, y, size)).
 paintCircles :: [(Int, Int, Int)] -> Render ()
 paintCircles = mapM_ paintCircle
 
+-- | Render a Cairo circle at a position with a size (ie. tuple (x, y, size)).
 paintCircle :: (Int, Int, Int) -> Render ()
 paintCircle (x,y,sz) = do
  trace (show (x,y,sz)) (return ())
@@ -110,3 +114,11 @@ paintCircle (x,y,sz) = do
  arc 0 0 (2*fromIntegral sz) 0 (2 * 3.14)
  strokePreserve
  fill
+
+-- * Hails functions
+drawWindowDrawing :: DrawWindowClass area
+                  => area
+                  -> ReactiveFieldWrite IO (Render ())
+drawWindowDrawing area = ReactiveFieldWrite r
+ where r x = postGUISync $ void (renderWithDrawWindow area x)
+
