@@ -10,13 +10,11 @@ import Control.Monad
 import Control.Monad.IfElse
 import Data.ReactiveValue
 import Debug.Trace
-import Graphics.Rendering.Cairo
+import Graphics.Rendering.Cairo hiding (x,y)
 import Graphics.Rendering.Pango as Pango
 import Graphics.UI.Gtk
-import Graphics.UI.Gtk.Cairo
 import Graphics.UI.Gtk.Reactive
 import Hails.Polling
-import System.IO.Unsafe
 
 import Wiimote
 
@@ -30,7 +28,8 @@ main = do
                                    (Just 10000) -- Every 10ms
 
       -- View
-      initGUI
+      _ <- initGUI
+
       -- Create the builder, and load the UI file
       builder <- builderNew
       builderAddFromFile builder "UI.glade"
@@ -101,25 +100,27 @@ buttonColorF s = if s then green else defColor
 
 -- | Render cairo circles at positions with size (ie. tuples (x, y, size)).
 paintCircles :: [(Int, Int, Int)] -> Render ()
-paintCircles = mapM_ blackCircle
+paintCircles = mapM_ (blackCircle . adjustCircle)
+  where adjustCircle (x,y,sz) =
+          (fromIntegral x / 3.2, fromIntegral y / 3.2, fromIntegral sz * 2)
 
 -- * Cairo
 
 -- | Render a Cairo circle at a position with a size (ie. tuple (x, y, size)).
-blackCircle :: (Int, Int, Int) -> Render ()
+blackCircle :: (Double, Double, Double) -> Render ()
 blackCircle (x,y,sz) = do
  -- debug
  trace (show (x,y,sz)) (return ())
 
  -- position (adjusted)
- translate (fromIntegral x / 3.2) (fromIntegral y / 3.2)
+ translate x y
 
  -- stencil settings
  setSourceRGBA 0.0 0.0 0.0 1.0
  setLineWidth 1.0
 
  -- shape of a circle
- arc 0 0 (2*fromIntegral sz) 0 (2 * 3.14)
+ arc 0 0 sz 0 (2 * 3.14)
 
  -- draw border and fill
  strokePreserve
