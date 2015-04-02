@@ -107,11 +107,20 @@ paintCircles = mapM_ paintCircle
 -- | Render a Cairo circle at a position with a size (ie. tuple (x, y, size)).
 paintCircle :: (Int, Int, Int) -> Render ()
 paintCircle (x,y,sz) = do
+ -- debug
  trace (show (x,y,sz)) (return ())
+
+ -- position (adjusted)
  translate (fromIntegral x / 3.2) (fromIntegral y / 3.2)
+
+ -- stencil settings
  setSourceRGBA 0.0 0.0 0.0 1.0
  setLineWidth 1.0
+
+ -- shape of a circle
  arc 0 0 (2*fromIntegral sz) 0 (2 * 3.14)
+
+ -- draw border and fill
  strokePreserve
  fill
 
@@ -121,4 +130,3 @@ drawWindowDrawing :: DrawWindowClass area
                   -> ReactiveFieldWrite IO (Render ())
 drawWindowDrawing area = ReactiveFieldWrite r
  where r = postGUISync . void . renderWithDrawWindow area
-
