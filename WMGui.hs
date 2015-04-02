@@ -125,7 +125,7 @@ blackCircle (x,y,sz) = do
  strokePreserve
  fill
 
--- * Hails functions
+-- * Hails GTK3
 drawWindowDrawing :: DrawWindowClass area
                   => area
                   -> ReactiveFieldWrite IO (Render ())
