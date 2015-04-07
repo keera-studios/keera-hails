@@ -60,12 +60,12 @@ Library
                  , Graphics.UI.Gtk.Reactive.SpinButton
                  , Graphics.UI.Gtk.Reactive.TextView
                  , Graphics.UI.Gtk.Reactive.ToolButton
-                 , Graphics.UI.Gtk.Reactive.TypedComboBoxUnsafe
+                 -- , Graphics.UI.Gtk.Reactive.TypedComboBoxUnsafe
                  , Graphics.UI.Gtk.Reactive.ToggleButton
   
   -- Packages needed in order to build this package.
   Build-depends: base >= 4
                , mtl
                , gtk
-               , gtk-helpers
+               -- , gtk-helpers
                , hails-reactivevalues

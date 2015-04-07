@@ -11,4 +11,4 @@ import  Graphics.UI.Gtk.Reactive.SpinButton           as  Exported
 import  Graphics.UI.Gtk.Reactive.TextView             as  Exported
 import  Graphics.UI.Gtk.Reactive.ToolButton           as  Exported
 import  Graphics.UI.Gtk.Reactive.ToggleButton         as  Exported
-import  Graphics.UI.Gtk.Reactive.TypedComboBoxUnsafe  as  Exported
+-- import  Graphics.UI.Gtk.Reactive.TypedComboBoxUnsafe  as  Exported
