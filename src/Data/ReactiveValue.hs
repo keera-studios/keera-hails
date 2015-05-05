@@ -134,7 +134,16 @@ liftW2 e1 e2 f = ReactiveFieldWrite setter
 -- ** Lifting onto read-write values
 
 -- *** Bijections
-newtype BijectiveFunc a b = BijectiveFunc (a -> b, b -> a)
+newtype BijectiveFunc a b = BijectiveFunc
+  { unBijectiveFunc :: (a -> b, b -> a) }
+
+bijection = BijectiveFunc
+
+direct :: BijectiveFunc a b -> (a -> b)
+direct = fst . unBijectiveFunc
+
+inverse :: BijectiveFunc a b -> (b -> a)
+inverse = snd . unBijectiveFunc
 
 type Involution a = BijectiveFunc a a
 involution :: (a -> a) -> Involution a
