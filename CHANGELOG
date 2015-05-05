@@ -1,0 +1,4 @@
+2015-05-05 Ivan Perez <ivan.perez@keera.co.uk>
+		* src/: Adds monad to field accessor definition. Adds RV field
+		        generator that takes undo stack into account.
+        * Cabal file: version bump (0.3.5)
