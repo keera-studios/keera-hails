@@ -1,0 +1,4 @@
+2015-05-05 Ivan Perez <ivan.perez@keera.co.uk>
+
+        * src/: Makes entry behave like text RV by default.
+        * hails-reactive-gtk.cabal: version bump (0.0.3.4)
