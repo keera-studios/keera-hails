@@ -137,6 +137,7 @@ liftW2 e1 e2 f = ReactiveFieldWrite setter
 newtype BijectiveFunc a b = BijectiveFunc
   { unBijectiveFunc :: (a -> b, b -> a) }
 
+bijection :: (a -> b, b -> a) -> BijectiveFunc a b
 bijection = BijectiveFunc
 
 direct :: BijectiveFunc a b -> (a -> b)
@@ -161,6 +162,18 @@ liftRW2 :: (Monad m, ReactiveValueReadWrite a b m, ReactiveValueReadWrite c d m)
 liftRW2 e1 e2 (BijectiveFunc (f1, f2)) = ReactiveFieldReadWrite setter getter notifier
   where ReactiveFieldRead getter notifier = liftR2 e1 e2 (curry f2)
         ReactiveFieldWrite setter         = liftW2 e1 e2 f1
+
+pairRW :: (Monad m,
+           ReactiveValueReadWrite a b m,
+           ReactiveValueReadWrite c d m)
+       => a -> c -> ReactiveFieldReadWrite m (b, d)
+pairRW a b = liftRW2 a b (bijection (id, id))
+
+{-# INLINE eqCheck #-}
+eqCheck :: (Eq v, Monad m) => ReactiveFieldReadWrite m v -> ReactiveFieldReadWrite m v
+eqCheck (ReactiveFieldReadWrite setter getter notifier) = ReactiveFieldReadWrite setter' getter notifier
+ where setter' v = do o <- getter
+                      when (o /= v) $ setter v
 
 -- ** Modifying reactive values (applying modification transformations)
 
