@@ -57,6 +57,7 @@ Library
                  , Graphics.UI.Gtk.Reactive.CheckMenuItem
                  , Graphics.UI.Gtk.Reactive.Entry
                  , Graphics.UI.Gtk.Reactive.MenuItem
+                 , Graphics.UI.Gtk.Reactive.Property
                  , Graphics.UI.Gtk.Reactive.Scale
                  , Graphics.UI.Gtk.Reactive.SpinButton
                  , Graphics.UI.Gtk.Reactive.TextView
