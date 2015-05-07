@@ -8,6 +8,7 @@ import Control.Monad (void, when)
 import Graphics.UI.Gtk
 import Data.ReactiveValue
 import Data.Word
+import Graphics.UI.Gtk.Reactive.Property
 
 type Color4 = (Word16, Word16, Word16, Word16)
 
@@ -23,6 +24,19 @@ colorButtonColorReactive e = ReactiveFieldReadWrite setter getter notifier
                                 colorButtonSetColor e (Color r g b)
                                 colorButtonSetAlpha e a
        notifier p = void (e `onColorSet` p)
+
+colorButtonColorReactive' :: ColorButton -> ReactiveFieldReadWrite IO Color4
+colorButtonColorReactive' e = liftRW2 (colorButtonRGBReactive e) (colorButtonAlphaReactive e) color4_colorAlpha
+
+colorButtonRGBReactive :: ColorButton -> ReactiveFieldReadWrite IO Color
+colorButtonRGBReactive e = eqCheck $ ReactiveFieldReadWrite
+  (colorButtonSetColor e) (colorButtonGetColor e) (void.onColorSet e)
+
+colorButtonAlphaReactive :: ColorButton -> ReactiveFieldReadWrite IO Word16
+colorButtonAlphaReactive e = reactivePropertyH e onColorSet colorButtonAlpha
+
+color4_colorAlpha :: BijectiveFunc Color4 (Color, Word16)
+color4_colorAlpha = bijection (\(r,g,b,a) -> (Color r g b, a), \(Color r g b, a) -> (r,g,b,a))
 
 instance ReactiveValueReadWrite ColorButton Color4 IO where
 
