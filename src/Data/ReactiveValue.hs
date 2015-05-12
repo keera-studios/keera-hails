@@ -1,4 +1,5 @@
 {-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, FunctionalDependencies #-}
+{-# LANGUAGE FlexibleContexts #-}
 -- | This is a more general, cleaner interface that allows Model to Model
 -- synchronization and view to view.
 --
@@ -118,6 +119,12 @@ liftR2 e1 e2 f = ReactiveFieldRead getter notifier
         notifier p = do reactiveValueOnCanRead e1 p
                         reactiveValueOnCanRead e2 p
 
+-- Same as lifting join . f?
+liftMR :: (Monad m, ReactiveValueRead a b m) => a -> (b -> m c) -> ReactiveFieldRead m c
+liftMR e f = ReactiveFieldRead getter notifier
+ where notifier = reactiveValueOnCanRead e
+       getter   = f =<< reactiveValueRead e
+
 -- ** Lifting onto writeable values
 liftW :: (Monad m, ReactiveValueWrite a b m)
       => a -> (c -> b) -> ReactiveFieldWrite m c
@@ -130,6 +137,27 @@ liftW2 e1 e2 f = ReactiveFieldWrite setter
   where setter x = do let (v1,v2) = f x
                       reactiveValueWrite e1 v1
                       reactiveValueWrite e2 v2
+
+liftMW :: (Monad m, ReactiveValueWrite a b m)
+       => a -> (c -> m b) -> ReactiveFieldWrite m c
+liftMW e f = ReactiveFieldWrite setter
+  where setter x = reactiveValueWrite e =<< f x
+
+readOnly :: ReactiveValueRead r a m => r -> ReactiveFieldRead m a
+readOnly r = ReactiveFieldRead (reactiveValueRead r) (reactiveValueOnCanRead r)
+
+writeOnly :: ReactiveValueWrite r a m => r -> ReactiveFieldWrite m a
+writeOnly r = ReactiveFieldWrite (reactiveValueWrite r)
+
+-- * Lift monadic operations
+wrapMW :: (a -> m ()) -> ReactiveFieldWrite m a
+wrapMW f = ReactiveFieldWrite f
+
+wrapMRPassive :: Monad m => m a -> ReactiveFieldRead m a
+wrapMRPassive f = ReactiveFieldRead f (const (return ()))
+
+wrapMR :: m a -> (m () -> m ()) -> ReactiveFieldRead m a
+wrapMR f p = ReactiveFieldRead f p
 
 -- ** Lifting onto read-write values
 
@@ -206,7 +234,41 @@ passivelyRW :: (Monad m, ReactiveValueReadWrite a b m)
 passivelyRW rv =
   ReactiveFieldReadWrite (reactiveValueWrite rv) (reactiveValueRead rv) (\_ -> return ())
 
--- * Category theoritic definitions
+-- * Conditionals
+
+-- Check condition and notify only when holds
+ifRW_ :: (Monad m, ReactiveValueRead c Bool m, ReactiveValueReadWrite v a m)
+      => c -> v
+      -> ReactiveFieldReadWrite m a
+ifRW_ c r = ReactiveFieldReadWrite setter getter notifier
+  where setter x   = reactiveValueWrite r x
+        getter     = reactiveValueRead r
+        -- If either changes, the value *may* be propagated
+        notifier p = do reactiveValueOnCanRead c (when' p)
+                        reactiveValueOnCanRead r (when' p)
+
+        -- Propagate only if the condition holds
+         where when' m = do x <- reactiveValueRead c
+                            when x m
+
+-- Check condition, and write or notify only when it holds
+ifRW :: (Monad m, ReactiveValueRead c Bool m, ReactiveValueReadWrite v a m)
+     => c -> v
+     -> ReactiveFieldReadWrite m a
+ifRW c r = ReactiveFieldReadWrite setter getter notifier
+  where setter x   = do b <- reactiveValueRead c
+                        when b $
+                          reactiveValueWrite r x
+        getter     = reactiveValueRead r
+        -- If either changes, the value *may* be propagated
+        notifier p = do reactiveValueOnCanRead c (when' p)
+                        reactiveValueOnCanRead r (when' p)
+
+        -- Propagate only if the condition holds
+         where when' m = do b <- reactiveValueRead c
+                            when b m
+
+-- * Category theoretic definitions
 
 -- Functor definitions
 instance (Functor m, Monad m) => Functor (ReactiveFieldRead m) where
