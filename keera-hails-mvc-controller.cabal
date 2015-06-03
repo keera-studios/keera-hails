@@ -2,7 +2,7 @@
 -- see
 -- http://www.haskell.org/cabal/release/cabal-latest/doc/users-guide/authors.html#pkg-descr.
 -- The name of the package.
-Name:                hails-mvc-controller
+Name:                keera-hails-mvc-controller
 
 -- The package version. See the Haskell package versioning policy
 -- (http://www.haskell.org/haskellwiki/Package_versioning_policy) for
@@ -10,7 +10,7 @@ Name:                hails-mvc-controller
 Version:             0.0.3.3
 
 -- A short (one-line) description of the package.
-Synopsis:            Haskell on Gtk rails - Gtk-based global environment for MVC applications
+Synopsis:            Haskell on Gtk rails - Gtk-based controller for MVC applications
 
 -- A longer description of the package.
 -- Description:         
@@ -54,10 +54,4 @@ Library
   Exposed-modules: Hails.MVC.Controller.ConditionDirection
   
   -- Packages needed in order to build this package.
-  Build-depends: base >= 4
-  
-  -- Modules not exported by this package.
-  -- Other-modules:       
-  
-  -- Extra tools (e.g. alex, hsc2hs, ...) needed to build the source.
-  -- Build-tools:         
+  Build-depends: base >= 4 && < 5
