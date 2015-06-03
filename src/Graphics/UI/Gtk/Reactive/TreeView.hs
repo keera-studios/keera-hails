@@ -1,14 +1,23 @@
 module Graphics.UI.Gtk.Reactive.TreeView where
 
-import Control.Monad (void, when)
 import Control.Monad.IO.Class (liftIO)
-import Graphics.UI.Gtk
+import Control.Monad (void)
 import Data.ReactiveValue
-import Data.Word
-import Graphics.UI.Gtk.Reactive.Property
+import Graphics.UI.Gtk
+import Graphics.UI.Gtk.Helpers.TreeView
+
+-- treeViewSelectedRowsReactive :: TreeView -> ReactiveFieldRead IO [TreePath]
+-- treeViewSelectedRowsReactive tv = ReactiveFieldRead getter notifier
+--  where getter = treeSelectionGetSelectedRows =<< treeViewGetSelection tv
+--        notifier p = void (tv `on` cursorChanged $ liftIO p)
 
 treeViewSelectedRowsReactive :: TreeView -> ReactiveFieldRead IO [TreePath]
 treeViewSelectedRowsReactive tv = ReactiveFieldRead getter notifier
- where getter = do ts <- treeViewGetSelection tv
-                   treeSelectionGetSelectedRows ts
+ where getter = treeViewGetSelectedPath tv
        notifier p = void (tv `on` cursorChanged $ liftIO p)
+
+treeViewGetSelectedReactive :: TreeView -> ListStore a -> ReactiveFieldRead IO (Maybe a)
+treeViewGetSelectedReactive tv ls = ReactiveFieldRead getter notifier
+ where getter = treeViewGetSelected tv ls
+       notifier p = void (tv `on` cursorChanged $ liftIO p)
+
