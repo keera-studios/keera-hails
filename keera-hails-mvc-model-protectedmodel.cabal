@@ -10,10 +10,14 @@ Name:                keera-hails-mvc-model-protectedmodel
 Version:             0.0.3.5
 
 -- A short (one-line) description of the package.
-Synopsis:            Rapid Gtk Application Development
+Synopsis:            Rapid Gtk Application Development - Protected Reactive Models
 
 -- A longer description of the package.
--- Description:         
+Description:         Protected Models are Thread-safe (STM) Reactive Models
+					 with change propagation and notification. They are meant
+                     to enclose a whole (MVC) application's model, using field
+                     accessors to access every part of a Protected Model as a
+                     Reactive Value.
 
 -- URL for the project homepage or repository.
 Homepage:            http://www.keera.es/blog/community/
