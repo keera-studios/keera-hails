@@ -2,7 +2,7 @@
 -- see
 -- http://www.haskell.org/cabal/release/cabal-latest/doc/users-guide/authors.html#pkg-descr.
 -- The name of the package.
-Name:                hails-mvc-model-protectedmodel
+Name:                keera-hails-mvc-model-protectedmodel
 
 -- The package version. See the Haskell package versioning policy
 -- (http://www.haskell.org/haskellwiki/Package_versioning_policy) for
@@ -60,76 +60,11 @@ Library
                  , Hails.MVC.Model.ReactiveModel.Initialisation
                  , Hails.MVC.Model.ReactiveModel
                  , Hails.MVC.Model.ReactiveModel.Events
-                 --   Hails.Graphics.UI.Gtk.THBuilderAccessor
-                 -- , Hails.Graphics.UI.Gtk.Helpers.Combo
-                 -- , Hails.Graphics.UI.Gtk.Helpers.FileDialog
-                 -- , Hails.Graphics.UI.Gtk.Helpers.MenuItem
-                 -- , Hails.Graphics.UI.Gtk.Helpers.MessageDialog
-                 -- , Hails.Graphics.UI.Gtk.Builder
-                 -- , Hails.Graphics.UI.Gtk.Reactive
-                 -- , Hails.I18N.Gettext
-                 -- , Hails.I18N.Language
-                 -- , Hails.MVC.View.DefaultView
-                 -- , Hails.MVC.View.GtkView
-                 -- , Hails.MVC.View.GladeView
-                 -- , Hails.MVC.View.Reactive
-                 -- , Hails.MVC.Controller.ConditionDirection
-                 -- , Hails.MVC.Controller.Conditions.Config
-                 -- , Hails.MVC.Controller.Reactive
-                 -- , Hails.MVC.GenericCombinedEnvironment
-                 -- , Hails.MVC.DefaultGtkEnvironment
-                 -- , Data.Stack
-                 -- , Data.String.Extra
-                 -- , Control.Exception.Extra
-                 -- , Graphics.UI.View
-                 -- , Graphics.UI.Gtk.GtkView
-                 -- , Graphics.UI.Gtk.Reactive
-                 -- , Graphics.UI.Gtk.Reactive.Entry
-                 -- , System.Application
-                 -- , System.Environment.SetEnv
-                 -- , Data.ReactiveValue
-
-                 -- -- from haskell-prmvc-helpers
-                 -- , Hails.MVC.Model.ProtectedModel.VersionedModel
-                 -- , Hails.MVC.Model.ProtectedModel.LoggedModel
-                 -- , Hails.MVC.Model.ProtectedModel.NamedModel
-                 -- , Hails.MVC.Model.ProtectedModel.UpdatableModel
-                 -- , Hails.Graphics.UI.Gtk.Simplify.VersionNumberTitleBar
-                 -- , Hails.Graphics.UI.Gtk.Simplify.NameAndVersionTitleBar
-                 -- , Hails.Graphics.UI.Gtk.Simplify.ProgramMainWindow
-                 -- , Hails.Graphics.UI.Gtk.Simplify.AboutDialog
-                 -- , Hails.Graphics.UI.Gtk.Simplify.Logger
-                 -- , Hails.Graphics.UI.Gtk.Simplify.RootLogger
-                 -- , Hails.Graphics.UI.Gtk.Simplify.UpdateCheck
-                 -- , Hails.Graphics.UI.Gtk.Simplify.ReactiveGtk
-                 -- , Language.Haskell.TH.DeriveField
-                 -- , Data.ExtraVersion
   
   -- Packages needed in order to build this package.
-  Build-depends: base >= 4
+  Build-depends: base >= 4 && < 5
                , template-haskell
-               -- , directory
-               -- , filepath
                , containers
                , stm
-               , hails-reactivevalues
+               , keera-hails-reactivevalues
                , MissingK
-               -- , glib
-               -- , gtk
-               -- , gio
-               -- , hslogger
-               -- , HTTP
-               -- , network
-               -- , mtl
-               -- , process
-
-               -- Gettext-related
-               -- , utf8-string
-               -- , hgettext
-               -- , setlocale
-  
-  -- Modules not exported by this package.
-  -- Other-modules:       
-  
-  -- Extra tools (e.g. alex, hsc2hs, ...) needed to build the source.
-  -- Build-tools:         
