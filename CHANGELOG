@@ -1,3 +1,7 @@
+2015-06-03 Ivan Perez <ivan.perez@keera.co.uk>
+
+        * Cabal file: Renames haskell package. Adds description.
+
 2015-01-28 Ivan Perez <ivan.perez@keera.co.uk>
 
         * Adds a light protected model without an undo stack.
