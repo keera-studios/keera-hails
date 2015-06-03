@@ -105,6 +105,17 @@ class ReactiveValueActivatable m a where
 -- * Creating RVs based on other RVs
 
 -- ** Lifting onto readable values
+constR :: Monad m => a ->  ReactiveFieldRead m a
+constR e = ReactiveFieldRead getter notifier
+ where notifier _ = return ()
+       getter     = return e
+
+initRW :: Monad m => a ->  ReactiveFieldRead m a
+initRW e = ReactiveFieldRead getter notifier
+ where notifier _ = return ()
+       getter     = return e
+
+-- ** Lifting onto readable values
 liftR :: (Monad m, ReactiveValueRead a b m) => a -> (b -> c) -> ReactiveFieldRead m c
 liftR e f = ReactiveFieldRead getter notifier
  where notifier = reactiveValueOnCanRead e
@@ -267,6 +278,19 @@ ifRW c r = ReactiveFieldReadWrite setter getter notifier
         -- Propagate only if the condition holds
          where when' m = do b <- reactiveValueRead c
                             when b m
+
+-- Check condition and notify only when holds
+guardRO :: (Monad m, ReactiveValueRead c Bool m)
+        => c
+        -> ReactiveFieldRead m Bool
+guardRO c = ReactiveFieldRead getter notifier
+  where getter     = reactiveValueRead c
+        -- If either changes, the value *may* be propagated
+        notifier p = reactiveValueOnCanRead c (when' p)
+
+        -- Propagate only if the condition holds
+         where when' m = do x <- reactiveValueRead c
+                            when x m
 
 -- * Category theoretic definitions
 
