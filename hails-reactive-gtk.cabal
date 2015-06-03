@@ -66,11 +66,12 @@ Library
                  , Graphics.UI.Gtk.Reactive.ToggleButton
                  , Graphics.UI.Gtk.Reactive.TreeView
                  , Graphics.UI.Gtk.Reactive.Widget 
+                 , Graphics.UI.Gtk.Reactive.Window
   
   -- Packages needed in order to build this package.
   Build-depends: base >= 4
                , mtl
                , transformers
                , gtk
-               -- , gtk-helpers
-               , hails-reactivevalues
+               , gtk-helpers
+               , keera-hails-reactivevalues
