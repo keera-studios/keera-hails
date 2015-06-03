@@ -2,7 +2,7 @@
 -- see
 -- http://www.haskell.org/cabal/release/cabal-latest/doc/users-guide/authors.html#pkg-descr.
 -- The name of the package.
-Name:                hails-mvc-solutions-config
+Name:                keera-hails-mvc-solutions-config
 
 -- The package version. See the Haskell package versioning policy
 -- (http://www.haskell.org/haskellwiki/Package_versioning_policy) for
@@ -55,7 +55,7 @@ Library
   Exposed-modules: Hails.MVC.Controller.Conditions.Config
   
   -- Packages needed in order to build this package.
-  Build-depends: base >= 4
+  Build-depends: base >= 4 && < 5
                , MissingK
                , directory
                , filepath
