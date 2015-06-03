@@ -2,7 +2,7 @@
 -- see
 -- http://www.haskell.org/cabal/release/cabal-latest/doc/users-guide/authors.html#pkg-descr.
 -- The name of the package.
-Name:                hails-mvc-solutions-gtk
+Name:                keera-hails-mvc-solutions-gtk
 
 -- The package version. See the Haskell package versioning policy
 -- (http://www.haskell.org/haskellwiki/Package_versioning_policy) for
@@ -62,26 +62,21 @@ Library
                  , Hails.Graphics.UI.Gtk.Simplify.AboutDialog
                  , Hails.Graphics.UI.Gtk.Simplify.Logger
                  , Hails.Graphics.UI.Gtk.Simplify.RootLogger
-                 , Hails.Graphics.UI.Gtk.Simplify.UpdateCheck
+                 -- , Hails.Graphics.UI.Gtk.Simplify.UpdateCheck
   
   -- Packages needed in order to build this package.
-  Build-depends: base >= 4
+  Build-depends: base >= 4 && < 5
                , template-haskell
                , gtk
                , hslogger
                , HTTP
                , network
+               , network-uri
                , mtl
 
-               , hails-mvc-environment-gtk
-               , hails-mvc-view
-               , hails-mvc-view-gtk
-               , hails-mvc-model-protectedmodel
-               , hails-reactivevalues
+               , keera-hails-mvc-environment-gtk
+               , keera-hails-mvc-view
+               , keera-hails-mvc-view-gtk
+               , keera-hails-mvc-model-protectedmodel
+               , keera-hails-reactivevalues
                , MissingK
-  
-  -- Modules not exported by this package.
-  -- Other-modules:       
-  
-  -- Extra tools (e.g. alex, hsc2hs, ...) needed to build the source.
-  -- Build-tools:         

@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleContexts #-}
 module Hails.Graphics.UI.Gtk.Simplify.UpdateCheck where
 
 -- External Imports
@@ -17,14 +18,17 @@ import Data.ExtraVersion
 import Data.ReactiveValue
 import Hails.MVC.Model.ProtectedModel.UpdatableModel
 
-installHandlers :: (GtkGUI a, UpdatableBasicModel b,
-                    UpdateNotifiableEvent c, ReactiveValueActivatable d)
+installHandlers :: (GtkGUI a, UpdatableBasicModel b
+                   , UpdateNotifiableEvent c
+                   , ReactiveValueRead d () IO
+                   , ReactiveValueActivatable IO d
+                   )
                 => CEnv a b c
                 -> (ViewElementAccessorIO (GtkView a) d)
                 -> IO ()
 installHandlers cenv mF = do
   let vw = view cenv
-  mn <- mF vw
+  mn <- mF vw -- :: IO (ReactiveValueActivatable IO))
   defaultActivation mn `reactiveValueOnCanRead` onViewAsync vw (condition cenv)
 
 condition :: (GtkGUI a, UpdatableBasicModel b, UpdateNotifiableEvent c)
