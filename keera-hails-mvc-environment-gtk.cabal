@@ -55,7 +55,7 @@ Library
                  , Hails.MVC.DefaultGtkEnvironment
   
   -- Packages needed in order to build this package.
-  Build-depends: base >= 4
+  Build-depends: base >= 4 && < 5
                , keera-hails-mvc-model-protectedmodel
                , keera-hails-mvc-view
                , keera-hails-mvc-view-gtk
