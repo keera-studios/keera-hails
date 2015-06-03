@@ -2,15 +2,15 @@
 -- see
 -- http://www.haskell.org/cabal/release/cabal-latest/doc/users-guide/authors.html#pkg-descr.
 -- The name of the package.
-Name:                hails-reactivevalues
+Name:                keera-hails-reactivevalues
 
 -- The package version. See the Haskell package versioning policy
 -- (http://www.haskell.org/haskellwiki/Package_versioning_policy) for
 -- standards guiding when and how versions should be incremented.
-Version:             0.0.3.3
+Version:             0.0.3.4
 
 -- A short (one-line) description of the package.
-Synopsis:            Haskell on Gtk rails - Reactive Values
+Synopsis:            Haskell on Rails - Reactive Values
 
 -- A longer description of the package.
 -- Description:         
@@ -56,4 +56,4 @@ Library
                    Control.GFunctor
   
   -- Packages needed in order to build this package.
-  Build-depends: base >= 4, contravariant
+  Build-depends: base >= 4 && < 5, contravariant
