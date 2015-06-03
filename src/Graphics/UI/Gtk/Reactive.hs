@@ -14,4 +14,5 @@ import Graphics.UI.Gtk.Reactive.ToolButton           as Exported
 import Graphics.UI.Gtk.Reactive.ToggleButton         as Exported
 import Graphics.UI.Gtk.Reactive.TreeView             as Exported
 import Graphics.UI.Gtk.Reactive.Widget               as Exported
+import Graphics.UI.Gtk.Reactive.Window               as Exported
 -- import  Graphics.UI.Gtk.Reactive.TypedComboBoxUnsafe  as  Exported
