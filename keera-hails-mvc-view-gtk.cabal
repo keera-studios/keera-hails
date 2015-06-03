@@ -2,7 +2,7 @@
 -- see
 -- http://www.haskell.org/cabal/release/cabal-latest/doc/users-guide/authors.html#pkg-descr.
 -- The name of the package.
-Name:                hails-mvc-view-gtk
+Name:                keera-hails-mvc-view-gtk
 
 -- The package version. See the Haskell package versioning policy
 -- (http://www.haskell.org/haskellwiki/Package_versioning_policy) for
@@ -57,7 +57,7 @@ Library
                  , Hails.MVC.View.GladeView
   
   -- Packages needed in order to build this package.
-  Build-depends: base >= 4
-               , hails-mvc-view
+  Build-depends: base >= 4 && < 5
+               , keera-hails-mvc-view
                , gtk
                , gtk-helpers
