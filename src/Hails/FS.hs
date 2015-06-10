@@ -12,9 +12,10 @@ import Filesystem.Path.CurrentOS
 import System.Directory
 import System.FSNotify
 
--- A file as a passive reactive value. Passive values are those
--- that never notify of changes to them. They are useful as
--- sources of information controlled by other RVs (buttons, etc.)
+-- | A file as a passive reactive value.
+--
+-- Passive values are those that never notify of changes to them. They are
+-- useful as sources of information controlled by other RVs (buttons, etc.)
 pasiveFileReactive :: FilePath -> ReactiveFieldReadWrite IO String
 pasiveFileReactive fp = ReactiveFieldReadWrite setter getter notifier
  where getter     = readFile  (encodeString fp)
@@ -23,7 +24,7 @@ pasiveFileReactive fp = ReactiveFieldReadWrite setter getter notifier
 
 -- | A file as a reactive value. The file must exist at the time
 -- the call is evaluated.
---
+
 -- TODO: Make it ok for the file not to exist.
 -- TODO: Capture and ignore exceptions in readFile and writeFile.
 fileReactive :: FilePath -> IO (ReactiveFieldReadWrite IO String)
