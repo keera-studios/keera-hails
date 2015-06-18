@@ -12,8 +12,7 @@ windowCloseReactive self = ReactiveFieldRead getter notifier
 
 windowVisibilityPassive :: WindowClass self => self -> ReactiveFieldReadWrite IO Bool
 windowVisibilityPassive self = ReactiveFieldReadWrite setter getter (const $ return ())
- where setter x = onViewAsync $ do
-                     x' <- getter
+ where setter x = do x' <- getter
                      when (x /= x') $
-                       if x then widgetShowAll self else widgetHide    self
+                       if x then widgetShowAll self else widgetHide self
        getter = get self widgetVisible
