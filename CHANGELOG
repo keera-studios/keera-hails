@@ -1,3 +1,7 @@
+2015-06-18 Ivan Perez <ivan.perez@keera.co.uk>
+        * hails-reactive-gtk.cabal: version bump (0.0.3.6)
+        * src/Graphics/UI/Gtk/Reactive/Window.hs: Fixes bug.
+
 2015-05-05 Ivan Perez <ivan.perez@keera.co.uk>
 
         * src/: Makes entry behave like text RV by default.
