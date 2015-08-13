@@ -161,20 +161,39 @@ writeOnly :: ReactiveValueWrite r a m => r -> ReactiveFieldWrite m a
 writeOnly r = ReactiveFieldWrite (reactiveValueWrite r)
 
 -- * Lift monadic operations
+
+-- ** Lifting (sink) computations into writable RVs.
+
+-- | Wrap a monadic computation in a writable reactive value.
 wrapMW :: (a -> m ()) -> ReactiveFieldWrite m a
 wrapMW f = ReactiveFieldWrite f
 
+-- | Wrap a monadic computation in a writable reactive value.
+-- It discards the written value and executes the operation.
+--
+-- Note: Because the value is discarded, the resulting RV is
+-- polymorphic in the value that may be written to it. Using
+-- 'wrapDo_' may save you some extra type signatures.
 wrapDo :: m () -> ReactiveFieldWrite m a
 wrapDo f = wrapMW (const f)
 
-wrapDo' :: m () -> ReactiveFieldWrite m ()
-wrapDo' f = wrapMW (\() -> f)
+-- | Wrap a monadic computation in a writable reactive value of type
+-- unit. It discards the written value and executes the operation.
+wrapDo_ :: m () -> ReactiveFieldWrite m ()
+wrapDo_ f = wrapMW (\() -> f)
 
-wrapMRPassive :: Monad m => m a -> ReactiveFieldRead m a
-wrapMRPassive f = ReactiveFieldRead f (const (return ()))
+-- ** Lifting (source) computations into readable RVs.
 
+-- | Wrap an reading operation and an notification installer in
+-- a readable reactive value.
 wrapMR :: m a -> (m () -> m ()) -> ReactiveFieldRead m a
 wrapMR f p = ReactiveFieldRead f p
+
+-- | Wrap an reading operation into an RV. Because there is
+-- no way to detect changes, the resulting RV is passive (does
+-- not push updates).
+wrapMRPassive :: Monad m => m a -> ReactiveFieldRead m a
+wrapMRPassive f = ReactiveFieldRead f (const (return ()))
 
 -- ** Lifting onto read-write values
 
