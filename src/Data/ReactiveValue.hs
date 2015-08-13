@@ -164,6 +164,12 @@ writeOnly r = ReactiveFieldWrite (reactiveValueWrite r)
 wrapMW :: (a -> m ()) -> ReactiveFieldWrite m a
 wrapMW f = ReactiveFieldWrite f
 
+wrapDo :: m () -> ReactiveFieldWrite m a
+wrapDo f = wrapMW (const f)
+
+wrapDo' :: m () -> ReactiveFieldWrite m ()
+wrapDo' f = wrapMW (\() -> f)
+
 wrapMRPassive :: Monad m => m a -> ReactiveFieldRead m a
 wrapMRPassive f = ReactiveFieldRead f (const (return ()))
 
