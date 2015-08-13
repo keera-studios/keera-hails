@@ -9,6 +9,7 @@ import Graphics.UI.Gtk.Reactive.CheckMenuItem        as Exported
 import Graphics.UI.Gtk.Reactive.MenuItem             as Exported
 import Graphics.UI.Gtk.Reactive.Scale                as Exported
 import Graphics.UI.Gtk.Reactive.SpinButton           as Exported
+import Graphics.UI.Gtk.Reactive.StatusIcon           as Exported
 import Graphics.UI.Gtk.Reactive.TextView             as Exported
 import Graphics.UI.Gtk.Reactive.ToolButton           as Exported
 import Graphics.UI.Gtk.Reactive.ToggleButton         as Exported
