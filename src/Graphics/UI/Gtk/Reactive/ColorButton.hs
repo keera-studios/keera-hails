@@ -26,7 +26,7 @@ colorButtonColorReactive e = ReactiveFieldReadWrite setter getter notifier
        notifier p = void (e `onColorSet` p)
 
 colorButtonColorReactive' :: ColorButton -> ReactiveFieldReadWrite IO Color4
-colorButtonColorReactive' e = liftRW2 (colorButtonRGBReactive e) (colorButtonAlphaReactive e) color4_colorAlpha
+colorButtonColorReactive' e = liftRW2 color4_colorAlpha (colorButtonRGBReactive e) (colorButtonAlphaReactive e)
 
 colorButtonRGBReactive :: ColorButton -> ReactiveFieldReadWrite IO Color
 colorButtonRGBReactive e = eqCheck $ ReactiveFieldReadWrite
