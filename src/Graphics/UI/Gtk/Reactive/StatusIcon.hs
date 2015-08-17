@@ -4,8 +4,8 @@ module Graphics.UI.Gtk.Reactive.StatusIcon where
 
 import Control.Monad
 import Control.Monad.Trans(liftIO)
-import Graphics.UI.Gtk
 import Data.ReactiveValue
+import Graphics.UI.Gtk
 
 statusIconActivateField :: StatusIcon -> ReactiveFieldActivatable IO
 statusIconActivateField m = mkActivatable op
@@ -13,3 +13,11 @@ statusIconActivateField m = mkActivatable op
 
 instance ReactiveValueActivatable IO StatusIcon where
   defaultActivation = statusIconActivateField
+
+statusIconVisibleReactive :: StatusIcon -> ReactiveFieldReadWrite IO Bool
+statusIconVisibleReactive icon = ReactiveFieldReadWrite setter getter notifier
+ where getter     = statusIconGetVisible icon
+       setter v   = postGUIAsync $ do
+                      p <- getter
+                      when (p /= v) $ statusIconSetVisible icon v
+       notifier _ = return ()
