@@ -12,3 +12,11 @@ widgetVisibleReactive e = ReactiveFieldReadWrite setter getter notifier
                       p <- getter
                       when (p /= v) $ set e [ widgetVisible := v ]
        notifier p = void (e `on` mapEvent $ liftIO p >> return False)
+
+widgetSensitiveReactive :: WidgetClass self => self -> ReactiveFieldReadWrite IO Bool
+widgetSensitiveReactive e = ReactiveFieldReadWrite setter getter notifier
+ where getter     = get e widgetSensitive
+       setter v   = postGUIAsync $ do
+                      p <- getter
+                      when (p /= v) $ set e [ widgetSensitive := v ]
+       notifier p = void (e `on` mapEvent $ liftIO p >> return False)
