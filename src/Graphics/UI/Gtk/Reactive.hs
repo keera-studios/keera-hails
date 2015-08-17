@@ -6,6 +6,8 @@ import Graphics.UI.Gtk.Reactive.ColorButton          as Exported
 import Graphics.UI.Gtk.Reactive.Button               as Exported
 import Graphics.UI.Gtk.Reactive.Entry                as Exported
 import Graphics.UI.Gtk.Reactive.CheckMenuItem        as Exported
+import Graphics.UI.Gtk.Reactive.Image                as Exported
+import Graphics.UI.Gtk.Reactive.Label                as Exported
 import Graphics.UI.Gtk.Reactive.MenuItem             as Exported
 import Graphics.UI.Gtk.Reactive.Scale                as Exported
 import Graphics.UI.Gtk.Reactive.SpinButton           as Exported
