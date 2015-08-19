@@ -10,13 +10,16 @@ The Haskell bindings to Gtk2 export 4560 functions (A little over 5000 symbols
 with types included). Of them, there are 2691 define interactive signals,
 attributes and/or event-handler installers. They are split as follows:
 
-| Signals                  | 228  |
-| Event handler installers | 304  |
-| Attributes               | 677  |
-| Getters                  | 864  |
-| Setters                  | 628  |
-|--------------------------|------|
-| Total                    | 2691 |
+| Element                         | Amount   |
+|:--------------------------------|---------:|
+| Signals                         | 228      |
+| Event handler installers        | 304      |
+| *Total signal/event handlers*   | *532*    |
+| Attributes                      | 677      |
+| Getters                         | 864      |
+| Setters                         | 628      |
+| *Total attribute access funcs.* | *2169*   |
+| **Total**                       | **2691** |
 
 To simplify the explanation, we consider getters/setters to give access to
 underlying attributes, and signals to be equivalent to event-handler
