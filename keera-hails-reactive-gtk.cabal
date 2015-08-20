@@ -52,6 +52,7 @@ Library
 
   -- Modules exported by the library.
   Exposed-modules: Graphics.UI.Gtk.Reactive
+                 , Graphics.UI.Gtk.Reactive.Gtk2
                  , Graphics.UI.Gtk.Reactive.Button
                  , Graphics.UI.Gtk.Reactive.ColorButton
                  , Graphics.UI.Gtk.Reactive.CheckMenuItem
@@ -73,8 +74,11 @@ Library
   
   -- Packages needed in order to build this package.
   Build-depends: base >= 4 && < 5
+               , bytestring
                , mtl
                , transformers
+               , glib
                , gtk
                , gtk-helpers
                , keera-hails-reactivevalues
+               , cairo
