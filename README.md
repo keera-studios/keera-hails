@@ -16,8 +16,8 @@ access properties. They can be modified by lifting functions and applying
 lenses to them. They can also be connected so that they stay in sync during
 program execution.
 
-  http://github.com/keera-studios/hails-reactivevalues
-  http://github.com/keera-studios/hails-reactivelenses
+  - http://github.com/keera-studios/hails-reactivevalues
+  - http://github.com/keera-studios/hails-reactivelenses
 
 * Reactive bindings: Widget properties/attributes can be seen as
 reactive values. So can network sockets, files, application models ('model'
@@ -27,14 +27,14 @@ of RVs (see Yampa). The idea is that, at the highest application level
 (controller), each layer is wrapped in a reactive container and connected
 to others.
 
-  http://github.com/keera-studios/hails-reactive-fs
-  http://github.com/keera-studios/hails-reactive-network
-  http://github.com/keera-studios/hails-reactive-gtk
-  http://github.com/keera-studios/hails-reactive-wx
-  http://github.com/keera-studios/hails-reactive-qt
-  http://github.com/keera-studios/hails-reactive-htmldom (via GHCJS)
-  http://github.com/keera-studios/keera-hails-reactive-yampa
-  http://github.com/keera-studios/keera-hails-reactive-polling
+  - http://github.com/keera-studios/hails-reactive-fs
+  - http://github.com/keera-studios/hails-reactive-network
+  - http://github.com/keera-studios/hails-reactive-gtk
+  - http://github.com/keera-studios/hails-reactive-wx
+  - http://github.com/keera-studios/hails-reactive-qt
+  - http://github.com/keera-studios/hails-reactive-htmldom (via GHCJS)
+  - http://github.com/keera-studios/keera-hails-reactive-yampa
+  - http://github.com/keera-studios/keera-hails-reactive-polling
   
   An experimental Android backend that uses Android's Native UI toolkit
   is also available. Please, contact Keera Studios if you wish to
@@ -46,17 +46,17 @@ to others.
   expected to have predetermined names. If this is much of a problem, open a
   bug report.
 
-  http://github.com/keera-studios/keera-hails (this repository)
-  http://github.com/keera-studios/hails-mvc-model-lightmodel
-  http://github.com/keera-studios/hails-mvc-model-protectedmodels
-  http://github.com/keera-studios/hails-mvc-view-gtk
-  http://github.com/keera-studios/hails-mvc-view
-  http://github.com/keera-studios/hails-mvc-controller
-  http://github.com/keera-studios/hails-mvc-environment-gtk
-  http://github.com/keera-studios/hails-mvc-solutions-gtk
-  http://github.com/keera-studios/hails-mvc-solutions-config
-  http://github.com/keera-studios/hails-i18n
-  http://github.com/keera-studios/hails-templates
+  - http://github.com/keera-studios/keera-hails (this repository)
+  - http://github.com/keera-studios/hails-mvc-model-lightmodel
+  - http://github.com/keera-studios/hails-mvc-model-protectedmodels
+  - http://github.com/keera-studios/hails-mvc-view-gtk
+  - http://github.com/keera-studios/hails-mvc-view
+  - http://github.com/keera-studios/hails-mvc-controller
+  - http://github.com/keera-studios/hails-mvc-environment-gtk
+  - http://github.com/keera-studios/hails-mvc-solutions-gtk
+  - http://github.com/keera-studios/hails-mvc-solutions-config
+  - http://github.com/keera-studios/hails-i18n
+  - http://github.com/keera-studios/hails-templates
 
 For a introduction to reactive values, see:
 * [Bridging the GUI gap with reactive values and relations](http://dl.acm.org/citation.cfm?id=2804316)
