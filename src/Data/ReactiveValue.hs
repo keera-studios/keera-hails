@@ -293,6 +293,9 @@ passivelyRW :: (Monad m, ReactiveValueReadWrite a b m)
 passivelyRW rv =
   ReactiveFieldReadWrite (reactiveValueWrite rv) (reactiveValueRead rv) (\_ -> return ())
 
+eventR :: Monad m => (m () -> m ()) -> ReactiveFieldRead m ()
+eventR notifInstaller = ReactiveFieldRead (return ()) notifInstaller
+
 -- * Conditionals
 
 -- Check condition and notify only when holds
