@@ -59,7 +59,7 @@ to others.
   http://github.com/keera-studios/hails-templates
 
 For a introduction to reactive values, see:
-* Bridging the GUI gap with reactive values and relations: http://dl.acm.org/citation.cfm?id=2804316
+* [Bridging the GUI gap with reactive values and relations](http://dl.acm.org/citation.cfm?id=2804316)
 * http://github.com/keera-studios/hails-reactivevalues
 * http://www.cs.nott.ac.uk/~ixp/papers/2014-Perez-1st-year-report.pdf (page
   40, which is a paper of its own, and page 29, the thesis proposal, which
