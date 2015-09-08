@@ -60,13 +60,12 @@ to others.
 
 For a introduction to reactive values, see:
 * [Bridging the GUI gap with reactive values and relations](http://dl.acm.org/citation.cfm?id=2804316)
-* http://github.com/keera-studios/hails-reactivevalues
-* http://www.cs.nott.ac.uk/~ixp/papers/2014-Perez-1st-year-report.pdf (page
-  40, which is a paper of its own, and page 29, the thesis proposal, which
-  outlines the core ideas and problems that remain to be solved.)
-* TFP 2014 Pre-proceedings, pages 59-68:
-  http://www.staff.science.uu.nl/~hage0101/preproceedingstfp2014.pdf
-* http://keera.co.uk/blog/2014/05/24/reactive-programming-using-reactive-values/
+* [Readme for Reactive Value library](http://github.com/keera-studios/hails-reactivevalues)
+* [Ivan Perez's 1st PhD report, pages 29 and 40](http://www.cs.nott.ac.uk/~ixp/papers/2014-Perez-1st-year-report.pdf)
+(page 40 is a paper of its own; page 29 is the thesis proposal outlining the
+core ideas and problems that remain to be solved.)
+* [TFP 2014 Pre-proceedings, pages 59-68](http://www.staff.science.uu.nl/~hage0101/preproceedingstfp2014.pdf)
+* [Reactive Programming using Reactive Values (blog post)](http://keera.co.uk/blog/2014/05/24/reactive-programming-using-reactive-values/)
   
 For bibtex references to these articles, see Publications in http://www.cs.nott.ac.uk/~ixp/.
 
