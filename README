@@ -26,8 +26,8 @@ to others.
   http://github.com/keera-studios/keera-hails-reactive-yampa
   http://github.com/keera-studios/keera-hails-reactive-polling
   
-  An experimental Android backend is also available that uses
-  Android's Native UI toolkit. Please, contact Keera Studios if you wish to
+  An experimental Android backend that uses Android's Native UI toolkit
+  is also available. Please, contact Keera Studios if you wish to
   use it.
 
 * Hails: a series of tools and libraries to create MVC programs using
