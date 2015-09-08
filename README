@@ -59,12 +59,14 @@ to others.
   http://github.com/keera-studios/hails-templates
 
 For a introduction to reactive values, see:
+* http://dl.acm.org/citation.cfm?id=2804361
 * http://github.com/keera-studios/hails-reactivevalues
 * http://www.cs.nott.ac.uk/~ixp/papers/2014-Perez-1st-year-report.pdf (page
   40, which is a paper of its own, and page 29, the thesis proposal, which
   outlines the core ideas and problems that remain to be solved.)
 * TFP 2014 Pre-proceedings, pages 59-68:
   http://www.staff.science.uu.nl/~hage0101/preproceedingstfp2014.pdf
+* http://keera.co.uk/blog/2014/05/24/reactive-programming-using-reactive-values/
   
 For bibtex references to these articles, see Publications in http://www.cs.nott.ac.uk/~ixp/.
 
