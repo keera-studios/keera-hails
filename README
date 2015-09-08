@@ -1,4 +1,14 @@
-Keera Hails is a toolkit to create reactive applications quickly.
+Keera Hails is a toolkit to create reactive applications in Haskell.
+It facilitates creating interactive applications that combine User
+Interfaces, external devices, networks connections, files and, optionally,
+FRP networks.
+
+Keera Hails is modular and extensible. It is cross platform (Windows, Linux,
+MacOSX, Android, GHCJS), UI-agnostic (Gtk+, WX, Qt, Android Native toolkit,
+HTML DOM), FRP-agnostic and device-agnostic (Wiimote, Webcams, etc).
+
+Keera Hails has been used to create large applications and is used commercially
+in production.
 
 The toolkit is divided in three parts:
 * Reactive Values: they are typed mutable values with event dispatching and
