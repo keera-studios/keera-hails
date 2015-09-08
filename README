@@ -25,6 +25,10 @@ to others.
   http://github.com/keera-studios/hails-reactive-htmldom (via GHCJS)
   http://github.com/keera-studios/keera-hails-reactive-yampa
   http://github.com/keera-studios/keera-hails-reactive-polling
+  
+  An experimental Android backend is also available that uses
+  Android's Native UI toolkit. Please, contact Keera Studios if you wish to
+  use it.
 
 * Hails: a series of tools and libraries to create MVC programs using
   a reactive interface. The application architecture takes the approach of
