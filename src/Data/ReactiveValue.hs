@@ -270,6 +270,10 @@ wrapMR f p = ReactiveFieldRead f p
 wrapMRPassive :: Monad m => m a -> ReactiveFieldRead m a
 wrapMRPassive f = ReactiveFieldRead f (const (return ()))
 
+-- | Wrap event-handler installers in RVs
+eventR :: Monad m => (m () -> m ()) -> ReactiveFieldRead m ()
+eventR notifInstaller = ReactiveFieldRead (return ()) notifInstaller
+
 -- ** Lifting onto read-write values
 
 -- *** Bijections
