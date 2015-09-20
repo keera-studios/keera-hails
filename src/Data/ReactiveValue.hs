@@ -212,11 +212,11 @@ liftW2 f e1 e2 = ReactiveFieldWrite setter
 
 -- | Binary writable replicator.
 --
--- r1 &&& r2 = liftW2 (\x -> (x,x)) r1 r2
+-- r1 &.& r2 = liftW2 (\x -> (x,x)) r1 r2
 --
-(&&&) :: (Monad m, ReactiveValueWrite a b m, ReactiveValueWrite c b m)
+(&.&) :: (Monad m, ReactiveValueWrite a b m, ReactiveValueWrite c b m)
       => a -> c -> ReactiveFieldWrite m b
-(&&&) v1 v2 = ReactiveFieldWrite $ \x -> do
+(&.&) v1 v2 = ReactiveFieldWrite $ \x -> do
   reactiveValueWrite v1 x
   reactiveValueWrite v2 x
 
