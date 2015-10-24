@@ -241,7 +241,7 @@ writeOnly r = ReactiveFieldWrite (reactiveValueWrite r)
 
 -- | Wrap a monadic computation in a writable reactive value.
 wrapMW :: (a -> m ()) -> ReactiveFieldWrite m a
-wrapMW f = ReactiveFieldWrite f
+wrapMW = ReactiveFieldWrite
 
 -- | Wrap a monadic computation in a writable reactive value.
 -- It discards the written value and executes the operation.
@@ -250,15 +250,16 @@ wrapMW f = ReactiveFieldWrite f
 -- polymorphic in the value that may be written to it. Using
 -- 'wrapDo_' may save you some extra type signatures.
 wrapDo :: m () -> ReactiveFieldWrite m a
-wrapDo f = wrapMW (const f)
+wrapDo = wrapMW . const
 
 -- | Wrap a monadic computation in a writable reactive value of type
 -- unit. It discards the written value and executes the operation.
 wrapDo_ :: m () -> ReactiveFieldWrite m ()
-wrapDo_ f = wrapMW (\() -> f)
+wrapDo_ = wrapDo
 
 -- *** Lifting (source) computations into readable RVs.
 
+{-# ANN wrapMR "HLint: ignore Eta reduce" #-}
 -- | Wrap an reading operation and an notification installer in
 -- a readable reactive value.
 wrapMR :: m a -> (m () -> m ()) -> ReactiveFieldRead m a
@@ -270,6 +271,7 @@ wrapMR f p = ReactiveFieldRead f p
 wrapMRPassive :: Monad m => m a -> ReactiveFieldRead m a
 wrapMRPassive f = ReactiveFieldRead f (const (return ()))
 
+{-# ANN eventR "HLint: ignore Eta reduce" #-}
 -- | Wrap event-handler installers in RVs
 eventR :: Monad m => (m () -> m ()) -> ReactiveFieldRead m ()
 eventR notifInstaller = ReactiveFieldRead (return ()) notifInstaller
@@ -283,9 +285,11 @@ newtype BijectiveFunc a b = BijectiveFunc
 bijection :: (a -> b, b -> a) -> BijectiveFunc a b
 bijection = BijectiveFunc
 
+{-# ANN direct "HLint: ignore Redundant bracket" #-}
 direct :: BijectiveFunc a b -> (a -> b)
 direct = fst . unBijectiveFunc
 
+{-# ANN inverse "HLint: ignore Redundant bracket" #-}
 inverse :: BijectiveFunc a b -> (b -> a)
 inverse = snd . unBijectiveFunc
 
@@ -309,8 +313,9 @@ liftRW2 (BijectiveFunc (f1, f2)) e1 e2 = ReactiveFieldReadWrite setter getter no
 pairRW :: (Monad m,
            ReactiveValueReadWrite a b m,
            ReactiveValueReadWrite c d m)
-       => a -> c -> ReactiveFieldReadWrite m (b, d)
-pairRW a b = liftRW2 (bijection (id, id)) a b
+       => a -> c
+       -> ReactiveFieldReadWrite m (b, d)
+pairRW = liftRW2 (bijection (id, id))
 
 {-# INLINE eqCheck #-}
 eqCheck :: (Eq v, Monad m) => ReactiveFieldReadWrite m v -> ReactiveFieldReadWrite m v
@@ -333,6 +338,7 @@ reactiveValueModify r f = reactiveValueWrite r . f =<< reactiveValueRead r
 
 -- * Merging
 
+{-# ANN lMerge "HLint: ignore Use const" #-}
 -- | Left merge (give priority to the value on the left)
 lMerge :: (Monad m, ReactiveValueRead a v m, ReactiveValueRead b v m)
        => a -> b -> ReactiveFieldRead m v
@@ -379,8 +385,8 @@ ifRW_ :: (Monad m, ReactiveValueRead c Bool m, ReactiveValueReadWrite v a m)
       => c -> v
       -> ReactiveFieldReadWrite m a
 ifRW_ c r = ReactiveFieldReadWrite setter getter notifier
-  where setter x   = reactiveValueWrite r x
-        getter     = reactiveValueRead r
+  where setter = reactiveValueWrite r
+        getter = reactiveValueRead r
         -- If either changes, the value *may* be propagated
         notifier p = do reactiveValueOnCanRead c (when' p)
                         reactiveValueOnCanRead r (when' p)
@@ -411,9 +417,9 @@ guardRO :: (Monad m, ReactiveValueRead c Bool m)
         => c
         -> ReactiveFieldRead m Bool
 guardRO c = ReactiveFieldRead getter notifier
-  where getter     = reactiveValueRead c
+  where getter   = reactiveValueRead c
         -- If either changes, the value *may* be propagated
-        notifier p = reactiveValueOnCanRead c (when' p)
+        notifier = reactiveValueOnCanRead c . when'
 
         -- Propagate only if the condition holds
          where when' m = do x <- reactiveValueRead c
@@ -425,7 +431,7 @@ guardRO' :: (Monad m, ReactiveValueRead c a m)
          -> (a -> Bool)
          -> ReactiveFieldRead m a
 guardRO' c p = ReactiveFieldRead getter notifier
-  where getter     = reactiveValueRead c
+  where getter   = reactiveValueRead c
         -- If either changes, the value *may* be propagated
         notifier = reactiveValueOnCanRead c . when'
 
