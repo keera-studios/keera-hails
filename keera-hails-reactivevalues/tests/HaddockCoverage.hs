@@ -54,16 +54,13 @@ main = do
   --
   -- TODO: is there a way to annotate a function as self-documenting,
   -- in the same way we do with ANN for hlint?
-  let isCoverageLine     :: String -> Bool
-      isCoverageLine     line = line =~ "^ *[0-9]+%"
   let isIncompleteModule :: String -> Bool
-      isIncompleteModule line = not (line =~ "^ *100%")
+      isIncompleteModule line = isCoverageLine line && not (line =~ "^ *100%")
+        where isCoverageLine :: String -> Bool
+              isCoverageLine line = line =~ "^ *[0-9]+%"
 
-  let coverageLines :: [String]
-      coverageLines = filter isCoverageLine $ lines out
-
-      incompleteModules :: [String]
-      incompleteModules = filter isIncompleteModule coverageLines
+  let incompleteModules :: [String]
+      incompleteModules = filter isIncompleteModule $ lines out
 
   -- Based on the result of haddock, report errors and exit.
   -- Note that, unline haddock, this script does not
