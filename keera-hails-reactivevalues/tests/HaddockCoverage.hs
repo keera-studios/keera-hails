@@ -38,7 +38,7 @@ main = do
   -- https://github.com/haskell/haddock/issues/309#issuecomment-150811929
   files <- getSources
 
-  -- Run haddock in the right sadbox.
+  -- Run haddock in the right sandbox.
   -- NOTE: you need this version of haddock:
   -- https://github.com/keera-studios/haddock/
   --
