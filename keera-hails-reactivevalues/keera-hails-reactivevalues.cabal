@@ -50,6 +50,11 @@ flag test-hlint
   default: True
   manual: True
 
+-- You can disable the haddock coverage test suite with -f-test-doc-coverage
+flag test-doc-coverage
+  default: True
+  manual: True
+
 Library
   hs-source-dirs: src/
   
@@ -75,3 +80,20 @@ test-suite hlint
     build-depends:
       base,
       hlint >= 1.7
+
+-- Verify that the code follows reasonable standards
+test-suite haddock-coverage
+  type: exitcode-stdio-1.0
+  main-is: HaddockCoverage.hs
+  ghc-options:
+  hs-source-dirs: tests
+
+  if !flag(test-doc-coverage)
+    buildable: False
+  else
+    build-depends:
+      base,
+      directory,
+      filepath,
+      process,
+      regex-posix
