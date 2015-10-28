@@ -92,9 +92,9 @@ I would like to thank the following people for fruitful discussions:
 * Atze van der Ploeg
 * Simon Peyton Jones
 * Michał Gajda
-* I have given the following talks on reactive values and Hails. I thank the
-  audiences of the talks listed above, who patientily listened to what I had to
-say and commented on my work.
+* I thank the audiences of the following talks on Reactive programming and
+  Hails, for patientily listening to me complain about the state of the world
+  and commenting on my work.
   * Haskell Symposium (2015), Vancouver, colocated with ICFP.
   * London (2014), Haskell Meetup
   * Nottingham (2014), FPLAD.
