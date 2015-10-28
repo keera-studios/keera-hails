@@ -1,7 +1,6 @@
 Keera Hails is a toolkit to create reactive applications in Haskell.
-It facilitates creating interactive applications that combine User
-Interfaces, external devices, networks connections, files and, optionally,
-FRP networks.
+It facilitates combining User Interfaces, external devices, networks
+connections, files and, optionally, FRP networks.
 
 Keera Hails is modular and extensible. It is cross platform (Windows, Linux,
 MacOSX, Android, GHCJS), UI-agnostic (Gtk+, WX, Qt, Android Native toolkit,
@@ -35,7 +34,7 @@ to others.
   - http://github.com/keera-studios/hails-reactive-htmldom (via GHCJS)
   - http://github.com/keera-studios/keera-hails-reactive-yampa
   - http://github.com/keera-studios/keera-hails-reactive-polling
-  
+
   An experimental Android backend that uses Android's Native UI toolkit
   is also available. Please, contact Keera Studios if you wish to
   use it.
@@ -66,7 +65,7 @@ For a introduction to reactive values, see:
 core ideas and problems that remain to be solved.)
 * [TFP 2014 Pre-proceedings, pages 59-68](http://www.staff.science.uu.nl/~hage0101/preproceedingstfp2014.pdf)
 * [Reactive Programming using Reactive Values (blog post)](http://keera.co.uk/blog/2014/05/24/reactive-programming-using-reactive-values/)
-  
+
 For bibtex references to these articles, see Publications in http://www.cs.nott.ac.uk/~ixp/.
 
 Applications:
@@ -75,3 +74,70 @@ Applications:
 * http://github.com/keera-studios/hails-reactive-wiimote-demo
 * http://github.com/ivanperez-keera/haskellifi-trayicon
 * http://github.com/ivanperez-keera/keera-diamondcard-sms-trayicon
+
+# Credits
+
+I would like to thank the following people for fruitful discussions:
+* Henrik Nilsson
+* Hamish Mackenzie (for helping me create the first GHCJS backend for Hails,
+  and for Gtk2hs).
+* Leuite Stegeman (for helping me create the first GHCJS backend for Hails.)
+* Arsen Kostenko
+* Emilio Gallego
+* Paolo Capriotti
+* Florent Ballestrieri
+* David McGillicuddy
+* Philip Holzenspies
+* Ian-Woo Kim
+* Atze van der Ploeg
+* Simon Peyton Jones
+* Michał Gajda
+* I have given the following talks on reactive values and Hails. I thank the
+  audiences of the talks listed above, who patientily listened to what I had to
+say and commented on my work.
+  * Haskell Symposium (2015), Vancouver, colocated with ICFP.
+  * London (2014), Haskell Meetup
+  * Nottingham (2014), FPLAD.
+  * TFP (2014)
+  * FPLab, Nottingham (2013)
+  * CAES Group, UTwente (2012)
+  * Babel Research Group, UPM (2010)
+
+(Note: these people do not necessarily support anything I have to say.)
+
+The library was a natural evolution of MVC as an architectural pattern while I
+was writing desktop Haskell applications. I was aware of FRP at the time, but
+due to lack of support for certain kinds of graphics in the libraries that
+existed at the time (2008-2010), I decided to roll my own solution.  I did not
+borrow ideas from the now omnipresent reactive paradigm, although the
+principles are similar.
+
+I am working on reactive and Hails as part of my PhD at the University of
+Nottingham. So far, all the software produced as part of my PhD is being
+released as Open Source.
+
+<!--
+## About the name
+
+Keera Hails was born from several experiments back when I was an MSc student
+and researcher in 2008-2009. Back then, it was clear that it was going to be
+called Hails, and I often discussed it with my colleagues by referring to it as
+``Haskell on Rails''. I checked that the name wasn't taken, and so Hails was
+born. I wrote the first commercial program with this library in 2010, and I've
+been using it ever since. Many programs have now been written in Hails
+(including Gale, whose name sounds similar, means something related, and was
+also not arbitrary).
+
+In 2012, I received a message clients using the library telling me that they
+couldn't compile their program anymore. Apparently someone had published a
+library called ``Hails'' on Hackage (my hails was on github, but not on
+hackage). I asked the authors of that library to change its name, but they
+refused, telling me that they were there first.
+
+It's sad that we have to have these disputes in such a small community. We both
+think that we are right, and there is no easy way to resolve this matter
+without one of us giving something up.
+
+To avoid collisions, I call this library Keera Hails in all papers. Because
+there is no risk of confusion, I use the name Hails in this documentation.
+-->
