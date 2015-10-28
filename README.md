@@ -105,17 +105,6 @@ say and commented on my work.
 
 (Note: these people do not necessarily support anything I have to say.)
 
-The library was a natural evolution of MVC as an architectural pattern while I
-was writing desktop Haskell applications. I was aware of FRP at the time, but
-due to lack of support for certain kinds of graphics in the libraries that
-existed at the time (2008-2010), I decided to roll my own solution.  I did not
-borrow ideas from the now omnipresent reactive paradigm, although the
-principles are similar.
-
-I am working on reactive and Hails as part of my PhD at the University of
-Nottingham. So far, all the software produced as part of my PhD is being
-released as Open Source.
-
 <!--
 ## About the name
 
