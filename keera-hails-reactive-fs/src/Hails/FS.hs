@@ -28,7 +28,7 @@ pasiveFileReactive fp = ReactiveFieldReadWrite setter getter notifier
 -- TODO: Make it ok for the file not to exist.
 -- TODO: Capture and ignore exceptions in readFile and writeFile.
 fileReactive :: FilePath -> IO (ReactiveFieldReadWrite IO String)
-fileReactive fp = do 
+fileReactive fp = do
   fpP <- canonicalizePath (encodeString fp)
   notifiers <- newMVar []
   let getter     = readFile  (encodeString fp)   -- fails if the path does not exist
@@ -38,9 +38,9 @@ fileReactive fp = do
 
   -- Run the notification manager, ignore result (thread)
   forkIO $ withManager $ \mgr -> do
-    _ <- watchDir mgr                                       -- manager
-                  (directory fp)                            -- directory to watch
-                  (\e -> encodeString (eventPath e) == fpP) -- predicate
-                  (const notify)                            -- notifier
+    _ <- watchDir mgr                            -- manager
+                  (encodeString $ directory fp)  -- directory to watch
+                  (\e -> eventPath e == fpP)     -- predicate
+                  (const notify)                 -- notifier
     forever $ threadDelay maxBound
   return $ ReactiveFieldReadWrite setter getter notifier
