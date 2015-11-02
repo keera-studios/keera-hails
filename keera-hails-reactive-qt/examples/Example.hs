@@ -52,14 +52,14 @@ add_grid = do
 
   -- Add Text boxes
   l1  <- reactiveQLineEdit
-  addWidget gridLayout (l1, 0 :: Int, 1::Int)
+  addWidget gridLayout =<< qWidget l1 -- , 0 :: Int, 1::Int)
 
   l2  <- reactiveQLineEdit
-  addWidget gridLayout (l2, 1 :: Int, 1::Int)
+  addWidget gridLayout =<< qWidget l2 --, 1 :: Int, 1::Int)
 
   -- Add Button
   tb <- reactiveQPushButton "Copy Up"
-  addWidget gridLayout (tb, 1 :: Int, 2::Int)
+  addWidget gridLayout =<< qWidget tb --, 1 :: Int, 2::Int)
 
   -- Make widgets reactive
   e1  <- lineEditText l1
@@ -73,10 +73,3 @@ add_grid = do
   setColumnStretch gridLayout (2, 20)
   setLayout gridGroupBox gridLayout
   return $ objectCast gridGroupBox
-
--- | Temporary: will be moved to Keera Hails' Reactive Values library.
-governingR :: (ReactiveValueRead a b m,  ReactiveValueRead c d m)
-           => a -> c -> ReactiveFieldRead m d
-governingR r c = ReactiveFieldRead getter notifier
-  where getter   = reactiveValueRead c
-        notifier = reactiveValueOnCanRead r

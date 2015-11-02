@@ -1,4 +1,6 @@
-{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE ScopedTypeVariables  #-}
+{-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE FlexibleInstances #-}
 module Graphics.UI.Qt.Reactive
    ( buttonClick
    , lineEditText
@@ -19,14 +21,16 @@ import Qtc.Classes.Qccs
 import Qtc.Core.Base
 import Qtc.Gui.QLineEdit
 import Qtc.Gui.QPushButton
+import Qtc.Gui.QWidget
 
 -- * Line edits
 
-type ReactQLineEdit = QLineEditSc CReactQLineEdit
-data CReactQLineEdit = CReactQLineEdit 
- 
-reactiveQLineEdit :: IO ReactQLineEdit 
-reactiveQLineEdit = qSubClass $ qLineEdit () 
+type ReactQLineEdit = QLineEditSc ()
+
+instance QqWidget ReactQLineEdit
+
+reactiveQLineEdit :: IO ReactQLineEdit
+reactiveQLineEdit = qSubClass $ qLineEdit ()
 
 -- | Make a line edit's text reactive.
 lineEditText :: ReactQLineEdit -> IO (ReactiveFieldReadWrite IO String)

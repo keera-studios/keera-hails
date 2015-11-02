@@ -56,4 +56,4 @@ Library
   -- Packages needed in order to build this package.
   Build-depends: base >= 4
                , qt
-               , hails-reactivevalues
+               , keera-hails-reactivevalues
