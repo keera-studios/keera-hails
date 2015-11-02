@@ -1,6 +1,6 @@
 {-# LANGUAGE MultiParamTypeClasses, FunctionalDependencies, FlexibleInstances #-}
 -- | Protected Reactive Fields
--- 
+--
 -- This module defines several classes and operations that are used to
 -- create reactive fields and to bind reactive fields in the view to
 -- reactive fields in the model.
@@ -63,9 +63,9 @@ instance Event c => ReactiveWriteField (ReactiveElement a b c) a b c where
 
 instance Event c => ReactiveReadWriteField (ReactiveElement a b c) a b c where
 
-type FieldAccessor a b c = ProtectedModel b c -> ReactiveFieldReadWrite a
+type FieldAccessor a b c = ProtectedModel b c -> ReactiveFieldReadWrite IO a
 
-mkFieldAccessor :: (InitialisedEvent c, Event c) => ReactiveElement a b c -> ProtectedModel b c -> ReactiveFieldReadWrite a
+mkFieldAccessor :: (InitialisedEvent c, Event c) => ReactiveElement a b c -> ProtectedModel b c -> ReactiveFieldReadWrite IO a
 mkFieldAccessor (ReactiveElement evs setter' getter') pm = ReactiveFieldReadWrite set get notify
   where set      = setter' pm
         get      = getter' pm
