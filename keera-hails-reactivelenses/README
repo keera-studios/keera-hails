@@ -14,7 +14,7 @@ write declarative rules that bridge them together during runtime.
 
 For more information, see:
 
-https://github.com/keera-studios/hails-reactivevalues
+https://github.com/keera-studios/keera-hails
 http://keera.co.uk/blog/2014/05/24/reactive-programming-using-reactive-values/
 
 And the article "Bridging the GUI gap", by Ivan Perez & Henrik Nilsson,
