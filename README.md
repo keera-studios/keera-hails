@@ -100,7 +100,7 @@ I would like to thank the following people for fruitful discussions:
   * Nottingham (2014), FPLAD.
   * TFP (2014)
   * FPLab, Nottingham (2013)
-  * CAES Group, UTwente (2012)
+  * CAES Group, UTwente (2013)
   * Babel Research Group, UPM (2010)
 
 (Note: these people do not necessarily support anything I have to say.)
