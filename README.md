@@ -45,7 +45,7 @@ to others.
   expected to have predetermined names. If this is much of a problem, open a
   bug report.
 
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails (this repository)
+  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails
   - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-model-lightmodel
   - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-model-protectedmodels
   - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-view-gtk
