@@ -55,5 +55,5 @@ Library
   Exposed-modules: Data.ReactiveLens
 
   -- Packages needed in order to build this package.
-  Build-depends: base >= 4, lens, keera-hails-reactivevalues
+  Build-depends: base >= 4 && < 5, lens, keera-hails-reactivevalues
 
