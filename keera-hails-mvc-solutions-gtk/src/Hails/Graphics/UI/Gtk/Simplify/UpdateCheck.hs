@@ -22,7 +22,7 @@ import Hails.MVC.Model.ProtectedModel.UpdatableModel
 installHandlers :: (GtkGUI a, UpdatableBasicModel b, UpdateNotifiableEvent c
                    )
                 => CEnv a b c
-                -> (ViewElementAccessorIO (GtkView a) (ReactiveFieldActivatable IO))
+                -> ViewElementAccessorIO (GtkView a) (ReactiveFieldActivatable IO)
                 -> IO ()
 installHandlers cenv mF = do
   let vw = view cenv

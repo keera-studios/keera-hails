@@ -22,7 +22,7 @@ import Hails.MVC.Model.ProtectedModel.LoggedModel
 installHandlersUnique :: (GtkGUI a, LoggedBasicModel b,
                           Event c, MenuItemClass d)
                       => CEnv a b c
-                      -> (ViewElementAccessorIO (GtkView a) d)
+                      -> ViewElementAccessorIO (GtkView a) d
                       -> IO ()
 installHandlersUnique cenv mF = void $ do
   rl <- getRootLogger
@@ -34,7 +34,7 @@ installHandlersUnique cenv mF = void $ do
 installHandlers :: (GtkGUI a, LoggedBasicModel b,
                     Event c, MenuItemClass d)
                 => CEnv a b c
-                -> (ViewElementAccessorIO (GtkView a) d)
+                -> ViewElementAccessorIO (GtkView a) d
                 -> IO ()
 installHandlers cenv mF = void $ do
   let (vw, pm) = (view &&& model) cenv
@@ -84,7 +84,7 @@ instance LogHandler ListStoreLogHandler where
  setLevel x l     = x { lslhLevel = l }
  getFormatter     = lslhFormatter
  setFormatter x f = x { lslhFormatter = f }
- emit x l _       = listStoreAppend (lslhStore x) (snd l) >> return ()
+ emit x l _       = void (listStoreAppend (lslhStore x) (snd l))
  close _          = return ()
 
 listStoreLogHandlerNew :: IO ListStoreLogHandler

@@ -2,6 +2,7 @@ module Hails.Graphics.UI.Gtk.Simplify.RootLogger
     (installHandlers, installHandlersUnique)
   where
 
+import Control.Monad (void)
 import Control.Monad.Reader (liftIO)
 import Data.Maybe
 -- import GenericCombinedEnvironment
@@ -19,9 +20,9 @@ import System.Log.Logger
 installHandlersUnique :: (GtkGUI a,
                           Event c, MenuItemClass d)
                       => CEnv a b c
-                      -> (ViewElementAccessorIO (GtkView a) d)
+                      -> ViewElementAccessorIO (GtkView a) d
                       -> IO ()
-installHandlersUnique cenv mF = fmap (const ()) $ do
+installHandlersUnique cenv mF = void $ do
   rl <- getRootLogger
   let lhs = [] :: [ListStoreLogHandler]
   let rl' = setHandlers lhs rl
@@ -31,9 +32,9 @@ installHandlersUnique cenv mF = fmap (const ()) $ do
 installHandlers :: (GtkGUI a,
                     Event c, MenuItemClass d)
                 => CEnv a b c
-                -> (ViewElementAccessorIO (GtkView a) d)
+                -> ViewElementAccessorIO (GtkView a) d
                 -> IO ()
-installHandlers cenv mF = fmap (const ()) $ do
+installHandlers cenv mF = void $ do
   let vw = view cenv
 
   lsLogHandler <- listStoreLogHandlerNew
@@ -80,7 +81,7 @@ instance LogHandler ListStoreLogHandler where
  setLevel x l     = x { lslhLevel = l }
  getFormatter     = lslhFormatter
  setFormatter x f = x { lslhFormatter = f }
- emit x l _       = listStoreAppend (lslhStore x) (snd l) >> return ()
+ emit x l _       = void (listStoreAppend (lslhStore x) (snd l))
  close _          = return ()
 
 listStoreLogHandlerNew :: IO ListStoreLogHandler

@@ -6,6 +6,7 @@ module Hails.Graphics.UI.Gtk.Simplify.AboutDialog
     (installHandlers)
   where
 
+import Control.Applicative
 import Control.Arrow
 import Control.Monad
 import Control.Monad.Reader (liftIO)
@@ -22,8 +23,8 @@ import Hails.MVC.Model.ProtectedModel.NamedModel
 installHandlers :: (GtkGUI a, VersionedBasicModel b, NamedBasicModel b,
                     Event c, MenuItemClass d)
                 => CEnv a b c
-                -> (ViewElementAccessorIO (GtkView a) d)
-                -> (ViewElementAccessorIO (GtkView a) AboutDialog)
+                -> ViewElementAccessorIO (GtkView a) d
+                -> ViewElementAccessorIO (GtkView a) AboutDialog
                 -> IO ()
 installHandlers cenv mF dF = void $ do
   let vw = view cenv
@@ -32,12 +33,12 @@ installHandlers cenv mF dF = void $ do
 
 condition :: (GtkGUI a, VersionedBasicModel b, NamedBasicModel b, Event c)
                 => CEnv a b c
-                -> (ViewElementAccessorIO (GtkView a) AboutDialog)
+                -> ViewElementAccessorIO (GtkView a) AboutDialog
                 -> IO ()
 condition cenv dF = do
   let (vw, pm) = (view &&& model) cenv
   dg <- dF vw
-  vn <- fmap versionToString $ getVersion pm
+  vn <- versionToString <$> getVersion pm
   pr <- getName pm
   set dg [ aboutDialogVersion := vn ]
   set dg [ aboutDialogProgramName := pr ]

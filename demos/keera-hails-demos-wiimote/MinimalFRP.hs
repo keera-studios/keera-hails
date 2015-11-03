@@ -12,7 +12,7 @@ import System.CWiid
 import FRP.Yampa
 
 main :: IO ()
-main = do 
+main = do
    wm <- initialiseWiimote
 
    awhen wm $ \wm' -> do

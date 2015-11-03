@@ -26,10 +26,10 @@ installLanguage app = void $ do
   lang <- E.handle (anyway (return "")) $ do
              cs <- fmap lines $ readFile file
              return $ if null cs then "" else head cs
-  
+
   -- Update locale and language only if a value has been found
   unless (null lang) $ E.handle (anyway (return ())) $ do
     setLocale LC_ALL (Just lang)
     setEnv "LANGUAGE" lang
-  bindTextDomain app $ Just "." 
+  bindTextDomain app $ Just "."
   textDomain $ Just app

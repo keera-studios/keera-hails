@@ -19,19 +19,19 @@ import Paths_hails
 main :: IO ()
 main = do
   appState <- cmdArgs sample
-  
+
   -- This point will only be reached when appropriate
-  
+
   -- Try to build a complete action with those values that can be
   -- guessed from existing files.
   conf <- buildHailsConf appState
-  
+
   -- Execute that action.
   executeHailsAction conf
 
-buildHailsConf :: AppDataBasic -> IO AppDataFull          
+buildHailsConf :: AppDataBasic -> IO AppDataFull
 buildHailsConf (AppDataBasic { action, outputDir, overwrite }) =
-   return $ AppDataFull { action    = action
+   return AppDataFull { action    = action
                         , outputDir = dir'
                         , overwrite = overwrite
                         }
@@ -52,9 +52,9 @@ cleanTemplate :: AppDataFull -> FilePath -> IO()
 cleanTemplate conf fp = do
   fullpath <- getDataFileName $ "templates" </> fp
   let dir    = F.outputDir conf
-      dest   = (dir </> fp)
+      dest   = dir </> fp
   exists <- doesFileExist dest
-  when exists $ whenM (fileEq fullpath dest) $ 
+  when exists $ whenM (fileEq fullpath dest) $
      removeFile dest
 
 fileEq :: FilePath -> FilePath -> IO Bool
@@ -66,13 +66,13 @@ fileEq fp1 fp2 = do
 -- Copy all the templates
 copyTemplates :: AppDataFull -> IO ()
 copyTemplates conf = mapM_ (copyTemplate conf) templates
-       
+
 -- Copy one template
 copyTemplate :: AppDataFull -> FilePath -> IO()
 copyTemplate conf fp = do
   fullpath <- getDataFileName $ "templates" </> fp
   let dir    = F.outputDir conf
-      dest   = (dir </> fp)
+      dest   = dir </> fp
       parent = takeDirectory dest
       overw  = F.overwrite conf
   exists <- doesFileExist dest

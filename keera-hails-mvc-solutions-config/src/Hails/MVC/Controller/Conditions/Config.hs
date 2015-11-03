@@ -16,7 +16,7 @@ type ConfigIO e = ( Maybe String -> e -> IO () -- Reader
                   )
 
 defaultRead :: ConfigIO e -> String -> e -> IO()
-defaultRead (readConf, _) app cenv = 
+defaultRead (readConf, _) app cenv =
   void $ E.handle (anyway (readConf Nothing cenv)) $ do
     dir <- getAppUserDataDirectory app
     let file = dir </> "config"
@@ -24,7 +24,7 @@ defaultRead (readConf, _) app cenv =
     readConf (Just c) cenv
 
 defaultWrite :: ConfigIO e -> String -> e -> IO()
-defaultWrite (_, showConf) app cenv = 
+defaultWrite (_, showConf) app cenv =
   void $ E.handle (anyway (return ())) $ do
     dir <- getAppUserDataDirectory app
     createDirectoryIfMissing True dir

@@ -23,7 +23,7 @@ protectedField fname ftype pmodel event = sequenceQ
                      )
                      -- where
                      []
-                    ]                     
+                    ]
   -- Declare plain getter
   , sigD getterName getterType
   , funD getterName [clause []
@@ -37,11 +37,11 @@ protectedField fname ftype pmodel event = sequenceQ
   -- Declare protected field
   , sigD fieldName fieldType
   , funD fieldName [clause []
-                     (normalB 
+                     (normalB
                       (recConE (mkName "ReactiveElement")
                                [fieldExp
                                  (mkName "reEvents")
-                                 (listE [conE (mkName 
+                                 (listE [conE (mkName
                                                 ("RM." ++ fname ++ "Changed"))
                                         ]
                                  )
@@ -49,12 +49,12 @@ protectedField fname ftype pmodel event = sequenceQ
                                  (mkName "reSetter")
                                  (lamE [varP (mkName "pm")
                                        , varP (mkName "c")
-                                       ] 
-                                    (infixE 
+                                       ]
+                                    (infixE
                                      (Just (varE (mkName "pm")))
                                      (varE (mkName "applyToReactiveModel"))
                                      (Just (infixE Nothing
-                                            (varE (mkName 
+                                            (varE (mkName
                                                    ("RM." ++ "set" ++ fname)
                                                   )
                                             )
@@ -64,7 +64,7 @@ protectedField fname ftype pmodel event = sequenceQ
                                     )
                                  )
                                , fieldExp (mkName "reGetter")
-                                          (infixE 
+                                          (infixE
                                             Nothing
                                             (varE (mkName "onReactiveModel"))
                                             (Just (varE (mkName
@@ -84,7 +84,7 @@ protectedField fname ftype pmodel event = sequenceQ
        getterType = appT pmTo ioType
        fieldType  = appT
                      (appT
-                       (appT (conT (mkName "ReactiveElement")) 
+                       (appT (conT (mkName "ReactiveElement"))
                              ftype
                        )
                        (conT (mkName pmodel))
@@ -94,7 +94,7 @@ protectedField fname ftype pmodel event = sequenceQ
        typeToIO   = appT (appT arrowT ftype) ioNil
        ioNil      = appT (conT (mkName "IO")) (conT (mkName "()"))
        ioType     = appT (conT (mkName "IO")) ftype
-                    
+
        fnamelc    = lcFst fname
 
 -- | Creates a setter and a getter that works at ReactiveModel level.
@@ -110,7 +110,7 @@ reactiveField fname ftype = sequenceQ
                      )
                      -- where
                      []
-                    ]                     
+                    ]
   -- Declare plain getter
   , sigD getterName getterType
   , funD getterName [clause []
@@ -124,18 +124,18 @@ reactiveField fname ftype = sequenceQ
   -- Declare field with 4 elements 
   , sigD fieldName fieldType
   , funD fieldName [clause []
-                     (normalB 
+                     (normalB
                       (tupE
                        [ varE (mkName fnamelc)                        -- function to read from model
                        , varE (mkName "preTrue")                      -- precondition to update model
                        , lamE [varP (mkName "v"), varP (mkName "b")]  -- function to update model
                          (recUpdE (varE (mkName "b"))
-                          [fieldExp 
+                          [fieldExp
                            (mkName fnamelc)
                            (varE (mkName "v"))
                           ]
                          )
-                       , (conE (mkName (fname ++ "Changed")))           -- Event to trigger when changed
+                       , conE (mkName (fname ++ "Changed"))           -- Event to trigger when changed
                        ]
                       )
                      )
@@ -149,10 +149,10 @@ reactiveField fname ftype = sequenceQ
        getterType = appT rmTo ftype
        fieldType  = appT (conT (mkName "Field")) ftype
        rmTo       = appT arrowT (conT (mkName "ReactiveModel"))
-       typeToRM   = appT (appT arrowT ftype) 
+       typeToRM   = appT (appT arrowT ftype)
                          (conT (mkName "ReactiveModel"))
        fnamelc    = lcFst fname
 
-lcFst :: String -> String         
+lcFst :: String -> String
 lcFst []     = []
 lcFst (x:xs) = (toLower x) : xs

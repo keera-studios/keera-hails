@@ -19,7 +19,7 @@ import Data.ReactiveValue
 import Hails.MVC.Model.ProtectedModel.VersionedModel
 
 installHandlers :: (GtkGUI a, VersionedBasicModel b, Event c) => CEnv a b c
-                -> (ViewElementAccessorIO (GtkView a) Window)
+                -> ViewElementAccessorIO (GtkView a) Window
                 -> IO ()
 installHandlers cenv wF = void $ do
   let (vw, pm) = (view &&& model) cenv
@@ -54,7 +54,7 @@ installHandlers cenv wF = void $ do
 --     fmap versionToString $ getVersion pm
 
 condition :: (GtkGUI a, VersionedBasicModel b, Event c) => CEnv a b c
-          -> (ViewElementAccessorIO (GtkView a) Window)
+          -> ViewElementAccessorIO (GtkView a) Window
           -> IO ()
 condition cenv wF = do
   let (vw, pm) = (view &&& model) cenv

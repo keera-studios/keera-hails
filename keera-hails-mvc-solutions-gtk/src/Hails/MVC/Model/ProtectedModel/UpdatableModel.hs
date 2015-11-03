@@ -1,4 +1,4 @@
-{-# LANGUAGE PackageImports, FlexibleInstances #-}
+{-# LANGUAGE FlexibleInstances #-}
 
 module Hails.MVC.Model.ProtectedModel.UpdatableModel where
 
@@ -18,7 +18,7 @@ class VersionedProtectedModel a => UpdatableProtectedModel a where
   getUpdateURI       :: a -> IO String
   getMaxVersionAvail :: a -> IO (Maybe Version)
   setMaxVersionAvail :: a -> Version -> IO ()
-  
+
 class Event a => UpdateNotifiableEvent a where
   updateNotificationEvent :: a
 

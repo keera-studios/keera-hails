@@ -9,7 +9,7 @@ import Hails.MVC.View.GtkView
 
 installHandlers :: (GtkGUI a, Event c)
                 => CEnv a b c
-                -> (ViewElementAccessorIO (GtkView a) Window)
+                -> ViewElementAccessorIO (GtkView a) Window
                 -> IO ()
 installHandlers cenv wF = do
   let vw = view cenv

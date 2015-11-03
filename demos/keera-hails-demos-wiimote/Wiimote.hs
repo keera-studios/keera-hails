@@ -37,9 +37,9 @@ data Wiimote = Wiimote {
 pollWiimote :: CWiidWiimote -> IO Wiimote
 pollWiimote wm = do
   [a,p,r] <- unCWiidAcc <$> cwiidGetAcc wm
-  irs     <- (catMaybes . map irCircle) <$> cwiidGetIR wm
+  irs     <- (mapMaybe irCircle) <$> cwiidGetIR wm
   enabledBtns <- cwiidGetBtnState wm
-  return Wiimote { buttonA     = cwiidIsBtnPushed enabledBtns cwiidBtnA 
+  return Wiimote { buttonA     = cwiidIsBtnPushed enabledBtns cwiidBtnA
                  , buttonB     = cwiidIsBtnPushed enabledBtns cwiidBtnB
                  , buttonMinus = cwiidIsBtnPushed enabledBtns cwiidBtnMinus
                  , buttonPlus  = cwiidIsBtnPushed enabledBtns cwiidBtnPlus

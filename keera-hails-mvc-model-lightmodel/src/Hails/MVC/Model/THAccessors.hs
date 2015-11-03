@@ -14,11 +14,11 @@ protectedModelAccessors :: String -> String -> Q [Dec]
 protectedModelAccessors fname ftype = sequenceQ
   -- Declare plain setter
   [ sigD setterName setterType
-  , funD setterName [clause [varP (mkName "pm"), varP (mkName "n")] 
+  , funD setterName [clause [varP (mkName "pm"), varP (mkName "n")]
                      (normalB (appE (appE (varE (mkName "applyToReactiveModel"))
                                           (varE (mkName "pm"))
                                     )
-                                    (infixE Nothing 
+                                    (infixE Nothing
                                             (varE (mkName ("RM.set" ++ fname)))
                                             (Just (varE (mkName "n")))
                                     )
@@ -29,8 +29,8 @@ protectedModelAccessors fname ftype = sequenceQ
   -- Declare plain getter
   , sigD getterName getterType
   , funD getterName [clause []
-                     (normalB (infixE Nothing 
-                                      (varE (mkName "onReactiveModel")) 
+                     (normalB (infixE Nothing
+                                      (varE (mkName "onReactiveModel"))
                                       (Just (varE (mkName ("RM.get" ++ fname))))
                               )
                      )
@@ -51,8 +51,8 @@ reactiveModelAccessors :: String -> String -> Q [Dec]
 reactiveModelAccessors fname ftype = sequenceQ
   -- Declare plain setter
   [ sigD setterName setterType
-  , funD setterName 
-                    [clause 
+  , funD setterName
+                    [clause
                      -- Setter args: rm (reactive model), n (value)
                      [varP (mkName "rm"), varP (mkName "n")]
                      -- Main result: triggerEvent rm' ev
@@ -68,7 +68,7 @@ reactiveModelAccessors fname ftype = sequenceQ
                                             (varE (mkName "onBasicModel"))
                                             (Just (lamE [varP (mkName "b")]
                                                         (recUpdE (varE (mkName "b"))
-                                                                 [fieldExp 
+                                                                 [fieldExp
                                                                    (mkName fnamelc)
                                                                    (varE (mkName "n"))
                                                                  ]
@@ -83,13 +83,13 @@ reactiveModelAccessors fname ftype = sequenceQ
                              (normalB (conE (mkName (fname ++ "Changed"))))
                              []
                       ]
-                    ]                     
+                    ]
   -- Declare plain getter
   , sigD getterName getterType
   , funD getterName [clause []
                      -- recordField . basicModel
                      (normalB (infixE (Just (varE (mkName fnamelc)))
-                                      (varE (mkName ".")) 
+                                      (varE (mkName "."))
                                       (Just (varE (mkName "basicModel")))
                               )
                      )
@@ -103,14 +103,14 @@ reactiveModelAccessors fname ftype = sequenceQ
        rmTo       = appT arrowT (conT (mkName "ReactiveModel"))
        typeToRM   = appT (appT arrowT (conT (mkName ftype))) (conT (mkName "ReactiveModel"))
        fnamelc    = lcFst fname
-       
+
 -- | Creates a setter and a getter that works at ReactiveModel level.
 nonReactiveModelAccessors :: String -> Q Type -> Q [Dec]
 nonReactiveModelAccessors fname ftype = sequenceQ
   -- Declare plain setter
   [ sigD setterName setterType
-  , funD setterName 
-                    [clause 
+  , funD setterName
+                    [clause
                      -- Setter args: rm (reactive model), n (value)
                      [varP (mkName "rm"), varP (mkName "n")]
                      -- Main result: triggerEvent rm' ev
@@ -121,7 +121,7 @@ nonReactiveModelAccessors fname ftype = sequenceQ
                                             (varE (mkName "onBasicModel"))
                                             (Just (lamE [varP (mkName "b")]
                                                         (recUpdE (varE (mkName "b"))
-                                                                 [fieldExp 
+                                                                 [fieldExp
                                                                    (mkName fnamelc)
                                                                    (varE (mkName "n"))
                                                                  ]
@@ -132,13 +132,13 @@ nonReactiveModelAccessors fname ftype = sequenceQ
                            )
                            []
                       ]
-                    ]                     
+                    ]
   -- Declare plain getter
   , sigD getterName getterType
   , funD getterName [clause []
                      -- recordField . basicModel
                      (normalB (infixE (Just (varE (mkName fnamelc)))
-                                      (varE (mkName ".")) 
+                                      (varE (mkName "."))
                                       (Just (varE (mkName "basicModel")))
                               )
                      )
@@ -153,6 +153,6 @@ nonReactiveModelAccessors fname ftype = sequenceQ
        typeToRM   = appT (appT arrowT ftype) (conT (mkName "ReactiveModel"))
        fnamelc    = lcFst fname
 
-lcFst :: String -> String         
+lcFst :: String -> String
 lcFst []     = []
 lcFst (x:xs) = (toLower x) : xs

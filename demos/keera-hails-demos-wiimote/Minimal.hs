@@ -10,7 +10,7 @@ import Hails.Polling
 import System.CWiid
 
 main :: IO ()
-main = do 
+main = do
    wm <- initialiseWiimote
 
    awhen wm $ \wm' -> do

@@ -15,7 +15,7 @@ import Hails.MVC.Model.ProtectedModel.NamedModel
 
 installHandlers :: (GtkGUI a, VersionedBasicModel b, NamedBasicModel b, Event c)
                 => CEnv a b c
-                -> (ViewElementAccessorIO (GtkView a) Window)
+                -> ViewElementAccessorIO (GtkView a) Window
                 -> IO ()
 installHandlers cenv wF = void $ do
   let vw = view cenv
@@ -24,7 +24,7 @@ installHandlers cenv wF = void $ do
 
 condition :: (GtkGUI a, VersionedBasicModel b, NamedBasicModel b, Event c)
           => CEnv a b c
-          -> (ViewElementAccessorIO (GtkView a) Window)
+          -> ViewElementAccessorIO (GtkView a) Window
           -> IO ()
 condition cenv wF = do
   let (vw, pm) = (view &&& model) cenv

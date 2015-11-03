@@ -14,7 +14,7 @@ type Field a b c = (b -> a, a -> b -> Bool, a -> b -> b, c)
 preTrue :: a -> b -> Bool
 preTrue _ _ = True
 
-fieldSetter :: (Eq a, Event c) => 
+fieldSetter :: (Eq a, Event c) =>
                Field a b c -> ReactiveModel b c d -> a -> ReactiveModel b c d
 fieldSetter f@(_, pre, rSet, ev) rm newVal
   | fieldGetter f rm == newVal       = rm
