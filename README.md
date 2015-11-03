@@ -49,7 +49,7 @@ to others.
   - [keera-hails-mvc-view](keera-hails-mvc-view/): Interface to the View of any program
   - [keera-hails-mvc-controller](keera-hails-mvc-controller/): Simple controller-handling definitions.
 
-  A pair Model-View, used needed by the controller, can be wrapped in an
+  A pair Model-View, often needed by the controller, can be wrapped in an
   *environment*.  The following packages implement a Gtk View and a Gtk
   environment.
   - [keera-hails-mvc-view-gtk](keera-hails-mvc-view-gtk/): Structure to wrap Gtk views.
