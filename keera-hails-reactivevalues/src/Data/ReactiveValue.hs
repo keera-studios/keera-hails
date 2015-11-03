@@ -112,6 +112,24 @@ instance ReactiveValueWrite (ReactiveFieldReadWrite m a) a m where
 
 instance ReactiveValueReadWrite (ReactiveFieldReadWrite m a) a m
 
+-- Monadic actions and parametric monadic actions are also RVs
+-- instance (Functor m, Monad m) => ReactiveValueRead (m a) a m where
+--   reactiveValueRead (m,_)    = m
+--   reactiveValueOnCanRead _ _ = return ()
+
+instance (Functor m, Monad m) => ReactiveValueWrite (a -> m b) a m where
+  reactiveValueWrite f v = void (f v)
+
+-- Pairs
+instance (Functor m, Monad m) => ReactiveValueRead (m a, a -> m b) a m where
+  reactiveValueRead (m,_)    = m
+  reactiveValueOnCanRead _ _ = return ()
+
+instance (Functor m, Monad m) => ReactiveValueWrite (m a, a -> m b) a m where
+  reactiveValueWrite (_, f) v = void (f v)
+
+instance (Functor m, Monad m) => ReactiveValueReadWrite (m a, a -> m b) a m
+
 -- ** Activatable reactive values (producing units)
 type ReactiveFieldActivatable m = ReactiveFieldRead m ()
 
@@ -383,6 +401,16 @@ governingR :: (ReactiveValueRead a b m,  ReactiveValueRead c d m)
            => a -> c -> ReactiveFieldRead m d
 governingR r c = ReactiveFieldRead getter notifier
   where getter   = reactiveValueRead c
+        notifier = reactiveValueOnCanRead r
+
+-- | A form of binary read-writable lifting that passifies the second RV but reads
+-- exclusively from it.
+
+governingRW :: (ReactiveValueRead a b m,  ReactiveValueReadWrite c d m)
+           => a -> c -> ReactiveFieldReadWrite m d
+governingRW r c = ReactiveFieldReadWrite setter getter notifier
+  where getter   = reactiveValueRead c
+        setter   = reactiveValueWrite c
         notifier = reactiveValueOnCanRead r
 
 -- * Conditionals
