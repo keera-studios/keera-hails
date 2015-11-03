@@ -1,6 +1,3 @@
-{-# LANGUAGE FlexibleInstances     #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-import Control.Monad
 import Data.ReactiveValue
 import Graphics.UI.Gtk
 import Graphics.UI.Gtk.Reactive
