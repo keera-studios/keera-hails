@@ -33,9 +33,16 @@ class ReactiveValueRead a b m | a -> b, a -> m where
   reactiveValueOnCanRead :: a -> m () -> m ()
   reactiveValueRead :: a -> m b
 
+instance ReactiveValueRead (IO a) a IO where
+  reactiveValueOnCanRead _ _ = return ()
+  reactiveValueRead      m = m
+
 -- | Writable reactive values
 class ReactiveValueWrite a b m | a -> b, a -> m where
   reactiveValueWrite :: a -> b -> m ()
+
+instance ReactiveValueWrite (IO a) () IO where
+  reactiveValueWrite m _ = void m
 
 -- | Read-write reactive values
 class (ReactiveValueRead a b m, ReactiveValueWrite a b m) => ReactiveValueReadWrite a b m
@@ -118,7 +125,7 @@ class ReactiveValueActivatable m a where
 
 -- instance (ReactiveValueWrite a b) => ReactiveValueWrite (TypedReactiveValue a b) b where
 --   reactiveValueWrite (TypedReactiveValue x _) v = reactiveValueWrite x v
--- 
+--
 -- instance (ReactiveValueRead a b) => ReactiveValueRead (TypedReactiveValue a b) b where
 --   reactiveValueOnCanRead (TypedReactiveValue x _) v op = (reactiveValueOnCanRead x) v op
 --   reactiveValueRead (TypedReactiveValue x _)           = reactiveValueRead x
