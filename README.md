@@ -28,9 +28,9 @@ to others.
 
   - [keera-hails-reactive-fs](keera-hails-reactive-fs/): Files as RVs
   - [keera-hails-reactive-network](keera-hails-reactive-network/): Sockets as RVs
-  - [keera-hails-reactive-gtk](keera-hails-reactive-gtk/): Widget properties as RVs
-  - [keera-hails-reactive-wx](keera-hails-reactive-wx/): Widget properties as RVs
-  - [keera-hails-reactive-qt](keera-hails-reactive-qt/): Widget properties as RVs
+  - [keera-hails-reactive-gtk](keera-hails-reactive-gtk/): Widget attributes and events as RVs
+  - [keera-hails-reactive-wx](keera-hails-reactive-wx/): Widget attributes and events as RVs
+  - [keera-hails-reactive-qt](keera-hails-reactive-qt/): Widget attributes and events as RVs
   - [keera-hails-reactive-htmldom](keera-hails-reactive-htmldom/) (via GHCJS): HTML DOM element properties as RVs
   - [keera-hails-reactive-yampa](keera-hails-reactive-yampa/): Yampa reactimation loops as a pair of RVs
   - [keera-hails-reactive-polling](keera-hails-reactive-polling/): Strategies to make RVs fire regularly
