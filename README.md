@@ -15,8 +15,8 @@ access properties. They can be modified by lifting functions and applying
 lenses to them. They can also be connected so that they stay in sync during
 program execution.
 
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-reactivevalues
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-reactivelenses
+  - [keera-hails-reactivevalues](keera-hails-reactivevalues/): basic definitions and RV manipulation.
+  - [keera-hails-reactivelenses](keera-hails-reactivelenses/): lens application.
 
 * Reactive bindings: Widget properties/attributes can be seen as
 reactive values. So can network sockets, files, application models ('model'
@@ -26,36 +26,54 @@ of RVs (see Yampa). The idea is that, at the highest application level
 (controller), each layer is wrapped in a reactive container and connected
 to others.
 
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-reactive-fs
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-reactive-network
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-reactive-gtk
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-reactive-wx
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-reactive-qt
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-reactive-htmldom (via GHCJS)
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-reactive-yampa
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-reactive-polling
+  - [keera-hails-reactive-fs](keera-hails-reactive-fs/): Files as RVs
+  - [keera-hails-reactive-network](keera-hails-reactive-network/): Sockets as RVs
+  - [keera-hails-reactive-gtk](keera-hails-reactive-gtk/): Widget attributes and events as RVs
+  - [keera-hails-reactive-wx](keera-hails-reactive-wx/): Widget attributes and events as RVs
+  - [keera-hails-reactive-qt](keera-hails-reactive-qt/): Widget attributes and events as RVs
+  - [keera-hails-reactive-htmldom](keera-hails-reactive-htmldom/) (via GHCJS): HTML DOM element properties as RVs
+  - [keera-hails-reactive-yampa](keera-hails-reactive-yampa/): Yampa reactimation loops as a pair of RVs
+  - [keera-hails-reactive-polling](keera-hails-reactive-polling/): Strategies to make RVs fire regularly
 
   An experimental Android backend that uses Android's Native UI toolkit
   is also available. Please, contact Keera Studios if you wish to
   use it.
 
-* Hails: a series of tools and libraries to create MVC programs using
-  a reactive interface. The application architecture takes the approach of
-  "convention over configuration", which means that certain modules will be
-  expected to have predetermined names. If this is much of a problem, open a
-  bug report.
+* MVC Architecture
 
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-model-lightmodel
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-model-protectedmodels
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-view-gtk
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-view
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-controller
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-environment-gtk
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-solutions-gtk
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-solutions-config
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-i18n
-  - http://github.com/keera-studios/keera-hails/tree/master/keera-hails-templates
+  MVC is easily applied using hails. There are two easy ways of wraping pure
+  models into RVs, depending on the level of change detection we need to detect
+  and optimise.
+  - [keera-hails-mvc-model-lightmodel](keera-hails-mvc-model-lightmodel/): Pure
+    models as RVs
+  - [keera-hails-mvc-model-protectedmodels](keera-hails-mvc-model-protectedmodels/):
+    Pure models as RVs, with advance change detection. Template Haskell can be
+	used to generate model access RVs based on record fields that stop
+    unnecessary change propagation.
+  - [keera-hails-mvc-view](keera-hails-mvc-view/): Interface to the View of any
+    program
+  - [keera-hails-mvc-controller](keera-hails-mvc-controller/): Simple controller-handling definitions.
+
+  A pair Model-View, often needed by the controller, can be wrapped in an
+  *environment*.  The following packages implement a Gtk View and a Gtk
+  environment.
+  - [keera-hails-mvc-view-gtk](keera-hails-mvc-view-gtk/): Structure to wrap Gtk views.
+  - [keera-hails-mvc-environment-gtk](keera-hails-mvc-environment-gtk/): A MVC triplet based on a Gtk View.
+
+  The following packages generate default project skeletons that do "the right
+  thing" (currently for Gtk+ only). The application takes the approach of
+  "convention over configuration": certain modules will be expected to have
+  predetermined names. If this is much of a problem, open a bug report.
+  - [keera-hails](keera-hails/): Program that generates a project skeleton
+  - [keera-hails-templates](keera-hails-templates/): Templates used to generate a project skeleton.
+
+* Applications can be simplified further. The following packages implement
+  Gtk-based choreographies (M-V synchronizations and controller rule templates)
+  and address other common features needed in applications.
+
+  - [keera-hails-mvc-solutions-gtk](keera-hails-mvc-solutions-gtk/): Advanced choreographies for Gtk applications.
+  - [keera-hails-mvc-solutions-config](keera-hails-mvc-solutions-config/): Handling configuration files cleanly.
+  - [keera-hails-i18n](keera-hails-i18n/): Handling internationalization
 
 For a introduction to reactive values, see:
 * [Bridging the GUI gap with reactive values and relations (Haskell Symposium 2015 paper)](http://dl.acm.org/citation.cfm?id=2804316)
