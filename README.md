@@ -44,9 +44,14 @@ to others.
   MVC is easily applied using hails. There are two easy ways of wraping pure
   models into RVs, depending on the level of change detection we need to detect
   and optimise.
-  - [keera-hails-mvc-model-lightmodel](keera-hails-mvc-model-lightmodel/): Pure models as RVs
-  - [keera-hails-mvc-model-protectedmodels](keera-hails-mvc-model-protectedmodels/): Pure models as RVs, with advance change detection.
-  - [keera-hails-mvc-view](keera-hails-mvc-view/): Interface to the View of any program
+  - [keera-hails-mvc-model-lightmodel](keera-hails-mvc-model-lightmodel/): Pure
+    models as RVs
+  - [keera-hails-mvc-model-protectedmodels](keera-hails-mvc-model-protectedmodels/):
+    Pure models as RVs, with advance change detection. Template Haskell can be
+	used to generate model access RVs based on record fields that stop
+    unnecessary change propagation.
+  - [keera-hails-mvc-view](keera-hails-mvc-view/): Interface to the View of any
+    program
   - [keera-hails-mvc-controller](keera-hails-mvc-controller/): Simple controller-handling definitions.
 
   A pair Model-View, often needed by the controller, can be wrapped in an
