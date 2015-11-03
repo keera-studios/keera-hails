@@ -1,8 +1,8 @@
 # Reactive Values
 
-Reactive Values are time-varying mutable values that can be read/written and
-may trigger events when doing so. They can be used to define a uniform
-interface for hardware ports, widget attributes or model fields, and keep them
+Reactive Values are *time-varying mutable values that can be read/written and
+may trigger events when they change*. They can be used to define a *uniform
+interface* to hardware ports, widget attributes or model fields, and keep them
 all synchronized at all times (making your controllers just a bunch of
 synchronization rules).
 
