@@ -23,7 +23,7 @@ entryTextReactive e = reactiveProperty e editableChanged entryText
 instance ReactiveValueReadWrite Entry String IO where
 
 instance ReactiveValueRead Entry String IO where
- reactiveValueOnCanRead = reactiveValueOnCanRead . entryTextReactive 
+ reactiveValueOnCanRead = reactiveValueOnCanRead . entryTextReactive
  reactiveValueRead      = reactiveValueRead . entryTextReactive
 
 instance ReactiveValueWrite Entry String IO where

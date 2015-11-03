@@ -11,7 +11,7 @@ import           Graphics.Rendering.Cairo.Types (Cairo, FontOptions, Matrix)
 import           System.Glib
 
 -- @G: cairoContextGetFontOptions					 | ["cairo","Context","Get","Font","Options"]
-cairoContextGetFontOptionsPassive :: (PangoContext) -> ReactiveFieldRead IO (FontOptions)
+cairoContextGetFontOptionsPassive :: PangoContext -> ReactiveFieldRead IO (FontOptions)
 cairoContextGetFontOptionsPassive w = wrapMRPassive (cairoContextGetFontOptions w)
 
 

@@ -14,7 +14,7 @@ labelTextReactive e = passiveProperty e labelText
 instance ReactiveValueReadWrite Label String IO where
 
 instance ReactiveValueRead Label String IO where
- reactiveValueOnCanRead = reactiveValueOnCanRead . labelTextReactive 
+ reactiveValueOnCanRead = reactiveValueOnCanRead . labelTextReactive
  reactiveValueRead      = reactiveValueRead . labelTextReactive
 
 instance ReactiveValueWrite Label String IO where

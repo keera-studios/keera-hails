@@ -24,10 +24,10 @@ import Qtc.Gui.QGroupBox
 import Qtc.Gui.QVBoxLayout
 import Qtc.Gui.QWidget
 
-type MyQDialog = QWidgetSc (CMyQDialog)
+type MyQDialog = QWidgetSc CMyQDialog
 data CMyQDialog = CMyQDialog
 
-myQDialog :: IO (MyQDialog)
+myQDialog :: IO MyQDialog
 myQDialog = qSubClass $ qWidget ()
 
 main :: IO ()

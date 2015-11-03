@@ -13,7 +13,7 @@ infixl 8 <$$>
 
 class GFunctor f m where
   gmap :: m a b -> f a -> f b
- 
+
 instance (Functor a) => GFunctor a (->) where
   gmap = fmap
 

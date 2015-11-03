@@ -10,7 +10,7 @@ import Graphics.UI.WXCore as WXCore
 import Graphics.UI.WX.Reactive
 
 main :: IO ()
-main = start $ do 
+main = start $ do
   -- View
   f     <- frame    [text := "Hello!"]
   btn   <- button f [text := "Quit"]
@@ -25,4 +25,4 @@ main = start $ do
 
   -- Controller
   (involution reverse <$$> txt1T) =:= txt2T
-  btnC =:> modRW (\x -> x ++ "a") txt2T
+  btnC =:> modRW ((++ "a")) txt2T

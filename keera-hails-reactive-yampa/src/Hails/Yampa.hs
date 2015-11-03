@@ -15,7 +15,7 @@ import FRP.Yampa
 -- the result available in a readable RV.
 yampaReactiveDual :: a -> SF a b
                   -> IO (ReactiveFieldWrite IO a, ReactiveFieldRead IO b)
-yampaReactiveDual initial sf = do 
+yampaReactiveDual initial sf = do
   mvar <- newCBMVar Nothing
 
   -- Initial clock
@@ -48,13 +48,13 @@ yampaReactiveDual initial sf = do
 
   let rvRead  = ReactiveFieldRead getter notifier
       rvWrite = ReactiveFieldWrite setter
-                          
+
   return (rvWrite, rvRead)
 
 -- | Create an RV that processes the value
 -- with an SF every time it is written.
 yampaReactive :: a -> SF a a -> IO (ReactiveFieldReadWrite IO a)
-yampaReactive initial sf = do 
+yampaReactive initial sf = do
   mvar <- newCBMVar initial
 
   -- Initial clock
@@ -84,7 +84,7 @@ yampaReactive initial sf = do
                            react rh (dt, Just y)
 
       notifier = installCallbackCBMVar mvar
-                          
+
   return $ ReactiveFieldReadWrite setter getter notifier
 
 -- | Alternative (simpler) definition to 'yampaReactive'
@@ -100,4 +100,4 @@ combineRVReadWrite rvR rvW = ReactiveFieldReadWrite setter getter notifier
   where getter   = reactiveValueRead rvR
         setter   = reactiveValueWrite rvW
         notifier = reactiveValueOnCanRead rvR
-                          
+

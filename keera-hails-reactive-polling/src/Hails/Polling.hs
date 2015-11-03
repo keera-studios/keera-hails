@@ -5,7 +5,7 @@ import Control.Monad (forever, void)
 import Data.CBMVar
 import Data.ReactiveValue
 
-pollingReactive :: IO a 
+pollingReactive :: IO a
                 -> Maybe Int
                 -> IO (ReactiveFieldRead IO a)
 pollingReactive sensor delay = do
@@ -15,7 +15,7 @@ pollingReactive sensor delay = do
   forkIO $ forever $ do v <- sensor
                         writeCBMVar mvar v
                         maybe (return ()) (void . threadDelay) delay
-              
+
   -- RV fields
   let getter   = readCBMVar mvar
       notifier = installCallbackCBMVar mvar

@@ -10,17 +10,17 @@ import Graphics.UI.WXCore as WXCore
 import Graphics.UI.WX.Reactive
 
 main :: IO ()
-main = start $ do 
+main = start $ do
   -- View
   f     <- frameLoadRes "test.xrc" "frame_1" []
 
   -- Entry text
   txtT   <- entryText =<< textCtrlRes f "text_ctrl_1" []
   nBtns  <- mapM (\x -> buttonRes f ("btn" ++ show x) [] >>= buttonClick) [0..9]
-  btnDot <- buttonClick =<< buttonRes f "btnDot" [] 
+  btnDot <- buttonClick =<< buttonRes f "btnDot" []
 
   -- Controller
-  
+
   -- Numbers
   let addX :: String -> ReactiveFieldWrite IO ()
       addX x = modRW (\s _ -> s ++ x) txtT

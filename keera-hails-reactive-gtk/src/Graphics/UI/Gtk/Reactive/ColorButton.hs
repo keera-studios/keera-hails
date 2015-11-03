@@ -17,7 +17,7 @@ colorButtonColorReactive e = ReactiveFieldReadWrite setter getter notifier
  where getter     = do (Color r g b) <- colorButtonGetColor e
                        alpha         <- colorButtonGetAlpha e
                        return (r, g, b, alpha)
-                       
+
        setter c@(r,g,b,a) = postGUIAsync $ do
                               c' <- getter
                               when (c /= c') $ do
@@ -41,7 +41,7 @@ color4_colorAlpha = bijection (\(r,g,b,a) -> (Color r g b, a), \(Color r g b, a)
 instance ReactiveValueReadWrite ColorButton Color4 IO where
 
 instance ReactiveValueRead ColorButton Color4 IO where
- reactiveValueOnCanRead = reactiveValueOnCanRead . colorButtonColorReactive 
+ reactiveValueOnCanRead = reactiveValueOnCanRead . colorButtonColorReactive
  reactiveValueRead      = reactiveValueRead . colorButtonColorReactive
 
 instance ReactiveValueWrite ColorButton Color4 IO where

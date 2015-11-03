@@ -38,7 +38,7 @@ main = defaultMain $
 
 -- | Check that constR returns the value put in.
 getOnConst :: Int -> Bool
-getOnConst = 
+getOnConst =
   \val -> let rv   = constR (val :: Int)
               val' = runIdentity (reactiveValueRead rv)
           in val == val'
