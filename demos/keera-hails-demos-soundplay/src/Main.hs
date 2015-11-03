@@ -53,7 +53,7 @@ main = do
                   )
 
   -- Controller Rules
-  buttonActivatedReactive btn  =:> (playSDLAsync <=< getDataFileName) "baby.wav"
+  buttonActivatedReactive btn  =:> (getDataFileName "baby.wav" >>= playSDLAsync)
   (round <^> adjValue)         =:> sdlVolume -- This also works: (SDL.Mixer.Channels.volume (-1))
   objectDestroyReactive window =:> mainQuit
 
@@ -62,11 +62,11 @@ main = do
 
 -- IO SDL code to play sound asynchronously. No special reactive stuff here.
 playSDLAsync :: FilePath -> IO ()
-playSDLAsync fp = void $ forkIO $
+playSDLAsync fp = void $ forkIO $ do
   wave <- SDL.Mixer.Samples.loadWAV fp
   playChannelWhole (-1) wave 0
 
-playChannelWhole :: Channel -> Chunk -> Int -> IO ()
+playChannelWhole :: SDL.Mixer.Types.Channel -> SDL.Mixer.Types.Chunk -> Int -> IO ()
 playChannelWhole channel wave times = do
   c <- SDL.Mixer.Channels.playChannel channel wave times
   delayTillNotPlaying c
@@ -75,7 +75,7 @@ playChannelWhole channel wave times = do
 delayTillNotPlaying :: Int -> IO ()
 delayTillNotPlaying c = go
  where go = do
-   p <- SDL.Mixer.Channels.isChannelPlaying c
-   if p
-     then putStrLn "Step" >> threadDelay 1000000 >> go
-     else putStrLn "Done"
+        p <- SDL.Mixer.Channels.isChannelPlaying c
+        if p
+          then putStrLn "Step" >> threadDelay 1000000 >> go
+          else putStrLn "Done"
