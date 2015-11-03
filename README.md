@@ -89,7 +89,7 @@ For bibtex references to these articles, see Publications in http://www.cs.nott.
 Applications and demos:
 * http://github.com/keera-studios/keera-posture
 * http://github.com/ivanperez-keera/SoOSiM-ui
-* [A simple example using RVs for button clicks, sliders, monadic actions and SDL volume](http://github.com/keera-studios/keera-hails/tree/master/demos/keera-hails-demos-soundplay/src/Main.hs#L43-L54)
+* [A simple example using RVs for button clicks, sliders, monadic actions and SDL volume](http://github.com/keera-studios/keera-hails/tree/master/demos/keera-hails-demos-soundplay/src/Main.hs#L41-L58)
 * http://github.com/keera-studios/keera-hails/tree/master/demos/keera-hails-demos-wiimote
 * http://github.com/ivanperez-keera/haskellifi-trayicon
 * http://github.com/ivanperez-keera/keera-diamondcard-sms-trayicon

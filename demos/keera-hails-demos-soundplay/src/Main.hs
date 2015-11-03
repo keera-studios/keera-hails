@@ -39,7 +39,11 @@ main = do
   widgetShowAll window
 
   -- Controller (this is the reactive stuff)
-  -- Adjustment RV (see scale)
+
+  -- Adjustment RV (see Gtk Scales). Combination of two reactive values:
+  -- The first changes when the slider moves, but has no value.
+  -- The second has the slider value, but does not propagate changes.
+  -- governingRW makes the change-propagating RV control the value-carrying RV.
   let adjValue = onValueChangedReactive adj `governingRW`
                  adjustmentValuePassive adj
 
