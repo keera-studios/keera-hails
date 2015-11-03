@@ -1,9 +1,10 @@
-Reactive Values
-==================================
+# Reactive Values
 
-This library defines values that can be read/written and may trigger events
-when doing so. They are used in the rest of the Keera Hails framework to define
-models and views and establish relationships between them.
+Reactive Values are time-varying mutable values that can be read/written and
+may trigger events when doing so. They can be used to define a uniform
+interface for hardware ports, widget attributes or model fields, and keep them
+all synchronized at all times (making your controllers just a bunch of
+synchronization rules).
 
 For instance, in Hails programs, a field of the model that holds a String (for
 instance, with the name of the file that the user is editing) may be a
@@ -53,18 +54,13 @@ The above line would keep the fields in sync, but one would be the reversed
 representation of the other. Note that reverse here has nothing to do with
 inverse functions, it is the normal list reverse operation.
 
-=====
+# Installation
 
-Installation
+This package has no dependencies other than base and contravariant, so you can
+install it and use it in your own programs without any of the existing
+backends.
 
-
-This package has no dependencies other than base, so you can install it and use
-it in your own programs.
-
-
-=====
-
-Support
+# Support
 
 Open a ticket or send me a message if you use this and have a problem.
 
