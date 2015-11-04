@@ -7,7 +7,7 @@
 -- Stability   :  provisional
 -- Portability :  portable
 --
--- Copyright notice: This file borrows code 
+-- Copyright notice: This file borrows code
 -- https://hackage.haskell.org/package/lens-4.7/src/tests/doctests.hsc
 -- which is itself licensed BSD-style as well.
 --
@@ -16,6 +16,7 @@
 -----------------------------------------------------------------------------
 module Main where
 
+import Control.Applicative
 import Control.Monad
 import Data.List
 import System.Directory
@@ -38,14 +39,7 @@ main = do
   -- https://github.com/haskell/haddock/issues/309#issuecomment-150811929
   files <- getSources
 
-  -- Run haddock in the right sandbox.
-  -- NOTE: you need this version of haddock:
-  -- https://github.com/keera-studios/haddock/
-  --
-  -- TODO: adapt to use even the old version of haddock if the modified one is
-  -- not present. We can test with haddock --csv-coverage and no input
-  -- and check the exit code.
-  let haddockArgs = [ "--csv-coverage", "--no-warnings" ] ++ files
+  let haddockArgs = [ "--no-warnings" ] ++ files
   let cabalArgs   = [ "exec", "--", "haddock" ] ++ haddockArgs
   (code, out, _err) <- readProcessWithExitCode "cabal" cabalArgs ""
 
@@ -91,4 +85,4 @@ getFilesAndDirectories dir = do
 -- find-based implementation (not portable)
 --
 -- getSources :: IO [FilePath]
--- getSources = fmap lines $ readProcess "find" ["src/", "-iname", "*hs"] "" 
+-- getSources = fmap lines $ readProcess "find" ["src/", "-iname", "*hs"] ""
