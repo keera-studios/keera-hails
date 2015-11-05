@@ -227,7 +227,7 @@ instance (Functor m, Monad m) => ReactiveValueWrite (a -> m b) a m where
 -- | To facilitate creating RW reactive values from monadic actions, pairs
 -- of a getter and a setter are also RVs.
 instance ReactiveValueWrite (a -> m b) a m => ReactiveValueWrite (m a, a -> m b) a m where
-  reactiveValueWrite (_, f) v = reactiveValueWrite f v
+  reactiveValueWrite (_, f) = reactiveValueWrite f
 
 -- $readwritervs
 --
