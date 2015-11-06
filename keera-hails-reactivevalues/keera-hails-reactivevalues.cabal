@@ -39,6 +39,8 @@ Maintainer:          ivan.perez@keera.es
 -- A copyright notice.
 -- Copyright:
 
+Tested-with:         GHC == 7.6.3, GHC == 7.8.4, GHC == 7.10.2
+
 Category:            Development
 
 Build-type:          Simple
@@ -130,3 +132,8 @@ test-suite unit-tests
       tasty-hunit,
       QuickCheck,
       HUnit
+
+source-repository head
+    type: git
+    location: git://github.com/keera-studios/keera-hails
+    subdir: keera-hails-reactivevalues

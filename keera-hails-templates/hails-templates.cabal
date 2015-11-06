@@ -13,7 +13,7 @@ Version:             0.0.3.3
 Synopsis:            Haskell on Gtk rails - Template file generator
 
 -- A longer description of the package.
--- Description:         
+-- Description:
 
 -- URL for the project homepage or repository.
 Homepage:            http://www.keera.es/blog/community/
@@ -32,7 +32,7 @@ Author:              Ivan Perez
 Maintainer:          ivan.perez@keera.es
 
 -- A copyright notice.
--- Copyright:           
+-- Copyright:
 
 Category:            Development
 
@@ -49,10 +49,10 @@ Data-files:
 
 -- Extra files to be distributed with the package, such as examples or
 -- a README.
--- Extra-source-files:  
+-- Extra-source-files:
 
 -- Constraint on the version of Cabal needed to build this package.
-Cabal-version:       >=1.2
+Cabal-version:       >= 1.6
 
 Executable hails
   hs-source-dirs: src/
@@ -80,3 +80,8 @@ Executable hails
 
                -- CLI
                , cmdargs
+
+source-repository head
+    type: git
+    location: git://github.com/keera-studios/keera-hails
+    subdir: keera-hails-templates

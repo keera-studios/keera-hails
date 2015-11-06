@@ -43,7 +43,7 @@ Build-type:          Simple
 -- Extra-source-files:
 
 -- Constraint on the version of Cabal needed to build this package.
-Cabal-version:       >=1.2
+Cabal-version:       >= 1.6
 
 Library
   hs-source-dirs: src/
@@ -71,3 +71,8 @@ Library
                , gtk3-helpers
                , pango
                , hails-reactivevalues
+
+source-repository head
+    type: git
+    location: git://github.com/keera-studios/keera-hails
+    subdir: keera-hails-reactive-gtk3

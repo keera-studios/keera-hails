@@ -29,7 +29,7 @@ Author:              Ivan Perez
 Maintainer:          ivan.perez@keera.co.uk
 
 -- A copyright notice.
--- Copyright:           
+-- Copyright:
 
 Category:            Development
 
@@ -37,20 +37,25 @@ Build-type:          Simple
 
 -- Extra files to be distributed with the package, such as examples or
 -- a README.
--- Extra-source-files:  
+-- Extra-source-files:
 
 -- Constraint on the version of Cabal needed to build this package.
-Cabal-version:       >=1.2
+Cabal-version:       >= 1.6
 
 Library
   hs-source-dirs: src/
-  
+
   ghc-options: -Wall -fno-warn-unused-do-bind -O2
 
   -- Modules exported by the library.
   Exposed-modules: Hails.Polling
-  
+
   -- Packages needed in order to build this package.
   Build-depends: base >= 4 && < 5
                , keera-hails-reactivevalues
                , keera-callbacks
+
+source-repository head
+    type: git
+    location: git://github.com/keera-studios/keera-hails
+    subdir: keera-hails-reactive-polling

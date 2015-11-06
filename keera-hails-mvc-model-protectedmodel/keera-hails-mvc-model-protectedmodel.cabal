@@ -36,7 +36,7 @@ Author:              Ivan Perez
 Maintainer:          ivan.perez@keera.es
 
 -- A copyright notice.
--- Copyright:           
+-- Copyright:
 
 Category:            Development
 
@@ -44,14 +44,14 @@ Build-type:          Simple
 
 -- Extra files to be distributed with the package, such as examples or
 -- a README.
--- Extra-source-files:  
+-- Extra-source-files:
 
 -- Constraint on the version of Cabal needed to build this package.
-Cabal-version:       >=1.2
+Cabal-version:       >= 1.6
 
 Library
   hs-source-dirs: src/
-  
+
   ghc-options: -Wall -fno-warn-unused-do-bind -O2
 
   -- Modules exported by the library.
@@ -64,7 +64,7 @@ Library
                  , Hails.MVC.Model.ReactiveModel.Initialisation
                  , Hails.MVC.Model.ReactiveModel
                  , Hails.MVC.Model.ReactiveModel.Events
-  
+
   -- Packages needed in order to build this package.
   Build-depends: base >= 4 && < 5
                , template-haskell
@@ -72,3 +72,8 @@ Library
                , stm
                , keera-hails-reactivevalues
                , MissingK
+
+source-repository head
+    type: git
+    location: git://github.com/keera-studios/keera-hails
+    subdir: keera-hails-mvc-model-protectedmodel
