@@ -11,6 +11,8 @@ import Language.Haskell.TH.Lib
 
 -- | Creates a setter and a getter that works at ProtectedModel level
 -- inside the IO Monad
+
+-- FIXME: Alternative: protectedField :: String -> Q Type -> Name -> Name -> Q [Dec]
 protectedField :: String -> Q Type -> String -> String -> Q [Dec]
 protectedField fname ftype pmodel event = sequenceQ
   -- Declare plain field
@@ -87,8 +89,10 @@ protectedField fname ftype pmodel event = sequenceQ
                        (appT (conT (mkName "ReactiveElement"))
                              ftype
                        )
+                       -- (conT pmodel) Alternative
                        (conT (mkName pmodel))
                      )
+                     -- (conT event) Alternative
                      (conT (mkName event))
        pmTo       = appT arrowT (conT (mkName "ProtectedModel"))
        typeToIO   = appT (appT arrowT ftype) ioNil
