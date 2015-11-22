@@ -22,7 +22,7 @@ before_install:
  - cabal install happy alex
 install:
  - cd keera-hails-reactivevalues
- - "sed -r -i  's/^\(--\)?jobs:.*$/jobs: 1/' $HOME/.cabal/config"
+ - "sed -i  's/^\(--\)\{0,\}1jobs:.*$/jobs: 1/' $HOME/.cabal/config"
  - cabal install --enable-tests --disable-library-profiling --disable-executable-profiling --disable-documentation --disable-library-coverage --disable-benchmarks --disable-optimizations -v2
  - cabal configure --enable-tests
  - cabal build -v2
