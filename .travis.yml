@@ -16,11 +16,12 @@ before_install:
  - travis_retry sudo apt-get update
  - travis_retry sudo apt-get install cabal-install-1.22 ghc-$GHCVER-prof ghc-$GHCVER-dyn happy alex
  - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/1.22/bin:$PATH
+ - cabal update
 install:
-  - cd keera-hails-reactivevalues
-  - cabal install --enable-tests
-  - cabal configure --enable-tests
-  - cabal build
-  - cabal test
+ - cd keera-hails-reactivevalues
+ - cabal install --enable-tests
+ - cabal configure --enable-tests
+ - cabal build
+ - cabal test
 notifications:
-    email: true
+ email: true
