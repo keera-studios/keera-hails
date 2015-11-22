@@ -21,6 +21,6 @@ install:
  - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/1.22/bin:/opt/alex/3.1.4/bin:/opt/happy/1.19.5/bin:$PATH
  - travis_retry cabal update
 script:
- - travis_retry cabal install --enable-tests --run-tests -v2 -j1 keera-hails-reactivevalues/
+ - travis_retry cabal install --run-tests -v2 -j1 keera-hails-reactivevalues/
 notifications:
  email: true
