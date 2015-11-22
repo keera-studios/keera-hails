@@ -48,7 +48,7 @@ Cabal-version:       >= 1.6
 Library
   hs-source-dirs: src/
 
-  ghc-options: -Wall -fno-warn-unused-do-bind -O2
+  ghc-options: -Wall -fno-warn-unused-do-bind
 
   -- Modules exported by the library.
   Exposed-modules: Data.ReactiveLens
