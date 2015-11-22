@@ -20,9 +20,10 @@ before_install:
  - cabal install happy alex
 install:
  - cd keera-hails-reactivevalues
- - cabal install --enable-tests
+ - "sed -i  's/^\(--\)?jobs:.*$/jobs: 1/' $HOME/.cabal/config"
+ - cabal install --enable-tests --disable-library-profiling --disable-executable-profiling --disable-documentation --disable-library-coverage --disable-benchmarks --disable-optimizations -v2
  - cabal configure --enable-tests
- - cabal build
+ - cabal build -v2
  - cabal test
 notifications:
  email: true
