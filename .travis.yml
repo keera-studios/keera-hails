@@ -1,0 +1,8 @@
+language: haskell
+ghc: 7.10
+     7.8
+     7.6
+env:
+  - TEST_DIR=keera-hails-reactivevalues
+notifications:
+    email: true
