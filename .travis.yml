@@ -1,12 +1,28 @@
-language: haskell
-ghc: 7.8
-     7.6
-     7.4
+# language: haskell
+# ghc: 7.8
+#      7.6
+#      7.4
+# The following enables several GHC versions to be tested; often it's enough to
+# test only against the last release in a major GHC version. Feel free to omit
+# lines listings versions you don't need/want testing for.
+env:
+ - GHCVER=7.6.3
+ - GHCVER=7.8.4
+ - GHCVER=7.10.3
+
+# Note: the distinction between `before_install` and `install` is not important.
+before_install:
+ - travis_retry sudo add-apt-repository -y ppa:hvr/ghc
+ - travis_retry sudo apt-get update
+ - travis_retry sudo apt-get install cabal-install-1.22 ghc-$GHCVER-prof ghc-$GHCVER-dyn happy alex
+ - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/1.22/bin:$PATH
 env:
   - TEST_DIR=keera-hails-reactivevalues
 install:
-  - cd $TEST_DIR && cabal install --enable-tests
-script:
-  - cabal configure --enable-tests && cabal build && cabal test
+  - cd keera-hails-reactivevalues
+  - cabal install --enable-tests
+  - cabal configure --enable-tests
+  - cabal build
+  - cabal test
 notifications:
     email: true
