@@ -65,9 +65,13 @@ inverse functions, it is the normal list reverse operation.
 
 # Installation
 
-This package has no dependencies other than base and contravariant, so you can
-install it and use it in your own programs without any of the existing
+This package has no direct dependencies other than base and contravariant, so
+you can install it and use it in your own programs without any of the existing
 backends.
+
+GHC 7.6, 7.8 and 7.10 are supported. It may work with other versions too.
+
+[![Build Status](https://travis-ci.org/keera-studios/keera-hails.svg?branch=master)](https://travis-ci.org/keera-studios/keera-hails)
 
 # Support
 
@@ -75,3 +79,4 @@ Open a ticket or send me a message if you use this and have a problem.
 
 Also, I'd be happy to know (and publish a list of) programs that use
 hails-reactivevalues. Please, let me know if you write something that uses it.
+
