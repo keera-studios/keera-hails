@@ -597,7 +597,7 @@ lMerge :: (Monad m, ReactiveValueRead a v m, ReactiveValueRead b v m)
        => a -> b -> ReactiveFieldRead m v
 lMerge = liftR2 (\a _ -> a)
 
--- | Right merge (give priority to the value on the left)
+-- | Right merge (give priority to the value on the right)
 rMerge :: (Monad m, ReactiveValueRead a v m, ReactiveValueRead b v m)
        => a -> b -> ReactiveFieldRead m v
 rMerge = liftR2 (\_ b -> b)
