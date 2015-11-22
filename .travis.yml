@@ -19,11 +19,11 @@ before_install:
  - travis_retry sudo apt-get install cabal-install-1.22 ghc-$GHCVER-prof ghc-$GHCVER-dyn
  - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/1.22/bin:$PATH
  - cabal update
- - cabal install happy alex -j=1 -v2
+ - cabal install happy alex -j1 -v2
 install:
  - cd keera-hails-reactivevalues
- - cabal install --enable-tests --disable-library-profiling --disable-executable-profiling --disable-documentation --disable-library-coverage --disable-benchmarks -v2 -j=1
- - cabal configure --enable-tests -j=1
+ - cabal install --enable-tests --disable-library-profiling --disable-executable-profiling --disable-documentation --disable-library-coverage --disable-benchmarks -v2 -j1
+ - cabal configure --enable-tests -j1
  - cabal build -v2 -j=1
  - cabal test
 notifications:
