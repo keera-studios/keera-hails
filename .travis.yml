@@ -22,5 +22,6 @@ install:
  - travis_retry cabal update
 script:
  - travis_retry cabal install --run-tests -v2 -j1 keera-hails-reactivevalues/
+ - travis_retry cabal install --run-tests -v2 -j1 keera-hails-reactivelenses/
 notifications:
  email: true
