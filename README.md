@@ -1,6 +1,7 @@
+# Keera Hails
 [![Build Status](https://travis-ci.org/keera-studios/keera-hails.svg?branch=master)](https://travis-ci.org/keera-studios/keera-hails)
 
-Keera Hails is a toolkit to create reactive applications in Haskell.
+Keera Hails is a toolkit to create *Reactive Applications in Haskell*.
 It facilitates combining User Interfaces, external devices, networks
 connections, files and, optionally, FRP networks.
 
@@ -77,7 +78,8 @@ to others.
   - [keera-hails-mvc-solutions-config](keera-hails-mvc-solutions-config/): Handling configuration files cleanly.
   - [keera-hails-i18n](keera-hails-i18n/): Handling internationalization
 
-For a introduction to reactive values, see:
+## Tutorials, papers and publications
+
 * [Bridging the GUI gap with reactive values and relations (Haskell Symposium 2015 paper)](http://dl.acm.org/citation.cfm?id=2804316)
 * [Readme for Reactive Value library](http://github.com/keera-studios/hails-reactivevalues)
 * [Ivan Perez's 1st PhD report, pages 29 and 40](http://www.cs.nott.ac.uk/~ixp/papers/2014-Perez-1st-year-report.pdf)
@@ -88,7 +90,8 @@ core ideas and problems that remain to be solved.)
 
 For bibtex references to these articles, see Publications in http://www.cs.nott.ac.uk/~ixp/.
 
-Applications and demos:
+## Applications and demos
+
 * http://github.com/keera-studios/keera-posture
 * http://github.com/ivanperez-keera/SoOSiM-ui
 * [A simple example using RVs for button clicks, sliders, monadic actions and SDL volume](http://github.com/keera-studios/keera-hails/tree/master/demos/keera-hails-demos-soundplay/src/Main.hs#L41-L58)
@@ -96,7 +99,7 @@ Applications and demos:
 * http://github.com/ivanperez-keera/haskellifi-trayicon
 * http://github.com/ivanperez-keera/keera-diamondcard-sms-trayicon
 
-# Credits
+## Credits
 
 I would like to thank the following people for fruitful discussions:
 * Henrik Nilsson
