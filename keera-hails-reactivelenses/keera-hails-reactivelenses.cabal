@@ -45,6 +45,21 @@ Build-type:          Simple
 -- Constraint on the version of Cabal needed to build this package.
 Cabal-version:       >= 1.6
 
+-- You can disable the hlint test suite with -f-test-hlint
+flag test-hlint
+  default: True
+  manual: True
+
+-- You can disable the haddock coverage test suite with -f-test-doc-coverage
+flag test-doc-coverage
+  default: True
+  manual: True
+
+-- You can disable the haddock coverage test suite with -f-test-unit-tests
+flag test-unit-tests
+  default: True
+  manual: True
+
 Library
   hs-source-dirs: src/
 
@@ -55,6 +70,60 @@ Library
 
   -- Packages needed in order to build this package.
   Build-depends: base >= 4 && < 5, lens, keera-hails-reactivevalues
+
+-- Verify that the code follows reasonable coding standards
+test-suite hlint
+  type: exitcode-stdio-1.0
+  main-is: hlint.hs
+  ghc-options: -w -threaded -rtsopts -with-rtsopts=-N
+  hs-source-dirs: tests
+
+  if !flag(test-hlint)
+    buildable: False
+  else
+    build-depends:
+      base >= 4 && < 5,
+      hlint >= 1.7
+
+-- Verify that the code is thoroughly documented
+test-suite haddock-coverage
+  type: exitcode-stdio-1.0
+  main-is: HaddockCoverage.hs
+  ghc-options: -Wall
+  hs-source-dirs: tests
+
+  if !flag(test-doc-coverage)
+    buildable: False
+  else
+    build-depends:
+      base >= 4 && < 5,
+      directory,
+      filepath,
+      process,
+      regex-posix
+
+-- Verify that the code is thoroughly documented
+test-suite unit-tests
+  type: exitcode-stdio-1.0
+  main-is: Tasty.hs
+  ghc-options: -Wall
+  hs-source-dirs: tests
+
+  if !flag(test-unit-tests)
+    buildable: False
+  else
+    build-depends:
+      base >= 4 && < 5,
+      -- This library and testing deps
+      mtl,
+      keera-hails-reactivevalues,
+
+      -- Testing libraries
+      tasty,
+      tasty-quickcheck,
+      tasty-hunit,
+      QuickCheck,
+      HUnit
 
 source-repository head
     type: git
