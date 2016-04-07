@@ -378,6 +378,7 @@ initRW e = ReactiveFieldRead getter notifier
  where notifier _ = return ()
        getter     = return e
 
+{-# ANN liftR "HLint: ignore Use fmap" #-}
 -- | Lift a transformation onto a RV. Note that this creates a new
 -- RV, it does not modify the existing RV.
 liftR :: (Monad m, ReactiveValueRead a b m) => (b -> c) -> a -> ReactiveFieldRead m c
