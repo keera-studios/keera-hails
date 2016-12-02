@@ -80,6 +80,7 @@ to others.
 
 ## Tutorials, papers and publications
 
+* [The Arpeggigon: Declarative Programming of A Full-Fledged Musical Application](http://eprints.nottingham.ac.uk/38657/1/padl2017-techreport.pdf)
 * [Bridging the GUI gap with reactive values and relations (Haskell Symposium 2015 paper)](http://dl.acm.org/citation.cfm?id=2804316)
 * [Readme for Reactive Value library](http://github.com/keera-studios/hails-reactivevalues)
 * [Ivan Perez's 1st PhD report, pages 29 and 40](http://www.cs.nott.ac.uk/~ixp/papers/2014-Perez-1st-year-report.pdf)
