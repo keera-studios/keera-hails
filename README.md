@@ -102,11 +102,12 @@ For bibtex references to these articles, see Publications in http://www.cs.nott.
 
 ## Credits
 
-I would like to thank the following people for fruitful discussions:
+I would like to thank the following people for fruitful discussions and collaborations.
 * Henrik Nilsson
 * Hamish Mackenzie (for helping me create the first GHCJS backend for Hails,
   and for Gtk2hs).
-* Leuite Stegeman (for helping me create the first GHCJS backend for Hails.)
+* Leuite Stegeman (for helping me create the first GHCJS backend for Hails).
+* Guerric Chupin (for continuing this work and writing Arpeggigon).
 * Arsen Kostenko
 * Emilio Gallego
 * Paolo Capriotti
