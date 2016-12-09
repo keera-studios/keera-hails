@@ -12,10 +12,10 @@ sudo: false
 # Environments we want to build for.
 matrix:
   include:
-    - env: GHCVER=7.8.4 CABALVER=1.22 ALEXVER=3.1.4 HAPPYVER=1.19.5
-      addons: {apt: {packages: [cabal-install-1.22,ghc-7.8.4,alex-3.1.4,happy-1.19.5], sources: [hvr-ghc]}}
-    - env: GHCVER=7.10.3 CABALVER=1.22 ALEXVER=3.1.4 HAPPYVER=1.19.5
-      addons: {apt: {packages: [cabal-install-1.22,ghc-7.10.3,alex-3.1.4,happy-1.19.5], sources: [hvr-ghc]}}
+    - env: GHCVER=7.8.4 CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
+      addons: {apt: {packages: [cabal-install-1.24,ghc-7.8.4,alex-3.1.4,happy-1.19.5], sources: [hvr-ghc]}}
+    - env: GHCVER=7.10.3 CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
+      addons: {apt: {packages: [cabal-install-1.24,ghc-7.10.3,alex-3.1.4,happy-1.19.5], sources: [hvr-ghc]}}
     - env: GHCVER=8.0.2 CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
       addons: {apt: {packages: [cabal-install-1.24,ghc-8.0.2,alex-3.1.4,happy-1.19.5], sources: [hvr-ghc]}}
 
