@@ -36,8 +36,7 @@ before_script:
   - cabal sandbox init
 script:
   # Print version information
-  - travis_retry cabal install --run-tests -v2 keera-hails-reactivevalues/
-  - travis_retry cabal install --run-tests -v2 keera-hails-reactivelenses/
+  - travis_retry cabal install --run-tests -j2 keera-hails-reactivevalues/ keera-hails-reactivelenses/
 
 # Deployment
 before_deploy:
