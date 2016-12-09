@@ -22,20 +22,26 @@ addons: {apt: {packages: [cabal-install-1.24,ghc-8.0.2,alex-3.1.4,happy-1.19.5],
 # Setup tools
 before_install:
 install:
-- export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/alex/$ALEXVER/bin:/opt/happy/$HAPPYVER/bin:$PATH
-- travis_retry cabal update
+  - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/alex/$ALEXVER/bin:/opt/happy/$HAPPYVER/bin:$PATH
+  - travis_retry cabal update
 
 # Compilation script
 before_script:
+  - ghc   --version
+  - cabal --version
+  - alex  --version
+  - happy --version
+
   # Work in a sandbox
-- cabal sandbox init
+  - cabal sandbox init
 script:
-- travis_retry cabal install --run-tests -v2 keera-hails-reactivevalues/
-- travis_retry cabal install --run-tests -v2 keera-hails-reactivelenses/
+  # Print version information
+  - travis_retry cabal install --run-tests -v2 keera-hails-reactivevalues/
+  - travis_retry cabal install --run-tests -v2 keera-hails-reactivelenses/
 
 # Deployment
 before_deploy:
-- cd keera-hails-reactivevalues/
+  - cd keera-hails-reactivevalues/
 deploy:
   provider: hackage
   username: Ivan Perez
