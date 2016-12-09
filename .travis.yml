@@ -45,7 +45,7 @@ before_deploy:
   - cd keera-hails-reactivevalues/
 deploy:
   provider: hackage
-  username: Ivan Perez
+  username: IvanPerez
   password:
     secure: 1Saxcxx2Hu98ooLAbwIJbnCl1aoftY6wEI+vwg1aOxRGVYpNi/rwVBVm0OpNLJ+zCRmf5XewUo/SgVwtXV/bW6OWLa10xEZQk/wtJpxh1kRffIq2wGtxDOPuz4UyOrhgo4KFHKrtsg9zaLpA78qWWKnvQw9x3RhsjhYX6wY/c35uUra6xbupNgyrM0reihMHkOONcm6QluEH4HHcCvwQ3cyiWxv0eVfqhOLmctltewbmvXAj0tDNpAgh4Mk+gnRcfHX84saFpLxBcnoycWwEMfXsR403+/egJbVPJ9SsG/ShkPE/RQFxuHwJnhC5RG4e4GgN4oHCQnS73cDbFG/DdQsGVsE9+nwV+0WRklnN8YjIe23Uf82S868O5cUyFLynZ7kRJMJOQf4q19LQqBbheg9VgBFcNBgt3TEI+21/WDusPY8p/EphFkYgN6xQwXvgSZcAc2SXIOjVhutYg87T94dcEjVNhPqmBJ2b0hbnJMis3YBqhhfqWfpsPQJSX2vcbtjSktAASSvkwF5EVsog8C1eWwXnfSpIrTDd4wK8VuVAe4eND3GL4o/oVgUzRwCH1icYJnQP8+UVe4cMPr8yvy7yaRO1YQBXLKqMyzGDXc15KFowrVPqeYH9+v/UfOFa54lErSmDM/8fXyDcR+CcsQbWJ7lRZs1rybIRwuonV70=
   on:
