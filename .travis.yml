@@ -1,27 +1,28 @@
-# language: haskell
-# ghc: 7.8
-#      7.6
-#      7.4
-# The following enables several GHC versions to be tested; often it's enough to
-# test only against the last release in a major GHC version. Feel free to omit
-# lines listings versions you don't need/want testing for.
 language: c
 env:
- - GHCVER=7.6.3
- - GHCVER=7.8.4
- - GHCVER=7.10.3
-
-# Note: the distinction between `before_install` and `install` is not important.
+- GHCVER=7.6.3
+- GHCVER=7.8.4
+- GHCVER=7.10.3
 before_install:
- - unset CC
+- unset CC
 install:
- - travis_retry sudo add-apt-repository -y ppa:hvr/ghc
- - travis_retry sudo apt-get update
- - travis_retry sudo apt-get install cabal-install-1.22 ghc-$GHCVER-prof ghc-$GHCVER-dyn alex-3.1.4 happy-1.19.5
- - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/1.22/bin:/opt/alex/3.1.4/bin:/opt/happy/1.19.5/bin:$PATH
- - travis_retry cabal update
+- travis_retry sudo add-apt-repository -y ppa:hvr/ghc
+- travis_retry sudo apt-get update
+- travis_retry sudo apt-get install cabal-install-1.22 ghc-$GHCVER-prof ghc-$GHCVER-dyn
+  alex-3.1.4 happy-1.19.5
+- export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/1.22/bin:/opt/alex/3.1.4/bin:/opt/happy/1.19.5/bin:$PATH
+- travis_retry cabal update
 script:
- - travis_retry cabal install --run-tests -v2 keera-hails-reactivevalues/
- - travis_retry cabal install --run-tests -v2 keera-hails-reactivelenses/
+- travis_retry cabal install --run-tests -v2 keera-hails-reactivevalues/
+- travis_retry cabal install --run-tests -v2 keera-hails-reactivelenses/
 notifications:
- email: true
+  email: true
+before_deploy:
+- cd keera-hails-reactivevalues/
+deploy:
+  provider: hackage
+  username: Ivan Perez
+  password:
+    secure: 1Saxcxx2Hu98ooLAbwIJbnCl1aoftY6wEI+vwg1aOxRGVYpNi/rwVBVm0OpNLJ+zCRmf5XewUo/SgVwtXV/bW6OWLa10xEZQk/wtJpxh1kRffIq2wGtxDOPuz4UyOrhgo4KFHKrtsg9zaLpA78qWWKnvQw9x3RhsjhYX6wY/c35uUra6xbupNgyrM0reihMHkOONcm6QluEH4HHcCvwQ3cyiWxv0eVfqhOLmctltewbmvXAj0tDNpAgh4Mk+gnRcfHX84saFpLxBcnoycWwEMfXsR403+/egJbVPJ9SsG/ShkPE/RQFxuHwJnhC5RG4e4GgN4oHCQnS73cDbFG/DdQsGVsE9+nwV+0WRklnN8YjIe23Uf82S868O5cUyFLynZ7kRJMJOQf4q19LQqBbheg9VgBFcNBgt3TEI+21/WDusPY8p/EphFkYgN6xQwXvgSZcAc2SXIOjVhutYg87T94dcEjVNhPqmBJ2b0hbnJMis3YBqhhfqWfpsPQJSX2vcbtjSktAASSvkwF5EVsog8C1eWwXnfSpIrTDd4wK8VuVAe4eND3GL4o/oVgUzRwCH1icYJnQP8+UVe4cMPr8yvy7yaRO1YQBXLKqMyzGDXc15KFowrVPqeYH9+v/UfOFa54lErSmDM/8fXyDcR+CcsQbWJ7lRZs1rybIRwuonV70=
+  on:
+    branch: master
