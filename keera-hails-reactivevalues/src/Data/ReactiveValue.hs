@@ -311,7 +311,7 @@ data ReactiveFieldRead m a =
   ReactiveFieldRead (FieldGetter m a) (FieldNotifier m a)
 
 -- | A Write-Only RV.
-data ReactiveFieldWrite m a =
+newtype ReactiveFieldWrite m a =
   ReactiveFieldWrite (FieldSetter m a)
 
 -- | A Read-Write RV.
