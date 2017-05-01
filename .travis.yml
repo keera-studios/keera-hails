@@ -19,21 +19,22 @@
 #     - env: GHCVER=8.0.2 CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
 #       addons: {apt: {packages: [cabal-install-1.24,ghc-8.0.2,alex-3.1.4,happy-1.19.5], sources: [hvr-ghc]}}
 
-# - GHCVER=7.6.3
-# - GHCVER=7.8.4
-# - GHCVER=7.10.3
-# - GHCVER=8.0.1
-
 language: c
 
 env:
-   secure: BAT4/Yvy7AP5HOhMpK0Icq5zc2q3SIU+qaXFSabOMPG1IMYuTvl7x3FQcGGe9izDiAikQhX75LiAU5ABkgxVWdZOl7nHLs4oMqijzkcDxUWQ0TuSsV75wmXL+G5SSdkkPdu5ZQjmrF/Bw+g2Xk+eZzfuo8lareq9ka9/ahfZPKaFxKV98sPutMBihly9uM5CZNQ++7JB/wdLVxacJTHW2Bhx4P7nKz1TwvLBto2gPgCcL372n45nfV46vBTCgB069pan5M5ceuDg7ex8DuVt0hsaKeau0ALD/YXxukVDweRTR3S1DETwExxDh3TShUaQVmnpSrLKh7nztlmDGVMCDCuc8tqUQ/dnsHRQ4nQjajp+lU2BO3GI4NgRRjZAKr5dpxtWOnxvFR4d+qZtGPvkGxnTXCSP2w8MiS7TtIugrsiM7EbGK5Sm5NbCx6bcJ9itonQVAq1y2ZrneIhU7E9h6WLbwd+W/8M+HyN6pExblKtitts+wpnq02A5XGx5gOyl9v2bUwuJq2mxBydrUqrRCvLgFrAqYB+2zJoCQHryDlmzLJr/jG2Nfo2gGjaTZf1yGqe95F1Os+DisdQi3zJa1KkPrco1si74TVPB+SKnawwtTmkrDtoGgBJkxDejHwZ1AXWCpisnQld7Cmxo0xjeZxpvTfYqqKByo5mJGadf/7g=
+ - GHCVER=7.6.3
+ - GHCVER=7.8.4
+ - GHCVER=7.10.3
+ - GHCVER=8.0.1
 
-matrix:
-  include:
-    - env: GHCVER=7.8.4  CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
-    - env: GHCVER=7.10.3 CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
-    - env: GHCVER=8.0.2  CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
+# env:
+#    secure: BAT4/Yvy7AP5HOhMpK0Icq5zc2q3SIU+qaXFSabOMPG1IMYuTvl7x3FQcGGe9izDiAikQhX75LiAU5ABkgxVWdZOl7nHLs4oMqijzkcDxUWQ0TuSsV75wmXL+G5SSdkkPdu5ZQjmrF/Bw+g2Xk+eZzfuo8lareq9ka9/ahfZPKaFxKV98sPutMBihly9uM5CZNQ++7JB/wdLVxacJTHW2Bhx4P7nKz1TwvLBto2gPgCcL372n45nfV46vBTCgB069pan5M5ceuDg7ex8DuVt0hsaKeau0ALD/YXxukVDweRTR3S1DETwExxDh3TShUaQVmnpSrLKh7nztlmDGVMCDCuc8tqUQ/dnsHRQ4nQjajp+lU2BO3GI4NgRRjZAKr5dpxtWOnxvFR4d+qZtGPvkGxnTXCSP2w8MiS7TtIugrsiM7EbGK5Sm5NbCx6bcJ9itonQVAq1y2ZrneIhU7E9h6WLbwd+W/8M+HyN6pExblKtitts+wpnq02A5XGx5gOyl9v2bUwuJq2mxBydrUqrRCvLgFrAqYB+2zJoCQHryDlmzLJr/jG2Nfo2gGjaTZf1yGqe95F1Os+DisdQi3zJa1KkPrco1si74TVPB+SKnawwtTmkrDtoGgBJkxDejHwZ1AXWCpisnQld7Cmxo0xjeZxpvTfYqqKByo5mJGadf/7g=
+
+# matrix:
+#   include:
+#     - env: GHCVER=7.8.4  CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
+#     - env: GHCVER=7.10.3 CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
+#     - env: GHCVER=8.0.2  CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
 
 # Note: the distinction between `before_install` and `install` is not important.
 before_install:
