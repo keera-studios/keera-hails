@@ -39,7 +39,7 @@ env:
 # Note: the distinction between `before_install` and `install` is not important.
 before_install:
  - unset CC
- - openssl aes-256-cbc -K $encrypted_3ed86c537adf_key -iv $encrypted_3ed86c537adf_iv -in .hackage-conf/pass-hackage-keerastudiosci.enc -out .hackage-conf/pass-hackage-keerastudiosci -d
+ - openssl aes-256-cbc -K $encrypted_3ed86c537adf_key -iv $encrypted_3ed86c537adf_iv -in .cabal-conf/hackage.enc -out .cabal-conf/hackage
 
 install:
  - travis_retry sudo add-apt-repository -y ppa:hvr/ghc
@@ -47,7 +47,7 @@ install:
  - travis_retry sudo apt-get install cabal-install-1.24 ghc-$GHCVER-prof ghc-$GHCVER-dyn alex-3.1.4 happy-1.19.5
  - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/1.24/bin:/opt/alex/3.1.4/bin:/opt/happy/1.19.5/bin:$PATH
  - travis_retry cabal update
- - cat .hackage-conf/pass-hackage-keerastudiosci >> $HOME/.cabal/config
+ - cat .cabal-conf/hackage >> $HOME/.cabal/config
 
 
 # # Setup tools
@@ -86,7 +86,9 @@ before_script:
 
 script:
   # - travis_retry cabal install --reorder-goals --max-backjump=3 -j2 keera-hails-i18n keera-hails-mvc-controller keera-hails-mvc-environment-gtk keera-hails-mvc-model-lightmodel keera-hails-mvc-model-protectedmodel keera-hails-mvc-solutions-config keera-hails-mvc-solutions-gtk keera-hails-mvc-view keera-hails-mvc-view-gtk keera-hails-reactive-fs keera-hails-reactive-gtk keera-hails-reactivelenses keera-hails-reactive-network keera-hails-reactive-polling keera-hails-reactivevalues keera-hails-reactive-yampa
-  - travis_retry cabal install --reorder-goals --max-backjump=3 -j2 keera-hails-reactivevalues
+  - travis_retry cabal install --reorder-goals --max-backjump=3 -j2
+      keera-hails-reactivevalues
+      keera-hails-reactivelenses
 
 # Notifications
 notifications:
@@ -103,7 +105,8 @@ notifications:
 deploy:
   provider: script
   # script: cd keera-hails-reactivevalues && cabal check && cabal sdist && cabal upload --username=keera_studios_ci --password=$PASS `find dist/ -iname '*.tar.gz'` || cd .. && cd keera-hails-reactivelenses && cabal check && cabal sdist && cabal upload --username=keera_studios_ci --password=$PASS `find dist/ -iname '*.tar.gz'` || cd .. && true
-  script: set -x && cd keera-hails-reactivevalues && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd ..
+  script: set -x && cd keera-hails-reactivevalues && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ;
+          set -x && cd keera-hails-reactivelenses && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd ..
   on:
     branch: develop_travis_upload
     condition: "$GHCVER = 8.0.1"
