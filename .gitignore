@@ -12,3 +12,4 @@ cabal-dev
 cabal.sandbox.config
 cabal.config
 scripts
+.cabal-conf/hackage
