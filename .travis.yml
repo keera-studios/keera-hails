@@ -104,5 +104,5 @@ deploy:
           && cd keera-hails-reactivelenses && cabal check && cabal sdist && cabal upload --username=keera_studios_ci --password=$PASS `find dist/ -iname '*.tar.gz'` || cd .. 
           && true
   on:
-    branch: develop_upload
-    condition: "$GHCVER = 8.0.2"
+    branch: develop_travis_upload
+    condition: "$GHCVER = 8.0.1"
