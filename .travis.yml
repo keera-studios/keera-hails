@@ -21,6 +21,7 @@ matrix:
 
 # Setup tools
 before_install:
+  - ps uax --forest
 install:
   - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/alex/$ALEXVER/bin:/opt/happy/$HAPPYVER/bin:$PATH
   - travis_retry cabal update
@@ -47,12 +48,12 @@ before_deploy:
 
 deploy:
   provider: hackage
-  username: IvanPerez
+  username: keera_studios_ci
   password:
-    secure: 1Saxcxx2Hu98ooLAbwIJbnCl1aoftY6wEI+vwg1aOxRGVYpNi/rwVBVm0OpNLJ+zCRmf5XewUo/SgVwtXV/bW6OWLa10xEZQk/wtJpxh1kRffIq2wGtxDOPuz4UyOrhgo4KFHKrtsg9zaLpA78qWWKnvQw9x3RhsjhYX6wY/c35uUra6xbupNgyrM0reihMHkOONcm6QluEH4HHcCvwQ3cyiWxv0eVfqhOLmctltewbmvXAj0tDNpAgh4Mk+gnRcfHX84saFpLxBcnoycWwEMfXsR403+/egJbVPJ9SsG/ShkPE/RQFxuHwJnhC5RG4e4GgN4oHCQnS73cDbFG/DdQsGVsE9+nwV+0WRklnN8YjIe23Uf82S868O5cUyFLynZ7kRJMJOQf4q19LQqBbheg9VgBFcNBgt3TEI+21/WDusPY8p/EphFkYgN6xQwXvgSZcAc2SXIOjVhutYg87T94dcEjVNhPqmBJ2b0hbnJMis3YBqhhfqWfpsPQJSX2vcbtjSktAASSvkwF5EVsog8C1eWwXnfSpIrTDd4wK8VuVAe4eND3GL4o/oVgUzRwCH1icYJnQP8+UVe4cMPr8yvy7yaRO1YQBXLKqMyzGDXc15KFowrVPqeYH9+v/UfOFa54lErSmDM/8fXyDcR+CcsQbWJ7lRZs1rybIRwuonV70=
+    secure: XouU0aU7U3kFa3HM1ecPdiAR8oscz7VMuTNlSnY7o4ZNIIBg6bEJ2AvZHW0eLIiCerPpox4uyrcxgSw5/L38mXFJYlcHbqVCh+rMxi2DTU73XelUXNQ+tLv0sCHsrWLd97tTpefgzuuNCJ6RoK91Vo8AC84txbgirQLv4WJ8LJWI2danvNUT2q+kTLA9LFxnLC+iNtMi/FxTE56noz6UnbhvzgLUkRgMM/k97CTtM0Q1Iei1vOFzRcjd9D/S3Uzy00cEzARilNe++IE9qTK9aBSXiaNSZtHrT7V3Nou7tIEuU8rE3vBKTSOiZ/fZTqhirufyHC1ORwBRn6DFEDpcTgppL+aFGev6rngoq9d2MIa8qW0E2ijD00BPZhm8KLKODAT2b1SYpIGCUsNyMo98LEzmJPi21SUjoUxUyuX82wtSHPLUgGBAuanHmFIao9jX+Ws04yUhvoWnFaDlwisG6CbFgMI/K8bSn7qdLyrCXFGn/fc5CS2dj9ApCTGS81btIfxSq0s6fax5KmzswsAtxjjdhKn/pkkpIUQPn/qYIAZrN6UGDr57Xw7QobDMibW/CPQ+EAGtAapqHVKaL0ZJxGxXKSthpdhWGPcsDCFIfpnVqEQZTubgzIa7UPagjOKSDy+ErHBxLztCFzZ+wHxUO3OR2kPtVjzqvqcWATLEMOg=
   on:
     branch: master
-    condition: "$GHCVER" == "8.0.2"
+    condition: "$GHCVER = 8.0.2"
 
 # Notifications
 notifications:
