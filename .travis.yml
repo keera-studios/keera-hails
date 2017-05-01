@@ -21,7 +21,6 @@ matrix:
 
 # Setup tools
 before_install:
-  - ps uax --forest
 install:
   - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/alex/$ALEXVER/bin:/opt/happy/$HAPPYVER/bin:$PATH
   - travis_retry cabal update
@@ -37,6 +36,7 @@ before_script:
   - cabal sandbox init
   - cd keera-hails-reactivevalues/ && cabal sandbox init --sandbox=../.cabal-sandbox && cd ..
   - cd keera-hails-reactivelenses/ && cabal sandbox init --sandbox=../.cabal-sandbox && cd ..
+
 script:
   # Print version information
   - travis_retry cabal install --reorder-goals --max-backjump=3 --run-tests -j2 keera-hails-reactivevalues/ keera-hails-reactivelenses/
@@ -44,6 +44,7 @@ script:
 # Deployment
 before_deploy:
   - cd keera-hails-reactivevalues/
+
 deploy:
   provider: hackage
   username: IvanPerez
