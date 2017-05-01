@@ -39,7 +39,7 @@ env:
 # Note: the distinction between `before_install` and `install` is not important.
 before_install:
  - unset CC
- - openssl aes-256-cbc -K $encrypted_3ed86c537adf_key -iv $encrypted_3ed86c537adf_iv -in .cabal-conf/hackage.enc -out .cabal-conf/hackage
+ - openssl aes-256-cbc -K $encrypted_3ed86c537adf_key -iv $encrypted_3ed86c537adf_iv -in .cabal-conf/hackage.enc -out .cabal-conf/hackage -d
 
 install:
  - travis_retry sudo add-apt-repository -y ppa:hvr/ghc
