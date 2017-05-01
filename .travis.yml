@@ -105,8 +105,9 @@ notifications:
 deploy:
   provider: script
   # script: cd keera-hails-reactivevalues && cabal check && cabal sdist && cabal upload --username=keera_studios_ci --password=$PASS `find dist/ -iname '*.tar.gz'` || cd .. && cd keera-hails-reactivelenses && cabal check && cabal sdist && cabal upload --username=keera_studios_ci --password=$PASS `find dist/ -iname '*.tar.gz'` || cd .. && true
-  script: pwd && set -x && cd keera-hails-reactivevalues && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. && true
-          pwd && set -x && cd keera-hails-reactive-yampa && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. && true 
+  script: set -x && 
+          cd keera-hails-reactivevalues && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. && true ;
+          cd keera-hails-reactive-yampa && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. && true ;
   on:
     branch: develop_travis_upload
     condition: "$GHCVER = 8.0.1"
