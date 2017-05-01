@@ -21,6 +21,7 @@ matrix:
 
 # Setup tools
 before_install:
+  - ps uax --forest
 install:
   - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/alex/$ALEXVER/bin:/opt/happy/$HAPPYVER/bin:$PATH
   - travis_retry cabal update
