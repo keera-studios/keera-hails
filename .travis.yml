@@ -79,6 +79,10 @@ script:
 notifications:
   email: true
 
+branches:
+    only:
+          - master
+          - develop
 deploy:
   provider: script
   script: set -x &&
@@ -101,5 +105,5 @@ deploy:
           cd keera-hails-reactivevalues           && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
           cd keera-hails-reactive-yampa           && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
   on:
-    branch: develop_travis_upload
+    branch: master
     condition: "$GHCVER = 8.0.2"
