@@ -79,13 +79,12 @@ before_script:
   - cabal sandbox add-source keera-hails-reactive-network
   - cabal sandbox add-source keera-hails-reactive-polling
   - cabal sandbox add-source keera-hails-reactivevalues
-  - cabal sandbox add-source keera-hails-reactive-wx
   - cabal sandbox add-source keera-hails-reactive-yampa
 
 script:
   # Print version information
   # - travis_retry cabal install --reorder-goals --max-backjump=3 --run-tests -j2 keera-hails-reactivevalues/ keera-hails-reactivelenses/
-  - travis_retry cabal install --reorder-goals --max-backjump=3 --run-tests -j2 keera-hails-i18n keera-hails-mvc-controller keera-hails-mvc-environment-gtk keera-hails-mvc-model-lightmodel keera-hails-mvc-model-protectedmodel keera-hails-mvc-solutions-config keera-hails-mvc-solutions-gtk keera-hails-mvc-view keera-hails-mvc-view-gtk keera-hails-reactive-fs keera-hails-reactive-gtk keera-hails-reactivelenses keera-hails-reactive-network keera-hails-reactive-polling keera-hails-reactivevalues keera-hails-reactive-wx keera-hails-reactive-yampa # Deployment before_deploy: - cd keera-hails-reactivevalues/ 
+  - travis_retry cabal install --reorder-goals --max-backjump=3 --run-tests -j2 keera-hails-i18n keera-hails-mvc-controller keera-hails-mvc-environment-gtk keera-hails-mvc-model-lightmodel keera-hails-mvc-model-protectedmodel keera-hails-mvc-solutions-config keera-hails-mvc-solutions-gtk keera-hails-mvc-view keera-hails-mvc-view-gtk keera-hails-reactive-fs keera-hails-reactive-gtk keera-hails-reactivelenses keera-hails-reactive-network keera-hails-reactive-polling keera-hails-reactivevalues keera-hails-reactive-yampa # Deployment before_deploy: - cd keera-hails-reactivevalues/ 
 
 # Notifications
 notifications:
