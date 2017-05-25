@@ -6,8 +6,9 @@ It facilitates combining User Interfaces, external devices, networks
 connections, files and, optionally, FRP networks.
 
 Keera Hails is modular and extensible. It is cross platform (Windows, Linux,
-MacOSX, Android, GHCJS), UI-agnostic (Gtk+, WX, Qt, Android Native toolkit,
-HTML DOM), FRP-agnostic and device-agnostic (Wiimote, Webcams, etc).
+MacOSX, iOS, Android, GHCJS), UI-agnostic (Gtk+, WX, Qt, iOS native UIs,
+Android Native toolkit, HTML DOM), FRP-agnostic and device-agnostic (Wiimote,
+Webcams, etc).
 
 Keera Hails has been used to create large applications and is used commercially
 in production.
@@ -38,9 +39,11 @@ to others.
   - [keera-hails-reactive-yampa](keera-hails-reactive-yampa/): Yampa reactimation loops as a pair of RVs
   - [keera-hails-reactive-polling](keera-hails-reactive-polling/): Strategies to make RVs fire regularly
 
-  An experimental Android backend that uses Android's Native UI toolkit
-  is also available. Please, contact Keera Studios if you wish to
-  use it.
+  Backends for iOS and Android (using each platform's native UI toolkits) are
+also available. Samples can be found
+[here](https://www.facebook.com/keerastudios/videos/1674596312555888/) and
+[here](https://www.facebook.com/keerastudios/photos/a.550237501658447.138031.300854939930039/1675515659130620/?type=3&theater).
+Please contact Keera Studios if you wish to use them.
 
 * MVC Architecture
 
