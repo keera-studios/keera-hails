@@ -52,7 +52,7 @@ Data-files:
 -- Extra-source-files:
 
 -- Constraint on the version of Cabal needed to build this package.
-Cabal-version:       >= 1.6
+cabal-version: >= 1.10
 
 Executable hails
   hs-source-dirs: src/

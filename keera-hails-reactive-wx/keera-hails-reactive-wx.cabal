@@ -48,7 +48,7 @@ Extra-source-files:
   examples/*.xrc
 
 -- Constraint on the version of Cabal needed to build this package.
-Cabal-version:       >=1.6
+cabal-version: >= 1.10
 
 Library
   hs-source-dirs: src/
