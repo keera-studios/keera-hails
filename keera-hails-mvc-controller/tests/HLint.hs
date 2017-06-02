@@ -1,0 +1,2 @@
+import "hint" HLint.HLint
+
