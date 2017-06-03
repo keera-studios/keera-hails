@@ -21,7 +21,7 @@ Description:
   RVs can be created from pure models (see <https://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-model-lightmodel keera-hails-mvc-model-lightmodel> and  <https://github.com/keera-studios/keera-hails/tree/master/keera-hails-mvc-model-protectedmodel keera-hails-mvc-model-protectedmodel>), Gtk+\/WX\/Qt\/HTML DOM\/Android widget properties\/event handlers\/getters\/setters, files, sockets, FRP networks. Other backends are also available. See <https://github.com/keera-studios/keera-hails keera-hails> for a list of available backends, tutorials, etc.
 
 -- URL for the project homepage or repository.
-Homepage:            http://www.keera.es/blog/community/
+Homepage:            http://www.keera.co.uk/blog/community/
 
 -- The license under which the package is released.
 License:             BSD3
@@ -34,7 +34,7 @@ Author:              Ivan Perez
 
 -- An email address to which users can send suggestions, bug reports,
 -- and patches.
-Maintainer:          ivan.perez@keera.es
+Maintainer:          ivan.perez@keera.co.uk
 
 -- A copyright notice.
 -- Copyright:

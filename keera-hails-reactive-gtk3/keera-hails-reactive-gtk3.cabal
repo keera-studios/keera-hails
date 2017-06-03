@@ -16,7 +16,7 @@ Synopsis:            Haskell on Gtk3 rails - Reactive Fields for Gtk widgets
 -- Description:
 
 -- URL for the project homepage or repository.
-Homepage:            http://www.keera.es/blog/community/
+Homepage:            http://www.keera.co.uk/blog/community/
 
 -- The license under which the package is released.
 License:             BSD3
@@ -29,7 +29,7 @@ Author:              Ivan Perez
 
 -- An email address to which users can send suggestions, bug reports,
 -- and patches.
-Maintainer:          ivan.perez@keera.es
+Maintainer:          ivan.perez@keera.co.uk
 
 -- A copyright notice.
 -- Copyright:
