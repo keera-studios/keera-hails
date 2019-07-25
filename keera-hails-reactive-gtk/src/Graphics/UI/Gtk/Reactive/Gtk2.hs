@@ -8063,7 +8063,7 @@ treeViewSetHoverSelectionReactive w = wrapMW (treeViewSetHoverSelection w)
 
 
 -- @T: treeViewSetModel					 | ["tree","View","Set","Model"]
-treeViewSetModelReactive :: (TreeViewClass self, TreeModelClass model) => (self) -> ReactiveFieldWrite IO (model)
+treeViewSetModelReactive :: (TreeViewClass self, TreeModelClass model) => (self) -> ReactiveFieldWrite IO (Maybe model)
 treeViewSetModelReactive w = wrapMW (treeViewSetModel w)
 
 
