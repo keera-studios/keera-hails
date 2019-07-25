@@ -4458,7 +4458,7 @@ dialogGetUpperPassive w = wrapMRPassive (dialogGetUpper w)
 
 
 -- @G: drawableGetID					 | ["drawable","Get","ID"]
-drawableGetIDPassive :: DrawableClass d => (d) -> ReactiveFieldRead IO (NativeWindowId)
+drawableGetIDPassive :: (DrawWindowClass d, DrawableClass d) => (d) -> ReactiveFieldRead IO (NativeWindowId)
 drawableGetIDPassive w = wrapMRPassive (drawableGetID w)
 
 
