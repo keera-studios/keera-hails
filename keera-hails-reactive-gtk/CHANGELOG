@@ -1,4 +1,8 @@
 2019-07-25 Sasha Pavlenko <myro@keera.co.uk>
+        * hails-reactive-gtk.cabal: version bump (0.5)
+        * src/Graphics/UI/Gtk/Reactive/Gtk2.hs: Add missing constraint.
+
+2019-07-25 Sasha Pavlenko <myro@keera.co.uk>
         * hails-reactive-gtk.cabal: version bump (0.4)
         * src/Graphics/UI/Gtk/Reactive/Gtk2.hs: Hide definitions unavailable on Mac
 
