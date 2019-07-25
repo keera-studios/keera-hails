@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 module Graphics.UI.Gtk.Reactive.Gtk2 where
 
 import           Control.Monad (void)
@@ -3032,7 +3033,7 @@ statusIconTooltipTextPassive w = passivePropertyNE w statusIconTooltipText
 statusIconVisiblePassive :: StatusIconClass self => (self) -> ReactiveFieldReadWrite IO (Bool)
 statusIconVisiblePassive w = passivePropertyNE w statusIconVisible
 
-
+#ifndef darwin_HOST_OS
 -- @S: plugEmbedded
 plugEmbeddedReactive :: PlugClass self => self -> ReactiveFieldRead IO ()
 plugEmbeddedReactive = (`reactiveSignalIO` plugEmbedded)
@@ -3086,6 +3087,9 @@ socketPlugAddedReactive = (`reactiveSignalIO` socketPlugAdded)
 
 -- @S: socketPlugRemoved
 -- TODO
+
+#endif
+
 -- @C: afterDeleteText
 -- TODO
 -- @C: afterEditableChanged
