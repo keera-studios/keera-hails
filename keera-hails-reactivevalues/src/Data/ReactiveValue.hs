@@ -19,6 +19,9 @@
 -- to existing backends (GUIs, devices, files, network, FRP), see
 -- https://github.com/keera-studios/keera-hails
 --
+-- A more detailed description of reactive values can be found at:
+-- http://dl.acm.org/citation.cfm?id=2804316
+--
 module Data.ReactiveValue
   ( -- * Reactive Values
 

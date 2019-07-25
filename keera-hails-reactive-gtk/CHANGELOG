@@ -1,3 +1,7 @@
+2019-07-25 Sasha Pavlenko <myro@keera.co.uk>
+        * hails-reactive-gtk.cabal: version bump (0.4)
+        * src/Graphics/UI/Gtk/Reactive/Gtk2.hs: Hide definitions unavailable on Mac
+
 2015-08-20 Ivan Perez <ivan.perez@keera.co.uk>
         * hails-reactive-gtk.cabal: version bump (0.3)
         * src/Graphics/UI/Gtk/Reactive.hs: export more submodules
