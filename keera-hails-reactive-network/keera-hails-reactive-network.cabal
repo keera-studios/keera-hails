@@ -7,7 +7,7 @@ Name:                keera-hails-reactive-network
 -- The package version. See the Haskell package versioning policy
 -- (http://www.haskell.org/haskellwiki/Package_versioning_policy) for
 -- standards guiding when and how versions should be incremented.
-Version:             0.0.3.3
+Version:             0.1
 
 -- A short (one-line) description of the package.
 Synopsis:            Haskell on Rails - Sockets as Reactive Values
@@ -59,6 +59,7 @@ Library
   Build-depends: base >= 4 && < 5
                , keera-hails-reactivevalues
                , network
+               , network-bsd
 
 source-repository head
     type: git
