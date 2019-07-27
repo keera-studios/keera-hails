@@ -55,7 +55,7 @@ before_script:
   - cabal sandbox add-source keera-hails-reactive-yampa
 
 script:
-  - travis_retry cabal install --reorder-goals --max-backjump=3 -j2
+  - travis_retry cabal install --reorder-goals --max-backjump=-1 -j2
       keera-hails-i18n
       keera-hails-mvc-controller
       keera-hails-mvc-environment-gtk
