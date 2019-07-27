@@ -1,6 +1,6 @@
 module Hails.Network where
 
-import Data.ByteString           (fromString)
+import Data.String               (fromString)
 import Data.List
 import Data.ReactiveValue
 import Network.BSD
