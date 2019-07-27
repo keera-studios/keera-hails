@@ -13,7 +13,22 @@ Version:             0.5
 Synopsis:            Haskell on Gtk rails - Reactive Fields for Gtk widgets
 
 -- A longer description of the package.
--- Description:
+Description:
+  A layer defining RVs for GTK+ fields and actions.
+  .
+  Reactive Values are an abstraction for reactive programming based on setters
+  and getters with change-based propagation.
+  .
+  They enable easy communication/synchronization rules via Reactive Rules
+  (RRs), which can keep two type-compatible RVs in sync directionally or
+  bidirectionally.
+  .
+  This library provides operations to turn GTK+ object properties and
+  fields into RVs, so that they can be used to create reactive user
+  interfaces with minimal effort.
+  .
+  For details, please see the paper "Bridging the GUI Gap with Reactive Values
+  and Relations", by Ivan Perez and Henrik Nilsson at Haskell Symposium 2015.
 
 -- URL for the project homepage or repository.
 Homepage:            http://www.keera.co.uk/blog/community/
