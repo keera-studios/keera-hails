@@ -92,7 +92,7 @@ deploy:
           cd keera-hails-mvc-view-gtk             && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
           cd keera-hails-reactive-fs              && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
           cd keera-hails-reactive-gtk             && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-reactive-etwork          && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
+          cd keera-hails-reactive-network         && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
           cd keera-hails-reactive-polling         && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
           cd keera-hails-reactive-wx              && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
           cd keera-hails-reactivelenses           && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
