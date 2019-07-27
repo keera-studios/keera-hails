@@ -57,8 +57,9 @@ Library
 
   -- Packages needed in order to build this package.
   Build-depends: base >= 4 && < 5
+               , bytestring
                , keera-hails-reactivevalues
-               , network
+               , network >= 3.0
                , network-bsd
 
 source-repository head
