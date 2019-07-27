@@ -1,9 +1,11 @@
 module Hails.Network where
 
+import Data.String               (fromString)
 import Data.List
 import Data.ReactiveValue
 import Network.BSD
 import Network.Socket
+import Network.Socket.ByteString (sendTo)
 
 -- | Create a UDP sink (a write-only reactive value).
 udpSink :: HostName -> String -> IO (ReactiveFieldWrite IO String)
@@ -18,7 +20,8 @@ udpSink hostname port = do
   -- Send command
   let sendstr :: String -> IO ()
       sendstr []   = return ()
-      sendstr omsg = do sent <- sendTo sock omsg (addrAddress serveraddr)
+      sendstr omsg = do let bsMsg = fromString omsg
+                        sent <- sendTo sock bsMsg (addrAddress serveraddr)
                         sendstr (genericDrop sent omsg)
 
   return $ ReactiveFieldWrite sendstr
