@@ -79,10 +79,6 @@ script:
 notifications:
   email: true
 
-branches:
-    only:
-          - master
-          - develop
 deploy:
   provider: script
   script: set -x &&
