@@ -13,7 +13,7 @@ Version:             0.1
 Synopsis:            Haskell on Rails - Sockets as Reactive Values
 
 -- A longer description of the package.
--- Description:
+Description:         A layer to create RVs that connect to network sockets.
 
 -- URL for the project homepage or repository.
 Homepage:            http://www.keera.co.uk/blog/community/
@@ -88,6 +88,9 @@ test-suite hlint
       base,
       hlint >= 1.7
 
+  default-language: Haskell2010
+
+
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
   type: exitcode-stdio-1.0
@@ -104,3 +107,6 @@ test-suite haddock-coverage
       filepath,
       process,
       regex-posix
+
+  default-language: Haskell2010
+
