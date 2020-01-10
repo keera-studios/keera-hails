@@ -25,4 +25,4 @@ main = start $ do
 
   -- Controller
   (involution reverse <$$> txt1T) =:= txt2T
-  btnC =:> modRW ((++ "a")) txt2T
+  btnC =:> modRW (\s _ -> s ++ "a") txt2T
