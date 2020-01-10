@@ -14,8 +14,6 @@ matrix:
   include:
     - env: GHCVER=7.10.3 CABALVER=2.4
       addons: {apt: {packages: [cabal-install-2.4,ghc-7.10.3,alex,happy,libgtk2.0-dev, gtk2hs-buildtools], sources: [hvr-ghc]}}
-    - env: GHCVER=8.0.2 CABALVER=2.4
-      addons: {apt: {packages: [cabal-install-2.4,ghc-8.0.2,alex,happy,libgtk2.0-dev, gtk2hs-buildtools], sources: [hvr-ghc]}}
     - env: GHCVER=8.2.2 CABALVER=2.4
       addons: {apt: {packages: [cabal-install-2.4,ghc-8.2.2,alex,happy,libgtk2.0-dev, gtk2hs-buildtools], sources: [hvr-ghc]}}
     - env: GHCVER=8.4.4 CABALVER=2.4
