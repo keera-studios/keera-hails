@@ -1,2 +1,0 @@
-* This thing only depends on Gtk very indirectly. It will never invoke Gtk code.
-  That dependency should be removed from the code.
