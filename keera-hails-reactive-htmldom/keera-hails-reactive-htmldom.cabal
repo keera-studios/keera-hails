@@ -49,7 +49,7 @@ test-suite hlint
     exitcode-stdio-1.0
 
   main-is:
-    hlint.hs
+    HLintMain.hs
 
   hs-source-dirs:
     tests
