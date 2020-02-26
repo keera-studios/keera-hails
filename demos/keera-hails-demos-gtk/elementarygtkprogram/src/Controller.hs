@@ -1,6 +1,10 @@
 -- | This contains the main controller. Many operations will be
 -- implemented in the Controller.* subsystem. This module simply
 -- initialises program.
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Controller where
 
 -- External imports

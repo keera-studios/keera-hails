@@ -4,12 +4,16 @@
 -- see it. I'd like to make this code as generic and useful as
 -- possible.
 --
--- | This module holds the protected reactive program model. It holds
+-- This module holds the protected reactive program model. It holds
 -- a reactive model, but includes an interface that is thread safe
 -- (can be called concurrently).  This makes it easier for different
 -- threads to modify the model without having to worry about
 -- concurrency. Note that using this interface can lead to deadlocks
 -- in the program.
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.MVC.Model.ProtectedModel
    ( ProtectedModel (reactiveModel)
    -- * Construction
@@ -73,7 +77,7 @@ startProtectedModel emptyBM = do
 
 -- | Lock the calling thread until the reactive model fulfills a
 -- condition.
-waitFor :: Event b => 
+waitFor :: Event b =>
            ProtectedModel a b -> (ReactiveModelIO a b -> Bool) -> IO ()
 waitFor p c = atomically $ void $ do
   rm <- readTVar $ reactiveModel p
@@ -89,20 +93,20 @@ dispatcherThread rmvar = forever $ do
   pa <- atomically $ do
     rm <- readTVar rmvar
     -- Check that there's something pending
-    check (not (Seq.null (pendingEvents rm)) 
+    check (not (Seq.null (pendingEvents rm))
            || not (Seq.null (pendingHandlers rm)))
     -- Get the next handler
     let (rm', op) = getPendingHandler rm
-    
+
     -- Update the ReactiveModel
     writeTVar rmvar rm'
-    
+
     -- Return the next handler to execute
     return op
 
   -- Execute the handler
-  when (isJust pa) $ fromJust pa  
-  
+  when (isJust pa) $ fromJust pa
+
   -- Let other threads run
   yield
 
@@ -115,17 +119,17 @@ onEvents :: (F.Foldable container, Event b) => ProtectedModel a b -> container b
 onEvents pm evs f = applyToReactiveModel pm (\rm -> RM.onEvents rm evs f)
 
 -- | Perform a modification to the underlying reactive model.
-applyToReactiveModel :: Event b 
-                        => ProtectedModel a b 
-                        -> (ReactiveModelIO a b -> ReactiveModelIO a b) 
+applyToReactiveModel :: Event b
+                        => ProtectedModel a b
+                        -> (ReactiveModelIO a b -> ReactiveModelIO a b)
                         -> IO ()
 applyToReactiveModel p f = atomically $ onTVar (reactiveModel p) f
   where onTVar v g = readTVar v >>= (writeTVar v . g)
 
 -- | Calculate a value from the reactive model.
-onReactiveModel :: Event b 
-                   => ProtectedModel a b 
-                   -> (ReactiveModelIO a b -> c) 
+onReactiveModel :: Event b
+                   => ProtectedModel a b
+                   -> (ReactiveModelIO a b -> c)
                    -> IO c
 onReactiveModel p f = fmap f $ atomically $ readTVar $ reactiveModel p
 

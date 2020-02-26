@@ -1,4 +1,4 @@
-{-# LANGUAGE ExistentialQuantification #-} 
+{-# LANGUAGE ExistentialQuantification #-}
 -- | This module holds a reactive program model. It holds a program model, but
 -- includes events that other threads can listen to, so that a change in a part
 -- of the model is notified to another part of the program. The reactive model
@@ -9,6 +9,10 @@
 -- This type includes operations to handle undoing-redoing and
 -- tracking which notifications must be triggered in each
 -- undo-redo step.
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.MVC.Model.ReactiveModel
    ( ReactiveModel (basicModel)
    -- * Construction
@@ -36,7 +40,7 @@ module Hails.MVC.Model.ReactiveModel
    , redo
    , clearUndoStack
    , onUndoStack
-     
+
    -- , FullEvent(..)
    -- , UndoEvent(..)
    )
@@ -72,7 +76,7 @@ class (Eq a, Ord a) => Event a where
 -- instance Eq FullEvent where
 --   (FullEvent a) == (FullEvent b) = typeOf a == typeOf b
 --                                    && cast a == Just b
--- instance Ord FullEvent where                                   
+-- instance Ord FullEvent where
 --   (FullEvent a) < (FullEvent b) = (typeOf a == typeOf b
 --                                    && fromJust (cast a) < b)
 --                                   || (show (typeOf a) < show (typeOf b))
@@ -82,11 +86,11 @@ class (Eq a, Ord a) => Event a where
 
 -- data UndoEvent = UndoEvent
 --  deriving (Eq, Ord, Typeable, Show)
-          
--- instance Event UndoEvent where          
-          
+
+-- instance Event UndoEvent where
+
 -- | A model of kind a with a stack of events of kind b
-data Event b => ReactiveModel a b c = ReactiveModel 
+data Event b => ReactiveModel a b c = ReactiveModel
   { basicModel      :: a
   , previousModels  :: Stack (a, Seq b )
   , nextModels      :: Stack (a, Seq b )
@@ -152,7 +156,7 @@ prepareEventHandlers rm =
  where evs = pendingEvents rm
        m   = eventHandlers rm
        hs1 = pendingHandlers rm
-       hs2 = F.foldl (><) Seq.empty $ 
+       hs2 = F.foldl (><) Seq.empty $
                   fmap (\e -> M.findWithDefault Seq.empty e m) evs
 
 -- | Record a change in the undo stack, with a list of associated events for
@@ -192,7 +196,7 @@ redo :: Event b => ReactiveModel a b c -> ReactiveModel a b c
 redo rm = redo' rm (nextModels rm)
 
 redo' :: Event b => ReactiveModel a b c -> Stack (a , Seq b) -> ReactiveModel a b c
-redo' rm stk 
+redo' rm stk
   | null stk  = rm
   | otherwise = triggerEvents rm' (evx |> undoStackChangedEvent)
  where ((bx, evx),xs) = pop stk
@@ -203,11 +207,11 @@ redo' rm stk
 
 -- | Clear the undo stack (remove all known previous and next models)
 clearUndoStack :: Event b => ReactiveModel a b c -> ReactiveModel a b c
-clearUndoStack rm = 
+clearUndoStack rm =
   case (previousModels rm, nextModels rm) of
    ([],[]) -> rm
    _       -> let rm' = rm { previousModels = Stk.empty
-                           , nextModels     = Stk.empty 
+                           , nextModels     = Stk.empty
                            }
               in triggerEvent rm' undoStackChangedEvent
 

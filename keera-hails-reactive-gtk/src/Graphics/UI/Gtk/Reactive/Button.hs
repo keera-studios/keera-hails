@@ -1,5 +1,9 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 -- | Publishes the main elements of a menuitem
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Graphics.UI.Gtk.Reactive.Button where
 
 import Control.Monad

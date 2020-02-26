@@ -1,7 +1,10 @@
 -- | Condition: The page of the main notebook visible at each moment
 -- is the that corresponds to the selected branch in the category
 -- tree.
-
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.Graphics.UI.Gtk.Simplify.AboutDialog
     (installHandlers)
   where
