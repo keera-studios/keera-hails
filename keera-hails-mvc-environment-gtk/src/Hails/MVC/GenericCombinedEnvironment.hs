@@ -7,6 +7,10 @@
 --
 -- Although this code is stable, the design is experimental. Usage in real
 -- applications should give way to better implementations.
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.MVC.GenericCombinedEnvironment
    ( CEnv (view, model)
    , createCEnv
@@ -46,7 +50,7 @@ installCondition cenv cond = cond cenv
 -- | Installs several conditions in the Combined Environment.
 --
 -- FIXME: I really don't like the syntax
---   installConditions cenv 
+--   installConditions cenv
 --      [ rv1 =:= rf1
 --      , ...
 --      ]

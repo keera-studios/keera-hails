@@ -1,5 +1,9 @@
 -- | Install/load the right Gettext files for your chosen
 --   language and application.
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.I18N.Language where
 
 import qualified Control.Exception as E

@@ -1,13 +1,16 @@
 {-# LANGUAGE MultiParamTypeClasses, FunctionalDependencies, FlexibleInstances #-}
 -- | Protected Reactive Fields
--- 
+--
 -- This module defines several classes and operations that are used to
 -- create reactive fields and to bind reactive fields in the view to
 -- reactive fields in the model.
 --
 -- FIXME: Due to the restrictions in the type classes, the current
 -- version uses Model.ProtectedModel.ProtectedModelInternals.ProtectedModel.
-
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.MVC.Model.ProtectedModel.Reactive where
 
 import Data.ReactiveValue

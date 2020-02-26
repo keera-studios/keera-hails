@@ -1,7 +1,10 @@
 -- | This module uses Template Haskell to declare reactive fields for
 --   a given model field and type that access the ProtectedModel in
 --   the IO Monad and the reactive model.
-
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.MVC.Model.THFields where
 
 -- External imports
@@ -121,7 +124,7 @@ reactiveField fname ftype = sequenceQ
                      )
                      []
                      ]
-  -- Declare field with 4 elements 
+  -- Declare field with 4 elements
   , sigD fieldName fieldType
   , funD fieldName [clause []
                      (normalB

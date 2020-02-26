@@ -1,4 +1,9 @@
 {-# LANGUAGE DeriveDataTypeable #-}
+-- |
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module AppDataBasic where
 
 import Data.Data

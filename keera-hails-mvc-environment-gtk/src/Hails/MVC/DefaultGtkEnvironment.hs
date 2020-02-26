@@ -1,5 +1,8 @@
 -- | The environment that contains both the view and the model.
 --
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.MVC.DefaultGtkEnvironment
    ( view
    , GEnv.model

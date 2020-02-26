@@ -1,11 +1,14 @@
 -- | This class encapsulates GUI apis with some basic common operations:
 -- initialise the GUI, destroy the GUI, execute in the GUI Thread, etc.
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 
 -- NOTE: This code is stable, but the design is experimental.
 -- It works fine, but I doubt it's a good solution in the long term. In
 -- particular, I do not like having to use the dummy type Null to define the
 -- Class.
-
 module Hails.MVC.View where
 
 -- | Null is a parametric datatype with a non-parametric constructor.

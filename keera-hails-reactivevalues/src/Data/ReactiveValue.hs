@@ -1,5 +1,6 @@
-{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, FunctionalDependencies #-}
-{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE FlexibleContexts       #-}
+{-# LANGUAGE FlexibleInstances      #-}
+{-# LANGUAGE FunctionalDependencies #-}
 -- | Reactive Values (RVs) are typed mutable variables with a change
 -- notification mechanism.
 --
@@ -22,6 +23,9 @@
 -- A more detailed description of reactive values can be found at:
 -- http://dl.acm.org/citation.cfm?id=2804316
 --
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Data.ReactiveValue
   ( -- * Reactive Values
 

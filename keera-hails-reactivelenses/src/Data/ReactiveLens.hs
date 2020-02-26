@@ -1,6 +1,10 @@
 {-# LANGUAGE Rank2Types #-}
 -- | Apply lenses onto Reactive Values, produced RVs that focus
 -- only on a part of the value.
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Data.ReactiveLens where
 
 import Control.Lens

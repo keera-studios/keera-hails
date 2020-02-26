@@ -1,4 +1,9 @@
 {-# LANGUAGE FlexibleInstances #-}
+-- |
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.MVC.Model.ProtectedModel.LoggedModel where
 
 import Hails.MVC.Model.ProtectedModel
