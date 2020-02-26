@@ -1,5 +1,6 @@
-{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, FunctionalDependencies #-}
-{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE FlexibleContexts       #-}
+{-# LANGUAGE FlexibleInstances      #-}
+{-# LANGUAGE FunctionalDependencies #-}
 -- | Reactive Values (RVs) are typed mutable variables with a change
 -- notification mechanism.
 --
