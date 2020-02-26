@@ -1,3 +1,7 @@
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : All Rights Reserved
+-- Maintainer  : support@keera.co.uk
+--
 cabal-version: >= 1.10
 build-type:    Simple
 
@@ -6,7 +10,7 @@ version:       0.0.1
 author:        Ivan Perez
 maintainer:    ivan.perez@keera.co.uk
 homepage:      -
-license:       AllRightsReserved
+license:       BSD3
 license-file:  LICENSE
 category:      Text
 stability:     Provisional
