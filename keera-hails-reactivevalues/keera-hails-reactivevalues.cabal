@@ -125,6 +125,8 @@ test-suite haddock-coverage
       , process
       , regex-posix
 
+    build-tool-depends: cabal-install:cabal
+
 
 test-suite unit-tests
 
