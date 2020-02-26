@@ -3,11 +3,11 @@
 module View (module Exported) where
 
 -- External libraries
-import Graphics.UI.Gtk.GtkView (GtkGUI(..))
+import Hails.MVC.View.DefaultViewGtk as Exported
+import Hails.MVC.View.GtkView        (GtkGUI (..))
+import Hails.MVC.View.GtkView        as Exported
 
 -- Internal libraries
-import Hails.MVC.View.GtkView     as Exported
-import Hails.MVC.View.DefaultView as Exported
 import View.Objects
 
 -- | Add all initialisers to the initialise operation and store
