@@ -66,12 +66,14 @@ Please contact Keera Studios if you wish to use them.
   - [keera-hails-mvc-view-gtk](keera-hails-mvc-view-gtk/): Structure to wrap Gtk views.
   - [keera-hails-mvc-environment-gtk](keera-hails-mvc-environment-gtk/): A MVC triplet based on a Gtk View.
 
-  The following packages generate default project skeletons that do "the right
+  The following package generate default project skeletons that do "the right
   thing" (currently for Gtk+ only). The application takes the approach of
   "convention over configuration": certain modules will be expected to have
   predetermined names. If this is much of a problem, open a bug report.
-  - [keera-hails](keera-hails/): Program that generates a project skeleton
-  - [keera-hails-templates](keera-hails-templates/): Templates used to generate a project skeleton.
+  - [keera-hails](keera-hails/): Program that generates a project skeleton.
+
+  We have a [separate README](demos/keera-hails-gtk-app/) that shows how to
+  build your first app using `keera-hails`.
 
 * Applications can be simplified further. The following packages implement
   Gtk-based choreographies (M-V synchronizations and controller rule templates)
