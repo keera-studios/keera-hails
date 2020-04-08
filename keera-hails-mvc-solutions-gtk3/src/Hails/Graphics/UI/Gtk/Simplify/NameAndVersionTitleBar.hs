@@ -31,6 +31,6 @@ condition cenv wF = do
   w  <- wF vw
   pn <- getName pm
   vn <- fmap versionToString $ getVersion pm
-  t  <- windowGetTitle w
+  t  <- get w windowTitle
   let titleMust = pn ++ " " ++ vn
-  when (t /= titleMust) $ windowSetTitle w titleMust
+  when (t /= titleMust) $ set w [ windowTitle := titleMust ]

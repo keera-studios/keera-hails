@@ -10,13 +10,13 @@ module Controller.Conditions
   where
 
 -- External libraries
-import Graphics.UI.Gtk.GenericView
+import Hails.MVC.View.GtkView
 
 -- External libraries: general conditions
 -- Close main window
-import qualified Graphics.UI.Simplify.ProgramMainWindow as PMW
+import qualified Hails.Graphics.UI.Gtk.Simplify.ProgramMainWindow as PMW
 -- Name the main window
-import qualified Graphics.UI.Simplify.NameAndVersionTitleBar as Title
+import qualified Hails.Graphics.UI.Gtk.Simplify.NameAndVersionTitleBar as Title
 
 -- Internal libraries
 import CombinedEnvironment
@@ -25,7 +25,7 @@ import View.MainWindow.Objects
 
 -- Internal libraries: specific conditions
 
-installHandlers :: CRef -> IO()
-installHandlers cref = do
-  PMW.installHandlers cref (mainWindow . mainWindowBuilder . getGUI)
-  Title.installHandlers cref (mainWindow . mainWindowBuilder . getGUI)
+installHandlers :: CEnv -> IO()
+installHandlers cenv = do
+  PMW.installHandlers cenv (mainWindow . mainWindowBuilder . getGUI)
+  Title.installHandlers cenv (mainWindow . mainWindowBuilder . getGUI)

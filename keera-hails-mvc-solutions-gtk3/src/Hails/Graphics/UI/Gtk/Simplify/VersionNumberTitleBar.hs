@@ -60,5 +60,5 @@ condition cenv wF = do
   let (vw, pm) = (view &&& model) cenv
   w  <- wF vw
   vn <- fmap versionToString $ getVersion pm
-  t  <- windowGetTitle w
-  when (t /= vn) $ windowSetTitle w vn
+  t  <- get w windowTitle
+  when (t /= vn) $ set w [ windowTitle := vn ]

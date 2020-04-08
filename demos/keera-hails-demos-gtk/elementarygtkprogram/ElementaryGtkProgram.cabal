@@ -28,13 +28,15 @@ executable ElementaryGtkProgram
 
   build-depends:
       base >= 4.0
-    , combined-environment
-    , generic-view
-    , glade
-    , gtk
+    , keera-hails-mvc-environment-gtk3
+    , keera-hails-mvc-solutions-gtk3
+    , keera-hails-mvc-model-protectedmodel
+    , keera-hails-mvc-view
+    , keera-hails-mvc-view-gtk3
+    -- , glade
+    , gtk3
+    , MissingK
 
-    , haskell-prmvc-helpers
-    , protected-objects
 
   hs-source-dirs: src/
 
