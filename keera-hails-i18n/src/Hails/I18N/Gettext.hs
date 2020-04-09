@@ -16,9 +16,11 @@ import Text.I18N.GetText        (getText)
 --   Note: This implementation decodes UTF-8 strings only in Linux. If it
 --   should also in other OSs, please open an issue on github.
 __ :: String -> String
-__ s
+__ string
 #ifdef linux_HOST_OS
- | isUTF8Encoded s' = decodeString s'
+    | isUTF8Encoded translation = decodeString translation
 #endif
- | otherwise        = s'
-  where s' = unsafePerformIO $ getText s
+    | otherwise                 = translation
+  where
+    translation :: String
+    translation = unsafePerformIO $ getText string
