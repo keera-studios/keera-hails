@@ -36,10 +36,8 @@ data (GtkGUI a, Event c) => CEnv a b c = CEnv
 --   model. The initialisation operations for the view and the protected model
 --   are called internally.
 createCEnv :: (GtkGUI a, Event c) => b -> IO (CEnv a b c)
-createCEnv emptyBM = do
-  m <- startProtectedModel emptyBM
-  v <- createView
-  return CEnv { view = v, model = m }
+createCEnv emptyBM = CEnv <$> createView
+                          <*> startProtectedModel emptyBM
 
 -- | Installs a condition in the Combined Environment.
 --
