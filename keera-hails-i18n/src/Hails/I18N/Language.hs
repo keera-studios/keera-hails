@@ -15,7 +15,7 @@ import           System.FilePath           ((</>))
 import           System.Locale.SetLocale   (Category (LC_ALL), setLocale)
 import           Text.I18N.GetText         (bindTextDomain, textDomain)
 
--- | Installs the current language using the LC_ALL and LANGUAGE
+-- | Install the current language using the LC_ALL and LANGUAGE
 -- environment variables and other gettext methods. This requires
 -- the application's name, and it loads the language from a file
 -- called "default-language" in the application's config dir.
