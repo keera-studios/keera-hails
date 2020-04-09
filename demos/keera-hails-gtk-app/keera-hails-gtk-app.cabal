@@ -45,7 +45,12 @@ executable keera-hails-gtk-app
 
   build-depends:
       base >=4.12 && <4.13
+    , cairo
+    , dunai
     , gtk
+    , IfElse
+    , keera-callbacks
+    , keera-hails-reactivevalues
     , keera-hails-mvc-environment-gtk
     , keera-hails-mvc-model-protectedmodel
     , keera-hails-mvc-view
@@ -56,3 +61,6 @@ executable keera-hails-gtk-app
 
   hs-source-dirs:
     src
+
+  ghc-options:
+    -Wall -threaded

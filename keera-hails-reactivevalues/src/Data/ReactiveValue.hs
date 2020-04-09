@@ -449,10 +449,14 @@ initRW e = ReactiveFieldRead getter notifier
 {-# ANN liftR "HLint: ignore Use fmap" #-}
 -- | Lift a transformation onto a RV. Note that this creates a new
 -- RV, it does not modify the existing RV.
-liftR :: (Monad m, ReactiveValueRead a b m) => (b -> c) -> a -> ReactiveFieldRead m c
+liftR :: (Monad m, ReactiveValueRead a b m)
+      => (b -> c)
+      -> a
+      -> ReactiveFieldRead m c
 liftR f e = ReactiveFieldRead getter notifier
- where notifier = reactiveValueOnCanRead e
-       getter   = liftM f (reactiveValueRead e)
+  where
+    notifier = reactiveValueOnCanRead e
+    getter   = liftM f (reactiveValueRead e)
 
 -- | Shorter name for 'liftR'
 (<^>) :: (Monad m, ReactiveValueRead a b m) => (b -> c) -> a -> ReactiveFieldRead m c
@@ -462,13 +466,20 @@ liftR f e = ReactiveFieldRead getter notifier
 -- RV, it does not modify the existing RVs. When either RV changes,
 -- the new one triggers a change.
 liftR2 :: (Monad m, ReactiveValueRead a b m, ReactiveValueRead c d m)
-       => (b -> d -> e) -> a -> c -> ReactiveFieldRead m e
+       => (b -> d -> e)
+       -> a
+       -> c
+       -> ReactiveFieldRead m e
 liftR2 f e1 e2 = ReactiveFieldRead getter notifier
-  where getter = do v1 <- reactiveValueRead e1
-                    v2 <- reactiveValueRead e2
-                    return (f v1 v2)
-        notifier p = do reactiveValueOnCanRead e1 p
-                        reactiveValueOnCanRead e2 p
+  where
+    getter = do
+      v1 <- reactiveValueRead e1
+      v2 <- reactiveValueRead e2
+      return (f v1 v2)
+
+    notifier p = do
+      reactiveValueOnCanRead e1 p
+      reactiveValueOnCanRead e2 p
 
 -- | Lift a transformation onto three RVs. Note that this creates a new
 -- RV, it does not modify the existing RVs. When either RV changes,
