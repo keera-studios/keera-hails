@@ -8,7 +8,7 @@ build-type:    Simple
 name:          keera-hails-mvc-view
 version:       0.0.3.3
 author:        Ivan Perez
-maintainer:    ivan.perez@keera.co.uk
+maintainer:    support@keera.co.uk
 homepage:      http://www.keera.co.uk/blog/community/
 license:       BSD3
 license-file:  LICENSE
