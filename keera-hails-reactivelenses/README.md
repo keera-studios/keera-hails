@@ -21,9 +21,8 @@ And the article "Bridging the GUI gap", by Ivan Perez & Henrik Nilsson,
 part of TFP2014's draft pre-proceedings:
 http://www.staff.science.uu.nl/~hage0101/preproceedingstfp2014.pdf
 
-=====
-
 Support
+=======
 
 Open a ticket or send me a message if you use this and have a problem.
 
