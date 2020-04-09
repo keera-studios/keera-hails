@@ -6,14 +6,14 @@
 -- Maintainer  : support@keera.co.uk
 module Hails.I18N.Language where
 
-import qualified Control.Exception as E
-import           Control.Exception.Extra
-import           Control.Monad
-import           System.Directory
-import           System.FilePath
-import           System.Locale.SetLocale
-import           System.Environment.SetEnv
-import           Text.I18N.GetText
+import qualified Control.Exception         as E
+import           Control.Exception.Extra   (anyway)
+import           Control.Monad             (unless, void)
+import           System.Directory          (getAppUserDataDirectory)
+import           System.Environment.SetEnv (setEnv)
+import           System.FilePath           ((</>))
+import           System.Locale.SetLocale   (Category (LC_ALL), setLocale)
+import           Text.I18N.GetText         (bindTextDomain, textDomain)
 
 -- | Installs the current language using the LC_ALL and LANGUAGE
 -- environment variables and other gettext methods. This requires
