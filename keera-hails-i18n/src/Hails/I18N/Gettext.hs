@@ -7,18 +7,20 @@
 -- Maintainer  : support@keera.co.uk
 module Hails.I18N.Gettext where
 
-import Text.I18N.GetText
-import System.IO.Unsafe
-import Codec.Binary.UTF8.String
+import Codec.Binary.UTF8.String (decodeString, isUTF8Encoded)
+import System.IO.Unsafe         (unsafePerformIO)
+import Text.I18N.GetText        (getText)
 
 -- | Translate a string using gettext.
 --
 --   Note: This implementation decodes UTF-8 strings only in Linux. If it
 --   should also in other OSs, please open an issue on github.
 __ :: String -> String
-__ s
+__ string
 #ifdef linux_HOST_OS
- | isUTF8Encoded s' = decodeString s'
+    | isUTF8Encoded translation = decodeString translation
 #endif
- | otherwise        = s'
-  where s' = unsafePerformIO $ getText s
+    | otherwise                 = translation
+  where
+    translation :: String
+    translation = unsafePerformIO $ getText string
