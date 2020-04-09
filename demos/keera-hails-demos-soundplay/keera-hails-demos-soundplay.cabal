@@ -7,7 +7,7 @@ build-type:    Simple
 
 name:          keera-hails-demos-soundplay
 author:        Ivan Perez
-maintainer:    ivan.perez@keera.co.uk
+maintainer:    support@keera.co.uk
 homepage:      http://github.com/keera-studios/keera-hails
 license:       BSD3
 license-file:  LICENSE

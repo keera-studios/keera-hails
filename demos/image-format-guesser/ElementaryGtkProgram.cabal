@@ -8,7 +8,7 @@ build-type:    Simple
 name:          ElementaryGtkProgram
 version:       0.0.1
 author:        Ivan Perez
-maintainer:    ivan.perez@keera.co.uk
+maintainer:    support@keera.co.uk
 homepage:      -
 license:       BSD3
 license-file:  LICENSE
