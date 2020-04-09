@@ -14,6 +14,19 @@ license:       BSD3
 license-file:  LICENSE
 category:      Development
 synopsis:      Haskell on Gtk rails - Gtk-based controller for MVC applications
+description:
+  Keera Hails is a rapid application development system.
+  .
+  The idea behind Hails is that you should be able to build cross platform
+  applications with minimal effort, very quickly, and the result should be easy
+  to maintain.
+  .
+  Large Hails applications are structured following an optimized MVC
+  architecture. Values are updated either from the view to the model, or from
+  the model to the view. Internally, rules use a notion of direction in the
+  update to determine how different components must be updated. This package
+  defines those update directions needed to build well-structured controllers.
+
 
 source-repository head
  type: git
