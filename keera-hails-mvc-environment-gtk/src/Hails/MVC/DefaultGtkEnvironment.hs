@@ -4,12 +4,12 @@
 -- License     : BSD3
 -- Maintainer  : support@keera.co.uk
 module Hails.MVC.DefaultGtkEnvironment
-   ( view
-   , GEnv.model
-   , GEnv.createCEnv
-   , GEnv.installCondition
-   , GEnv.installConditions
-   )
+    ( view
+    , GEnv.model
+    , GEnv.createCEnv
+    , GEnv.installCondition
+    , GEnv.installConditions
+    )
   where
 
 -- Internal libraries
