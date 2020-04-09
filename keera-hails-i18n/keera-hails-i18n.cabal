@@ -14,6 +14,22 @@ license:       BSD3
 license-file:  LICENSE
 category:      Development
 synopsis:      Rapid Gtk Application Development - I18N
+description:
+  Keera Hails is a rapid application development system.
+  .
+  The idea behind Hails is that you should be able to build cross platform
+  applications with minimal effort, very quickly, and the result should be easy
+  to maintain.
+  .
+  This package includes functions to create multi-language applications using
+  <https://en.wikipedia.org/wiki/Gettext gettext>. It includes two modules: one
+  to translate strings in your program, and one to load the settings from your
+  configuration in your application to let users select the language.
+  .
+  As an application developer, the expectation is that you would offer a way
+  for users to change the language in their preferences, and that that language
+  selection would be stored in a configuration file named "default-language".
+
 
 source-repository head
  type: git
