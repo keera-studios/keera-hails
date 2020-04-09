@@ -1,8 +1,0 @@
-gtk2hs-buildtools
-./
-https://github.com/keera-studios/hails-reactivevalues
-https://github.com/keera-studios/hails-mvc-model-protectedmodels
-https://github.com/keera-studios/hails-mvc-view
-https://github.com/keera-studios/hails-mvc-view-gtk
-https://github.com/keera-studios/MissingK
-https://github.com/keera-studios/gtk-helpers
