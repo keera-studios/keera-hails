@@ -1,5 +1,5 @@
--- | Install/load the right Gettext files for your chosen
---   language and application.
+-- | Install/load the right Gettext files for your chosen language and
+--   application.
 --
 -- Copyright   : (C) Keera Studios Ltd, 2013
 -- License     : BSD3
