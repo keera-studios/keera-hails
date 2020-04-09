@@ -20,10 +20,10 @@ module Hails.MVC.GenericCombinedEnvironment
   where
 
 -- Internal libraries
-import Hails.MVC.View
-import Hails.MVC.View.GtkView
-import Hails.MVC.Model.ProtectedModel
-import Hails.MVC.Model.ReactiveModel (Event)
+import Hails.MVC.Model.ProtectedModel (ProtectedModel, startProtectedModel)
+import Hails.MVC.Model.ReactiveModel  (Event)
+import Hails.MVC.View                 (createView)
+import Hails.MVC.View.GtkView         (GtkGUI, GtkView)
 
 -- | Given a GUI and a Type for the events, a CEnv contains a View and a
 -- Protected Model.
