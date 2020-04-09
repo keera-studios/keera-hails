@@ -13,9 +13,9 @@ module Hails.MVC.DefaultGtkEnvironment
   where
 
 -- Internal libraries
-import qualified Hails.MVC.View.GtkView               as GtkView
 import qualified Hails.MVC.GenericCombinedEnvironment as GEnv
-import           Hails.MVC.Model.ReactiveModel
+import           Hails.MVC.Model.ReactiveModel        (Event)
+import qualified Hails.MVC.View.GtkView               as GtkView
 
 view :: (GtkView.GtkGUI a, Event c) => GEnv.CEnv a b c -> a
 view = GtkView.getGUI . GEnv.view
