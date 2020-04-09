@@ -9,6 +9,7 @@ module Hails.I18N.Language where
 import qualified Control.Exception         as E
 import           Control.Exception.Extra   (anyway)
 import           Control.Monad             (unless, void)
+import           Data.Maybe                (fromMaybe, listToMaybe)
 import           System.Directory          (getAppUserDataDirectory)
 import           System.Environment.SetEnv (setEnv)
 import           System.FilePath           ((</>))
@@ -20,20 +21,24 @@ import           Text.I18N.GetText         (bindTextDomain, textDomain)
 -- the application's name, and it loads the language from a file
 -- called "default-language" in the application's config dir.
 installLanguage :: String -> IO ()
-installLanguage app = void $ do
+installLanguage appName = void $ do
 
-  -- Read the config file if it exists
-  dir <- getAppUserDataDirectory app
-  let file = dir </> "default-language"
+    -- Read the config file if it exists
+    userDataDir <- getAppUserDataDirectory appName
+    let languageFile = userDataDir </> "default-language"
 
-  -- lang == "" if no value was found
-  lang <- E.handle (anyway (return "")) $ do
-             cs <- fmap lines $ readFile file
-             return $ if null cs then "" else head cs
+    -- lang == "" if no value was found
+    lang <- E.handle (anyway (return "")) $ do
+              (safeHead "" . lines) <$> readFile languageFile
 
-  -- Update locale and language only if a value has been found
-  unless (null lang) $ E.handle (anyway (return ())) $ do
-    setLocale LC_ALL (Just lang)
-    setEnv "LANGUAGE" lang
-  bindTextDomain app $ Just "."
-  textDomain $ Just app
+    -- Update locale and language only if a value has been found
+    unless (null lang) $ E.handle (anyway (return ())) $ do
+      setLocale LC_ALL (Just lang)
+      setEnv "LANGUAGE" lang
+    bindTextDomain appName $ Just "."
+    textDomain $ Just appName
+
+  where
+
+    safeHead :: a -> [a] -> a
+    safeHead x = fromMaybe x . listToMaybe
