@@ -40,7 +40,7 @@ createCEnv emptyBM = CEnv <$> createView
                           <*> startProtectedModel emptyBM
 
 -- | Installs a condition in the Combined Environment.
---
+
 -- NOTE: This is an experimental function and might be removed in the future.
 installCondition :: (GtkGUI a, Event c)
                  => CEnv a b c
@@ -49,7 +49,7 @@ installCondition :: (GtkGUI a, Event c)
 installCondition cenv cond = cond cenv
 
 -- | Installs several conditions in the Combined Environment.
---
+
 -- FIXME: I really don't like the syntax
 --   installConditions cenv
 --      [ rv1 =:= rf1
