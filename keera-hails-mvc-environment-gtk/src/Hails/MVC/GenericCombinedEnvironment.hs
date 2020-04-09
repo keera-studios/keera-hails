@@ -12,11 +12,11 @@
 -- License     : BSD3
 -- Maintainer  : support@keera.co.uk
 module Hails.MVC.GenericCombinedEnvironment
-   ( CEnv (view, model)
-   , createCEnv
-   , installConditions
-   , installCondition
-   )
+    ( CEnv (view, model)
+    , createCEnv
+    , installConditions
+    , installCondition
+    )
   where
 
 -- Internal libraries
@@ -32,9 +32,9 @@ data (GtkGUI a, Event c) => CEnv a b c = CEnv
   , model :: ProtectedModel b c
   }
 
--- | To create an Environment, we just need to provide the
--- default internal model. The initialisation operations
--- for the view and the protected model are called internally.
+-- | To create an Environment, we just need to provide the default internal
+--   model. The initialisation operations for the view and the protected model
+--   are called internally.
 createCEnv :: (GtkGUI a, Event c) => b -> IO (CEnv a b c)
 createCEnv emptyBM = do
   m <- startProtectedModel emptyBM
@@ -44,7 +44,10 @@ createCEnv emptyBM = do
 -- | Installs a condition in the Combined Environment.
 --
 -- NOTE: This is an experimental function and might be removed in the future.
-installCondition :: (GtkGUI a, Event c) => CEnv a b c -> (CEnv a b c -> IO()) -> IO()
+installCondition :: (GtkGUI a, Event c)
+                 => CEnv a b c
+                 -> (CEnv a b c -> IO ())
+                 -> IO ()
 installCondition cenv cond = cond cenv
 
 -- | Installs several conditions in the Combined Environment.
@@ -63,5 +66,8 @@ installCondition cenv cond = cond cenv
 --   Which means that I would have to define a monad.
 --
 -- NOTE: This is an experimental function and might be removed in the future.
-installConditions :: (GtkGUI a, Event c) => CEnv a b c -> [ CEnv a b c -> IO() ] -> IO ()
+installConditions :: (GtkGUI a, Event c)
+                  => CEnv a b c
+                  -> [CEnv a b c -> IO ()]
+                  -> IO ()
 installConditions cenv conds = mapM_ (installCondition cenv) conds
