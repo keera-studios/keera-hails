@@ -1,3 +1,8 @@
+-- |
+--
+-- Copyright   : (C) Keera Studios Ltd, 2015
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.Polling where
 
 import Control.Concurrent (forkIO, threadDelay)

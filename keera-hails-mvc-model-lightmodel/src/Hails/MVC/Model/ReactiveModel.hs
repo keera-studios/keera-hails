@@ -1,4 +1,4 @@
-{-# LANGUAGE ExistentialQuantification #-} 
+{-# LANGUAGE ExistentialQuantification #-}
 -- | This module holds a reactive program model. It holds a program model, but
 -- includes events that other threads can listen to, so that a change in a part
 -- of the model is notified to another part of the program. The reactive model
@@ -9,6 +9,10 @@
 -- This type includes operations to handle undoing-redoing and
 -- tracking which notifications must be triggered in each
 -- undo-redo step.
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.MVC.Model.ReactiveModel
    ( ReactiveModel (basicModel)
    -- * Construction
@@ -53,7 +57,7 @@ class (Eq a, Ord a) => Event a where
 -- instance Eq FullEvent where
 --   (FullEvent a) == (FullEvent b) = typeOf a == typeOf b
 --                                    && cast a == Just b
--- instance Ord FullEvent where                                   
+-- instance Ord FullEvent where
 --   (FullEvent a) < (FullEvent b) = (typeOf a == typeOf b
 --                                    && fromJust (cast a) < b)
 --                                   || (show (typeOf a) < show (typeOf b))
@@ -62,7 +66,7 @@ class (Eq a, Ord a) => Event a where
 --   show (FullEvent x) = show x
 
 -- | A model of kind a with a stack of events of kind b
-data Event b => ReactiveModel a b c = ReactiveModel 
+data Event b => ReactiveModel a b c = ReactiveModel
   { basicModel      :: a
   , eventHandlers   :: M.Map b (Seq c)
   , pendingEvents   :: Seq b
@@ -124,5 +128,5 @@ prepareEventHandlers rm =
  where evs = pendingEvents rm
        m   = eventHandlers rm
        hs1 = pendingHandlers rm
-       hs2 = F.foldl (><) Seq.empty $ 
+       hs2 = F.foldl (><) Seq.empty $
                   fmap (\e -> M.findWithDefault Seq.empty e m) evs

@@ -1,4 +1,9 @@
 {-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, TypeSynonymInstances #-}
+-- |
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.Graphics.UI.Gtk.Simplify.VersionNumberTitleBar where
 
 -- External imports

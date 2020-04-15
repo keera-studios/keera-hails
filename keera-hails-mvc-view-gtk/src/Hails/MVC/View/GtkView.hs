@@ -1,4 +1,8 @@
 -- | Implements the generic view class for the Gtk GUI manager.
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.MVC.View.GtkView where
 
 import Graphics.UI.Gtk

@@ -1,3 +1,8 @@
+-- |
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.MVC.Model.ReactiveFields where
 
 import Hails.MVC.Model.ReactiveModel
@@ -5,7 +10,7 @@ import Hails.MVC.Model.ReactiveModel
 -- TODO: With the new reactive lenses interface,
 -- this should uses lenses instead. A 'Field' is
 -- just a lens, augmented with an event and a
--- precondition checker. 
+-- precondition checker.
 
 -- The following code presents a possibly simpler way of creating reactive
 -- fields in a reactive model.

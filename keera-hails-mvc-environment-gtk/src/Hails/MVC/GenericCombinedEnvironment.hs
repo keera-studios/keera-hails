@@ -1,52 +1,63 @@
--- | This module contains the necessary functions to manipulate a global
--- environment that gives access to the view and the model in a MVC-structured
--- program with a Gtk View.
+-- | A combined environment combines a view and a model in a MVC-structured
+--   application. The environment can be passed around to the controller, which
+--   must update each side accordingly and keep both in sync.
 --
--- It contains the necessary functions to create an environment
--- that holds a View and a Protected Reactive Model.
+--   In this package, the view is built using GTK, and the model is implemented
+--   as a 'ProtectedModel' (a safe-thread structure with a fine-grained notion
+--   of change).
 --
--- Although this code is stable, the design is experimental. Usage in real
--- applications should give way to better implementations.
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Hails.MVC.GenericCombinedEnvironment
-   ( CEnv (view, model)
-   , createCEnv
-   , installConditions
-   , installCondition
-   )
+    ( -- * Combined Environments (CEnvs)
+      CEnv (view, model)
+      -- * CEnv construction
+    , createCEnv
+      -- * CEnv updates
+    , installCondition
+    , installConditions
+    )
   where
 
 -- Internal libraries
-import Hails.MVC.View
-import Hails.MVC.View.GtkView
-import Hails.MVC.Model.ProtectedModel
-import Hails.MVC.Model.ReactiveModel (Event)
+import Hails.MVC.Model.ProtectedModel (ProtectedModel, startProtectedModel)
+import Hails.MVC.Model.ReactiveModel  (Event)
+import Hails.MVC.View                 (createView)
+import Hails.MVC.View.GtkView         (GtkGUI, GtkView)
 
--- | Given a GUI and a Type for the events, a CEnv contains a View and a
--- Protected Model.
+-- | Given a GUI and a type for the events that capture the changes inside the
+--   model, a CEnv contains a view and a protected model.
 data (GtkGUI a, Event c) => CEnv a b c = CEnv
-  { view  :: GtkView a
-  , model :: ProtectedModel b c
+  { view  :: GtkView a          -- ^ View in the CEnv of an MVC application.
+  , model :: ProtectedModel b c -- ^ Model in the CEnv of an MVC application.
   }
 
--- | To create an Environment, we just need to provide the
--- default internal model. The initialisation operations
--- for the view and the protected model are called internally.
+-- | Create a combined environment from a given model and initialize the
+--   model and the view. The default model must be provided explicitly.
+--   The initialisation operations for the view and the protected model
+--   are called internally.
 createCEnv :: (GtkGUI a, Event c) => b -> IO (CEnv a b c)
-createCEnv emptyBM = do
-  m <- startProtectedModel emptyBM
-  v <- createView
-  return CEnv { view = v, model = m }
+createCEnv emptyBM = CEnv <$> createView
+                          <*> startProtectedModel emptyBM
 
--- | Installs a condition in the Combined Environment.
---
+-- | Install a condition in a Combined Environment. Conditions, or
+--   reactive rules, are used to keep both the model and the view
+--   in sync.
+
 -- NOTE: This is an experimental function and might be removed in the future.
-installCondition :: (GtkGUI a, Event c) => CEnv a b c -> (CEnv a b c -> IO()) -> IO()
+installCondition :: (GtkGUI a, Event c)
+                 => CEnv a b c
+                 -> (CEnv a b c -> IO ())
+                 -> IO ()
 installCondition cenv cond = cond cenv
 
--- | Installs several conditions in the Combined Environment.
---
+-- | Install several conditions in a Combined Environment. Conditions, or
+--   reactive rules, are used to keep both the model and the view
+--   in sync.
+
 -- FIXME: I really don't like the syntax
---   installConditions cenv 
+--   installConditions cenv
 --      [ rv1 =:= rf1
 --      , ...
 --      ]
@@ -59,5 +70,8 @@ installCondition cenv cond = cond cenv
 --   Which means that I would have to define a monad.
 --
 -- NOTE: This is an experimental function and might be removed in the future.
-installConditions :: (GtkGUI a, Event c) => CEnv a b c -> [ CEnv a b c -> IO() ] -> IO ()
+installConditions :: (GtkGUI a, Event c)
+                  => CEnv a b c
+                  -> [CEnv a b c -> IO ()]
+                  -> IO ()
 installConditions cenv conds = mapM_ (installCondition cenv) conds

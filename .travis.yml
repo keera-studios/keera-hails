@@ -5,17 +5,19 @@
 language: generic
 
 # Don't use sudo so the environment boots faster on travis.
-# We can get around sudo, because we are using apt addons to install 
+# We can get around sudo, because we are using apt addons to install
 # custom packages.
 sudo: false
 
 # Environments we want to build for.
 matrix:
   include:
-    - env: GHCVER=7.10.3 CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
-      addons: {apt: {packages: [cabal-install-1.24,ghc-7.10.3,alex-3.1.4,happy-1.19.5,libgtk2.0-dev], sources: [hvr-ghc]}}
-    - env: GHCVER=8.0.2 CABALVER=1.24 ALEXVER=3.1.4 HAPPYVER=1.19.5
-      addons: {apt: {packages: [cabal-install-1.24,ghc-8.0.2,alex-3.1.4,happy-1.19.5,libgtk2.0-dev], sources: [hvr-ghc]}}
+    - env: GHCVER=7.10.3 CABALVER=2.4
+      addons: {apt: {packages: [cabal-install-2.4,ghc-7.10.3,alex,happy,libgtk2.0-dev, gtk2hs-buildtools], sources: [hvr-ghc]}}
+    - env: GHCVER=8.2.2 CABALVER=2.4
+      addons: {apt: {packages: [cabal-install-2.4,ghc-8.2.2,alex,happy,libgtk2.0-dev, gtk2hs-buildtools], sources: [hvr-ghc]}}
+    - env: GHCVER=8.4.4 CABALVER=2.4
+      addons: {apt: {packages: [cabal-install-2.4,ghc-8.4.4,alex,happy,libgtk2.0-dev, gtk2hs-buildtools], sources: [hvr-ghc]}}
 
 before_install:
  - unset CC
@@ -23,7 +25,7 @@ before_install:
 
 # Setup tools
 install:
- - export PATH=$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/alex/$ALEXVER/bin:/opt/happy/$HAPPYVER/bin:$PATH
+ - export PATH=$PWD/.cabal-sandbox/bin:$HOME/.cabal/bin:/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$PATH
  - travis_retry cabal update
  - cat .cabal-conf/hackage >> $HOME/.cabal/config
 
@@ -33,45 +35,31 @@ before_script:
   - cabal --version
   - alex  --version
   - happy --version
+  - gtk2hsC2hs --version
 
   # Work in a sandbox
   - cabal sandbox init
-  - cabal sandbox add-source keera-hails-i18n
-  - cabal sandbox add-source keera-hails-mvc-controller
-  - cabal sandbox add-source keera-hails-mvc-environment-gtk
-  - cabal sandbox add-source keera-hails-mvc-model-lightmodel
-  - cabal sandbox add-source keera-hails-mvc-model-protectedmodel
-  - cabal sandbox add-source keera-hails-mvc-solutions-config
-  - cabal sandbox add-source keera-hails-mvc-solutions-gtk
-  - cabal sandbox add-source keera-hails-mvc-view
-  - cabal sandbox add-source keera-hails-mvc-view-gtk
-  - cabal sandbox add-source keera-hails-reactive-fs
-  - cabal sandbox add-source keera-hails-reactive-gtk
-  - cabal sandbox add-source keera-hails-reactive-gtk3
-  - cabal sandbox add-source keera-hails-reactivelenses
-  - cabal sandbox add-source keera-hails-reactive-network
-  - cabal sandbox add-source keera-hails-reactive-polling
-  - cabal sandbox add-source keera-hails-reactivevalues
-  - cabal sandbox add-source keera-hails-reactive-yampa
+  - find . -type f -iname '*.cabal' -exec dirname {} \; | xargs cabal sandbox add-source
 
 script:
-  - travis_retry cabal install --reorder-goals --max-backjump=3 -j2
-      keera-hails-i18n
-      keera-hails-mvc-controller
-      keera-hails-mvc-environment-gtk
-      keera-hails-mvc-model-lightmodel
-      keera-hails-mvc-model-protectedmodel
-      keera-hails-mvc-solutions-config
-      keera-hails-mvc-solutions-gtk
-      keera-hails-mvc-view
-      keera-hails-mvc-view-gtk
-      keera-hails-reactive-fs
-      keera-hails-reactive-gtk
-      keera-hails-reactive-network
-      keera-hails-reactive-polling
-      keera-hails-reactivelenses
-      keera-hails-reactivevalues
-      keera-hails-reactive-yampa
+  - travis_retry cabal install --reorder-goals --max-backjump=-1 -j2
+      keera-hails-i18n/
+      keera-hails-mvc-controller/
+      keera-hails-mvc-environment-gtk/
+      keera-hails-mvc-model-lightmodel/
+      keera-hails-mvc-model-protectedmodel/
+      keera-hails-mvc-solutions-config/
+      keera-hails-mvc-solutions-gtk/
+      keera-hails-mvc-view/
+      keera-hails-mvc-view-gtk/
+      keera-hails-reactive-gtk/
+      keera-hails-reactive-network/
+      keera-hails-reactive-polling/
+      keera-hails-reactivelenses/
+      keera-hails-reactivevalues/
+      keera-hails-reactive-yampa/
+      keera-hails-reactive-fs/
+
 
 # Notifications
 notifications:
@@ -80,24 +68,25 @@ notifications:
 deploy:
   provider: script
   script: set -x &&
-          cd keera-hails-reactivelenses           && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-i18n                     && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-mvc-controller           && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-mvc-environment-gtk      && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-mvc-model-lightmodel     && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-mvc-model-protectedmodel && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-mvc-solutions-config     && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-mvc-solutions-gtk        && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-mvc-view                 && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-mvc-view-gtk             && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-reactive-fs              && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-reactive-gtk             && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-reactive-etwork          && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-reactive-polling         && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-reactive-wx              && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-reactivelenses           && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-reactivevalues           && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
-          cd keera-hails-reactive-yampa           && cabal check && cabal sdist && cabal upload dist/*.tar.gz || cd .. ; 
+          cd keera-hails-reactivelenses           && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-i18n                     && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-mvc-controller           && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-mvc-environment-gtk      && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-mvc-model-lightmodel     && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-mvc-model-protectedmodel && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-mvc-solutions-config     && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-mvc-solutions-gtk        && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-mvc-view                 && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-mvc-view-gtk             && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-reactive-gtk             && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-reactive-network         && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-reactive-polling         && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-reactive-wx              && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-reactivelenses           && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-reactivevalues           && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-reactive-yampa           && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-reactive-fs              && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
   on:
     branch: master
-    condition: "$GHCVER = 8.0.2"
+    condition: "$GHCVER = 8.4.4"
+

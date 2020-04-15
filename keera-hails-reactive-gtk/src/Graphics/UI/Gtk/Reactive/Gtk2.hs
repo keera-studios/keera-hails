@@ -1,4 +1,9 @@
 {-# LANGUAGE CPP #-}
+-- |
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Graphics.UI.Gtk.Reactive.Gtk2 where
 
 import           Control.Monad (void)

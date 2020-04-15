@@ -1,5 +1,9 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 -- | Publishes the main elements of a scale as reactive fields
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 module Graphics.UI.Gtk.Reactive.Property where
 
 import Control.Monad (void, when)
@@ -28,7 +32,7 @@ reactiveProperty e sig attr =
 
 -- | Create an RV based on a widget's attribute and signal.
 -- Before setting, the value is *not* checked against the current one.
--- The value is thus set even if they are the same. 
+-- The value is thus set even if they are the same.
 reactivePropertyNE :: self
                    -> Signal self (IO ()) -> Attr self b
                    -> ReactiveFieldReadWrite IO b

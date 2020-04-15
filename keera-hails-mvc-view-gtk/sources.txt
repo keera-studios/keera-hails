@@ -1,4 +1,0 @@
-gtk2hs-buildtools
-./
-https://github.com/keera-studios/hails-mvc-view
-https://github.com/keera-studios/gtk-helpers
