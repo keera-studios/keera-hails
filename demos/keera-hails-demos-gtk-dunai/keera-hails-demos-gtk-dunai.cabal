@@ -6,7 +6,7 @@ cabal-version: >=1.10
 build-type:    Simple
 
 name:          keera-hails-demos-gtk-dunai
-version:       0.1.0.0
+version:       0.5.0
 author:        Sasha Pavlenko
 maintainer:    alexander@keera.co.uk
 homepage:      http://github.com/keera-studios/keera-hails

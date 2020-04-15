@@ -6,7 +6,7 @@ cabal-version: >= 1.10
 build-type:    Simple
 
 name:          keera-hails-mvc-solutions-gtk
-version:       0.0.3.4
+version:       0.5.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
 homepage:      http://www.keera.co.uk/blog/community/
