@@ -12,7 +12,7 @@ homepage:      http://github.com/keera-studios/keera-hails
 license:       BSD3
 license-file:  LICENSE
 category:      Web
-version:       0.0.1
+version:       0.5.0
 synopsis:      Keera Hails Reactive bindings for HTML DOM via GHCJS
 
 source-repository head

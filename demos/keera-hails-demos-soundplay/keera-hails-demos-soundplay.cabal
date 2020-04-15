@@ -12,7 +12,7 @@ homepage:      http://github.com/keera-studios/keera-hails
 license:       BSD3
 license-file:  LICENSE
 category:      Sound
-version:       0.0.1
+version:       0.5.0
 synopsis:      A simple demo to play sounds and control volume.
 
 data-files: baby.wav
