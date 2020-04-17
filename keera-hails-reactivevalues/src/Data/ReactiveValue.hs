@@ -23,6 +23,58 @@
 -- A more detailed description of reactive values can be found at:
 -- http://dl.acm.org/citation.cfm?id=2804316
 --
+-- A very simple example of an RV is the following construction, in
+-- which passive IORefs are turned into active Reactive Values.
+--
+-- @
+-- import Control.Concurrent (threadDelay)
+-- import Control.Monad      (forever)
+--
+-- -- From the package keera-callbacks
+-- import Data.CBRef         (installCallbackCBRef, newCBRef, readCBRef,
+--                            writeCBRef)
+--
+-- -- From keera-hails-reactivevalues
+-- import Data.ReactiveValue (ReactiveFieldReadWrite (..), ReactiveFieldWrite,
+--                            reactiveValueModify, wrapMW, (=:>))
+--
+-- main :: IO ()
+-- main = do
+--
+--   -- Empower IORef with callback installation mechanism
+--   --
+--   -- passiveCBRef :: CBRRef Integer
+--   passiveCBRef <- newCBRef 0
+--
+--   -- Turn IORef into active reactive value (RV).
+--   --
+--   -- We use the type of Reactive Fields, which have a trivial RV implementation.
+--   let activeCBRefRV :: ReactiveFieldReadWrite IO Integer
+--       activeCBRefRV = ReactiveFieldReadWrite
+--                         (writeCBRef           passiveCBRef)
+--                         (readCBRef            passiveCBRef)
+--                         (installCallbackCBRef passiveCBRef)
+--
+--   -- Define a write-only RV that prints whatever you put in it.
+--   let printer :: Show a => ReactiveFieldWrite IO a
+--       printer = wrapMW print
+--
+--   -- Connect them using a reactive rule. In a GUI application, this code would
+--   -- in the controller, and would define connections between the model and
+--   -- the view.
+--   --
+--   -- For bi-directional connections, see (=:=).
+--   activeCBRefRV =:> printer
+--
+--   -- To demonstrate the connection, just loop forever and increment the
+--   -- first reactive value. The change will propagate through the channel
+--   -- and be printed on the screen every second.
+--   forever $ do
+--     threadDelay 1000000 -- 1 second
+--     reactiveValueModify activeCBRefRV (+1)
+-- @
+--
+--
 -- Copyright   : (C) Keera Studios Ltd, 2013
 -- License     : BSD3
 -- Maintainer  : support@keera.co.uk
