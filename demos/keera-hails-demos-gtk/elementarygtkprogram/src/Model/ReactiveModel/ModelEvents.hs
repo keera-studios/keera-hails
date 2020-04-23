@@ -8,7 +8,7 @@ module Model.ReactiveModel.ModelEvents
   ) where
 
 -- import GenericModel.GenericModelEvent
-import qualified Control.Concurrent.Model.ReactiveModel as GRM
+import qualified Hails.MVC.Model.ReactiveModel as GRM
 
 data ModelEvent = UncapturedEvent
  deriving (Eq,Ord)

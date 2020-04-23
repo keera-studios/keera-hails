@@ -52,7 +52,7 @@ library
     , gtk3
     , gtk3-helpers
     , pango
-    , hails-reactivevalues
+    , keera-hails-reactivevalues
 
   default-language: Haskell2010
 

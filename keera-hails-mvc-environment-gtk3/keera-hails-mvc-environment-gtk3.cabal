@@ -5,16 +5,33 @@
 cabal-version: >= 1.10
 build-type:    Simple
 
-name:          ElementaryGtkProgram
+name:          keera-hails-mvc-environment-gtk3
 version:       0.5.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
-homepage:      -
+homepage:      http://www.keera.co.uk/blog/community/
 license:       BSD3
 license-file:  LICENSE
-category:      Text
-stability:     Provisional
-synopsis:      A very simple Gtk program using protected reactive objects
+category:      Development
+synopsis:      Haskell on Gtk rails - Gtk-based global environment for MVC applications
+description:
+  Keera Hails is a rapid application development system.
+  .
+  The idea behind Hails is that you should be able to build cross platform
+  applications with minimal effort, very quickly, and the result should be easy
+  to maintain.
+  .
+  This package defines an environment that combines a model and a view, where
+  the latter is implemented using GTK+. Users of this package can install
+  additional conditions that keep both in sync using keera-hails-reactivevalues
+  to define such conditions.
+
+
+source-repository head
+ type: git
+ location: git://github.com/keera-studios/keera-hails
+ subdir: keera-hails-mvc-environment-gtk
+
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
@@ -26,30 +43,25 @@ flag test-doc-coverage
   default: False
   manual:  True
 
-executable ElementaryGtkProgram
 
-  Main-is: Main.hs
+library
+
+  exposed-modules:
+    Hails.MVC.GenericCombinedEnvironment
+    Hails.MVC.DefaultGtkEnvironment
 
   build-depends:
-      base >= 4.0
-    , keera-hails-mvc-environment-gtk3
-    , keera-hails-mvc-solutions-gtk3
+      base >= 4 && < 5
     , keera-hails-mvc-model-protectedmodel
     , keera-hails-mvc-view
     , keera-hails-mvc-view-gtk3
-    -- , glade
-    , gtk3
-    , MissingK
-
-
-  hs-source-dirs: src/
 
   default-language: Haskell2010
 
-  if os(windows)
-   ghc-options: -threaded -Wall -fno-warn-unused-do-bind -O2 -optl-mwindows
-  else
-   ghc-options: -threaded -Wall -fno-warn-unused-do-bind -O2
+  hs-source-dirs: src/
+
+  ghc-options: -Wall -fno-warn-unused-do-bind -O2
+
 
 test-suite hlint
 

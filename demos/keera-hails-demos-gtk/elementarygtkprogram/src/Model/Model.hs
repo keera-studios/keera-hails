@@ -5,21 +5,22 @@
 -- Maintainer  : support@keera.co.uk
 module Model.Model where
 
-import Model.ProtectedModel.NamedModel
-import Model.ProtectedModel.VersionedModel
+import Data.ExtraVersion
+import Hails.MVC.Model.ProtectedModel.NamedModel
+import Hails.MVC.Model.ProtectedModel.VersionedModel
 
 type BasicModel = Model
 
 data Model = Model
  { name              :: String
- , version           :: String
+ , version           :: Version
  }
  deriving (Eq)
 
 emptyBM :: Model
 emptyBM = Model
  { name              = "Elementary Gtk Demo with PRMVC"
- , version           = "0.1-alpha0"
+ , version           = Version 0 1 Alpha 0
  }
 
 instance VersionedBasicModel Model where
