@@ -5,16 +5,20 @@
 cabal-version: >= 1.10
 build-type:    Simple
 
-name:          ElementaryGtkProgram
+name:          keera-hails-mvc-solutions-gtk3
 version:       0.5.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
-homepage:      -
+homepage:      http://www.keera.co.uk/blog/community/
 license:       BSD3
 license-file:  LICENSE
-category:      Text
-stability:     Provisional
-synopsis:      A very simple Gtk program using protected reactive objects
+category:      Development
+synopsis:      Haskell on Gtk rails - Common solutions to recurrent problems in Gtk applications
+
+source-repository head
+ type: git
+ location: git://github.com/keera-studios/keera-hails
+ subdir: keera-hails-mvc-solutions-gtk
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
@@ -26,30 +30,44 @@ flag test-doc-coverage
   default: False
   manual:  True
 
-executable ElementaryGtkProgram
+library
 
-  Main-is: Main.hs
+  exposed-modules:
+    Hails.MVC.Model.ProtectedModel.VersionedModel
+    Hails.MVC.Model.ProtectedModel.LoggedModel
+    Hails.MVC.Model.ProtectedModel.NamedModel
+    Hails.MVC.Model.ProtectedModel.UpdatableModel
+    Hails.Graphics.UI.Gtk.Simplify.VersionNumberTitleBar
+    Hails.Graphics.UI.Gtk.Simplify.NameAndVersionTitleBar
+    Hails.Graphics.UI.Gtk.Simplify.ProgramMainWindow
+    Hails.Graphics.UI.Gtk.Simplify.AboutDialog
+    Hails.Graphics.UI.Gtk.Simplify.Logger
+    Hails.Graphics.UI.Gtk.Simplify.RootLogger
+    Hails.Graphics.UI.Gtk.Simplify.UpdateCheck
 
   build-depends:
-      base >= 4.0
+      base >= 4 && < 5
+    , template-haskell
+    , gtk3
+    , hslogger
+    , HTTP
+    , network
+    , network-uri
+    , mtl
+
     , keera-hails-mvc-environment-gtk3
-    , keera-hails-mvc-solutions-gtk3
-    , keera-hails-mvc-model-protectedmodel
     , keera-hails-mvc-view
     , keera-hails-mvc-view-gtk3
-    -- , glade
-    , gtk3
+    , keera-hails-mvc-model-protectedmodel
+    , keera-hails-reactivevalues
     , MissingK
-
-
-  hs-source-dirs: src/
 
   default-language: Haskell2010
 
-  if os(windows)
-   ghc-options: -threaded -Wall -fno-warn-unused-do-bind -O2 -optl-mwindows
-  else
-   ghc-options: -threaded -Wall -fno-warn-unused-do-bind -O2
+  hs-source-dirs: src/
+
+  ghc-options: -Wall -fno-warn-unused-do-bind -O2
+
 
 test-suite hlint
 

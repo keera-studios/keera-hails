@@ -7,7 +7,7 @@ module View where
 
 -- External libraries
 import Graphics.UI.Gtk
-import Graphics.UI.Gtk.GenericView (GUI(..))
+import Hails.MVC.View.GtkView (GtkGUI(..))
 
 -- Internal libraries
 import View.MainWindow.Objects
@@ -33,7 +33,7 @@ onViewAsync = postGUIAsync
 destroyView :: IO ()
 destroyView = mainQuit
 
-instance GUI View where
+instance GtkGUI View where
   initialise = createView
 
 -- | This datatype should hold the elements that we must track in the future
