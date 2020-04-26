@@ -1,7 +1,13 @@
 {-# LANGUAGE FlexibleContexts       #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
--- | Reactive Values (RVs) are typed mutable variables with a change
+-- |
+--
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
+--
+-- Reactive Values (RVs) are typed mutable variables with a change
 -- notification mechanism.
 --
 -- They are defined by providing a way to read the value, a way to change it,
@@ -74,10 +80,6 @@
 --     reactiveValueModify activeCBRefRV (+1)
 -- @
 --
---
--- Copyright   : (C) Keera Studios Ltd, 2013
--- License     : BSD3
--- Maintainer  : support@keera.co.uk
 module Data.ReactiveValue
   ( -- * Reactive Values
 
