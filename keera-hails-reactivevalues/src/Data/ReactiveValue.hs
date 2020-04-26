@@ -1,27 +1,27 @@
 {-# LANGUAGE FlexibleContexts       #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
--- | Reactive Values (RVs) are typed mutable variables with a change
--- notification mechanism.
+-- |
 --
--- They are defined by providing a way to read the value, a way to change it,
--- and a way to install an event listener when the value has changed.
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : BSD3
+-- Maintainer  : support@keera.co.uk
 --
--- RVs are pruposely abstract, defined as a type class. GUI toolkits,
--- for instance, can use existing event-handling installing mechanisms to
--- enclose widget attributes as Reactive Values, without the need for an
--- additional, manually-handled event dispatcher.
+-- /Reactive Values/ (RVs) are typed mutable variables with a change
+-- notification mechanism. They are defined by providing a way to /read/ the
+-- value, a way to /change/ it, and a way to install an /react/ when the value
+-- has changed.
 --
--- RVs are complemented with /relation-building/ functions, which
--- enable pairing RVs during execution so that they are /kept in/
--- /sync/ for the duration of the program.
+-- RVs are abstract (i.e., a type class). This module defines a class and
+-- manipulation operations, but you need an actual instance of RV underneath.
+-- For a way to turn 'IORef's into RVs, see the example below. GUI toolkits can
+-- use existing event-handling mechanisms to make widget attributes Reactive
+-- Values without additional boilerplate. A number of
+-- <https://github.com/keera-studios/keera-hails backends> (GUIs, devices,
+-- files, network, FRP) are supported.
 --
--- This module only defines RVs and operations on them. For connections
--- to existing backends (GUIs, devices, files, network, FRP), see
--- https://github.com/keera-studios/keera-hails
---
--- A more detailed description of reactive values can be found at:
--- http://dl.acm.org/citation.cfm?id=2804316
+-- RVs are complemented with /Reactive Relations/, which connect RVs and keep
+-- them /in sync/ during execution.
 --
 -- A very simple example of an RV is the following construction, in
 -- which passive IORefs are turned into active Reactive Values.
@@ -74,12 +74,14 @@
 --     reactiveValueModify activeCBRefRV (+1)
 -- @
 --
---
--- Copyright   : (C) Keera Studios Ltd, 2013
--- License     : BSD3
--- Maintainer  : support@keera.co.uk
+-- For further explanations on reactive values, see the
+-- <http://dl.acm.org/citation.cfm?id=2804316 Haskell Symposium paper> and
+-- <https://github.com/keera-studios/keera-hails/tree/develop/demos the demos>
+-- in our repository.
+
 module Data.ReactiveValue
   ( -- * Reactive Values
+    -- $rvs
 
     -- ** Readable Reactive Values
     -- $readablervs
@@ -102,30 +104,22 @@ module Data.ReactiveValue
   , (=:=)
   , (<:=)
 
-    -- * Activatable Reactive Values
 
-    -- $activatable
-  , ReactiveFieldActivatable
-  , ReactiveValueActivatable(..)
-  , mkActivatable
-
-    -- * Purely functional implementation of RVs.
+    -- * Reactive Fields (pure RVs)
 
     -- $fields
   , ReactiveFieldRead(..)
   , ReactiveFieldWrite(..)
   , ReactiveFieldReadWrite(..)
 
-    -- ** Setters, getters and notifiers
-
     -- $settersgetters
   , FieldGetter
   , FieldSetter
   , FieldNotifier
 
-    -- * RV combinators
+    -- * RV creation and manipulation
 
-    -- ** Creating, lifting on and manipulating readable values
+    -- ** Readable RVs
 
     -- $readablecombinators
   , constR
@@ -139,12 +133,10 @@ module Data.ReactiveValue
   , wrapMR
   , wrapMRPassive
   , eventR
-
-    -- *** Merging
   , lMerge
   , rMerge
 
-    -- ** Creating, lifting on and manipulating writeable values
+    -- ** Writable RVs
 
     -- $writablecombinators
   , constW
@@ -158,11 +150,13 @@ module Data.ReactiveValue
   , wrapDo_
 
 
-    -- ** Lift monadic actions/sinks (setters) and sources (getters)
-
-    -- *** Lifting (sink) computations into writable RVs.
+    -- ** Read-write RVs
 
     -- $readwritecombinators
+  , liftRW
+  , liftRW2
+  , pairRW
+  , modRW
 
     -- **** Bijective functions
   , BijectiveFunc
@@ -172,34 +166,35 @@ module Data.ReactiveValue
   , Involution
   , involution
 
-    -- **** Combinators
-  , liftRW
-  , liftRW2
-  , pairRW
-  , modRW
+    -- **** Low-level operations
   , reactiveValueModify
 
 
-    -- * Stopping change
+    -- * Controlling change
 
     -- $changecontrol
 
-    -- ** Stopping unnecesary change propagation
+    -- ** Stopping change propagation
   , eqCheck
-
-    -- ** Stopping all change propagation
   , passivelyR
   , passivelyRW
 
-    -- ** Changing control over change propagation
+    -- ** Governing
   , governingR
   , governingRW
 
-    -- ** Conditional change propagation
+    -- ** Guarding
   , ifRW
   , ifRW_
   , guardRO
   , guardRO'
+
+    -- * Activatable RVs
+
+    -- $activatable
+  , ReactiveValueActivatable(..)
+  , ReactiveFieldActivatable
+  , mkActivatable
   )
  where
 
@@ -207,6 +202,27 @@ import Control.Monad
 import Control.GFunctor -- Functors parameterised over the morphisms
                         -- in the source category
 import Data.Functor.Contravariant
+
+-- $rvs
+--
+-- Reactive Values are an abstraction over values that change over the execution
+-- of a program, and whose change we can be aware of.
+--
+-- There is no unique, canonical implementation of RVs: they are defined as
+-- a collection of type classes, and you are free to make your existing
+-- framework reactive by providing the necessary instances.
+--
+-- RVs are distinguished by the API they offer, mainly whether it is possible
+-- to read them, to write to them, or both. A /readable/ RV is one that whose
+-- value we can read (whether it is read-only or read-write, or whether it will
+-- actively propagate changes to it or not, is a different matter). Analogously,
+-- a /writable/ RV is one that we can write to (write-only or read-write).
+--
+-- We also distinguish between /active/ RVs (i.e., those that actively propagate
+-- changes through the Reactive Relations they are connected to) and /passive/
+-- RVs (those that do not propagate changes). It is possible to "silence" an
+-- RV by minimizing unnecesssary change, or attaching it to another RV that
+-- determines when change propagates (see governing and guarding below).
 
 -- $readablervs
 --
@@ -302,6 +318,16 @@ class (ReactiveValueRead a b m, ReactiveValueWrite a b m) => ReactiveValueReadWr
 -- | Pairs of a monadic action and a parametric monadic action are also RVs
 instance (Functor m, Monad m) => ReactiveValueReadWrite (m a, a -> m b) a m
 
+-- $activatable
+--
+-- Activatable RVs are values that never hold any data, but whose change (or
+-- activation, or some sort of internal event) we need to be aware of).
+
+-- | A class for things with a trivial field that carries unit. Buttons
+-- (in any GUI library), for instance, could be a member of this class.
+class ReactiveValueActivatable m a where
+   defaultActivation :: a -> ReactiveFieldActivatable m
+
 -- $rules
 --
 -- Reactive Rules are data dependency (data-passing) building combinators.
@@ -342,22 +368,6 @@ infix 9 <:=
   -- where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
   --       sync2 = reactiveValueRead v2 >>= reactiveValueWrite v1
 
--- $settersgetters
---
--- These are used internally for combinators that need to return RV instances. They can
--- also be used to write new backends and library extensions, but they are not
--- recommended to enclose application models. For that purpose, see light models and
--- protected models instead.
-
--- | The type of a monadic value producer (a getter, a source).
-type FieldGetter m a   = m a
-
--- | The type of a monadic value consumer (a setter, a sink, a slot).
-type FieldSetter m a   = a -> m ()
-
--- | The type of an event handler installer
-type FieldNotifier m a = m () -> m () -- FIXME: why does fieldnotifier have an argument
-
 -- $fields
 -- This is a specific implementation of RVs that does not have a custom event queue.
 --
@@ -377,6 +387,10 @@ newtype ReactiveFieldWrite m a =
 data ReactiveFieldReadWrite m a =
   ReactiveFieldReadWrite (FieldSetter m a) (FieldGetter m a) (FieldNotifier m a)
 
+-- | A trivial type for Readable RVs that carry unit. They can be used for
+-- buttons, or events without data.
+type ReactiveFieldActivatable m = ReactiveFieldRead m ()
+
 instance Monad m => ReactiveValueRead (ReactiveFieldRead m a) a m where
   reactiveValueOnCanRead (ReactiveFieldRead _ notifier) = notifier
   reactiveValueRead (ReactiveFieldRead getter _)        = getter
@@ -393,19 +407,21 @@ instance Monad m => ReactiveValueWrite (ReactiveFieldReadWrite m a) a m where
 
 instance Monad m => ReactiveValueReadWrite (ReactiveFieldReadWrite m a) a m
 
--- $activatable
+-- $settersgetters
 --
--- Activatable RVs are values that never hold any data, but whose change (or
--- activation, or some sort of internal event) we need to be aware of).
+-- These are used internally for combinators that need to return RV instances. They can
+-- also be used to write new backends and library extensions, but they are not
+-- recommended to enclose application models. For that purpose, see light models and
+-- protected models instead.
 
--- | A class for things with a trivial field that carries unit. Buttons
--- (in any GUI library), for instance, could be a member of this class.
-class ReactiveValueActivatable m a where
-   defaultActivation :: a -> ReactiveFieldActivatable m
+-- | The type of a monadic value producer (a getter, a source).
+type FieldGetter m a   = m a
 
--- | A trivial type for Readable RVs that carry unit. They can be used for
--- buttons, or events without data.
-type ReactiveFieldActivatable m = ReactiveFieldRead m ()
+-- | The type of a monadic value consumer (a setter, a sink, a slot).
+type FieldSetter m a   = a -> m ()
+
+-- | The type of an event handler installer
+type FieldNotifier m a = m () -> m () -- FIXME: why does fieldnotifier have an argument
 
 -- | Create an activatable RV from a handler installer.
 mkActivatable :: Monad m => (m () -> m ()) -> ReactiveFieldActivatable m
@@ -413,16 +429,9 @@ mkActivatable f = ReactiveFieldRead getter notifier
  where getter   = return ()
        notifier = f
 
--- instance (ReactiveValueWrite a b) => ReactiveValueWrite (TypedReactiveValue a b) b where
---   reactiveValueWrite (TypedReactiveValue x _) v = reactiveValueWrite x v
---
--- instance (ReactiveValueRead a b) => ReactiveValueRead (TypedReactiveValue a b) b where
---   reactiveValueOnCanRead (TypedReactiveValue x _) v op = (reactiveValueOnCanRead x) v op
---   reactiveValueRead (TypedReactiveValue x _)           = reactiveValueRead x
-
 -- $readablecombinators
 
--- | A trivial RV builder tith a constant value. We need this because
+-- | A trivial RV builder with a constant value. We need this because
 -- we cannot have overlapping instances with a default case, and because
 -- the interpretation of lifting with RVs could be very confusing unless
 -- values are lifted into RVs explicitly.
@@ -647,7 +656,7 @@ modRW f rv = ReactiveFieldWrite setter
 
 -- | Apply a modification to an RV. This modification is not attached to
 -- the RV, and there are no guarantees that it will be atomic (if you need
--- atomicity, check out STM.
+-- atomicity, check out STM).
 reactiveValueModify :: (Monad m, ReactiveValueReadWrite a b m) => a -> (b -> b) -> m ()
 reactiveValueModify r f = reactiveValueWrite r . f =<< reactiveValueRead r
 
