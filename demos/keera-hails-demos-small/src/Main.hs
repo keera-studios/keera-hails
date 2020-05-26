@@ -53,7 +53,7 @@ main = do
   inputFieldText <:= (show <^> model)
 
   forM_ nums $ \button ->
-    button =:> model
+    button =:> modRW (+) model
 
 -- | Static partial loaded from file
 staticHeader :: IsString a => a
