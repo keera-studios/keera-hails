@@ -1,11 +1,31 @@
-<div>
+<div id="calculator">
 <input id="myinput" class="textview" maxlength="8" readonly />
 <table>
+<tr>
+<td><button class="button" id="actclr">C</button></td>
+<td><button class="button" id="opdiv">/</button></td>
+<td><button class="button" id="opmul">*</button></td>
+<td><button class="button" id="opsub">-</button></td>
+</tr>
+<tr>
+<td><button class="button" id="num7">7</button></td>
+<td><button class="button" id="num8">8</button></td>
+<td><button class="button" id="num9">9</button></td>
+<td rowspan="2"><button class="button button2h" id="opadd">+</button></td>
+</tr>
+<tr>
+<td><button class="button" id="num4">4</button></td>
+<td><button class="button" id="num5">5</button></td>
+<td><button class="button" id="num6">6</button></td>
+</tr>
 <tr>
 <td><button class="button" id="num1">1</button></td>
 <td><button class="button" id="num2">2</button></td>
 <td><button class="button" id="num3">3</button></td>
-<td><button class="button" id="num4">4</button></td>
+<td rowspan="2"><button class="button button2h" id="acteq">=</button></td>
+</tr>
+<tr>
+<td colspan="3"><button class="button button3w" id="num0">0</button></td>
 </tr>
 </table>
 </div>
