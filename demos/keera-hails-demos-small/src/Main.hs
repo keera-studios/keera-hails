@@ -1,21 +1,27 @@
-import GHCJS.DOM                  (currentDocumentUnchecked)
-import GHCJS.DOM.Document         (createElement, getBodyUnchecked)
-import GHCJS.DOM.HTMLInputElement (HTMLInputElement (..))
-import GHCJS.DOM.Node             (appendChild_)
-import GHCJS.DOM.Types            (Element (..), uncheckedCastTo)
+{-# LANGUAGE TemplateHaskell #-}
 
-import Data.ReactiveValue  ((=:>))
-import Hails.MVC.View.HTML (inputTextReactive)
+-- External imports
+import Data.FileEmbed (embedStringFile)
+import Data.String    (IsString)
+
+-- External imports: GHCJS
+import GHCJS.DOM          (currentDocumentUnchecked)
+import GHCJS.DOM.Document (getBodyUnchecked, getHeadUnchecked)
+import GHCJS.DOM.Element  (setInnerHTML)
 
 main :: IO ()
 main = do
-  doc  <- currentDocumentUnchecked
+  doc <- currentDocumentUnchecked
+  header <- getHeadUnchecked doc
+  setInnerHTML header (staticHeader :: String)
+
   body <- getBodyUnchecked doc
+  setInnerHTML body (staticBody :: String)
 
-  input1 <- uncheckedCastTo HTMLInputElement <$> createElement doc "input"
-  appendChild_ body input1
+-- | Static partial loaded from file
+staticHeader :: IsString a => a
+staticHeader = $(embedStringFile "data/head.html")
 
-  input2 <- uncheckedCastTo HTMLInputElement <$> createElement doc "input"
-  appendChild_ body input2
-
-  inputTextReactive input1 =:> inputTextReactive input2
+-- | Static partial loaded from file.
+staticBody :: IsString a => a
+staticBody = $(embedStringFile "data/body.html")
