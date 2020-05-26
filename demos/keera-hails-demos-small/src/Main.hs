@@ -42,9 +42,19 @@ main = do
 
         return $ const xval <^> htmlElementClick button
 
-  -- Add all number and operator buttons
+  -- Add all number
   nums <- mapM (uncurry constReactiveButton)
-               [ ("num" ++ show x, x) | x <- [1..4] ]
+               [ ("num" ++ show x, x) | x <- [0..9] ]
+
+  -- Add all operator buttons
+  operators <- mapM (uncurry constReactiveButton)
+                 [ ("opadd", (+)), ("opsub", (-))
+                 , ("opmul", (*)), ("opdiv", safeDiv)
+                 ]
+
+  -- Add all action buttons
+  actions <- mapM (uncurry constReactiveButton)
+               [ ("acteq", Equals), ("actclear", Clear) ]
 
   -- Initialize model
   model <- cbmvarReactiveRW <$> newCBMVar 0
@@ -62,3 +72,15 @@ staticHeader = $(embedStringFile "data/head.html")
 -- | Static partial loaded from file.
 staticBody :: IsString a => a
 staticBody = $(embedStringFile "data/body.html")
+
+-- * Auxiliary numeric operations
+
+-- | Divide two integer numbers, returning the first if the second one is
+-- zero.
+safeDiv :: Int -> Int -> Int
+safeDiv x 0 = x
+safeDiv x y = x `div` y
+
+-- | Operator button in a calculator. We support both binary number
+-- operators and other operatots that whould return the final value.
+data Action = Equals | Clear
