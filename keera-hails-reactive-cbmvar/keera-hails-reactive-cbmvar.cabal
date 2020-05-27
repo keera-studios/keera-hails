@@ -2,52 +2,56 @@
 -- License     : All Rights Reserved
 -- Maintainer  : support@keera.co.uk
 --
-cabal-version: >=1.10
+cabal-version: >= 1.10
 build-type:    Simple
 
-name:          keera-hails-reactive-htmldom
-author:        Ivan Perez
+name:          keera-hails-reactive-cbmvar
+version:       0.5.0
+author:        Sasha Pavlenko
 maintainer:    support@keera.co.uk
-homepage:      http://github.com/keera-studios/keera-hails
+homepage:      https://keera.co.uk/
 license:       BSD3
 license-file:  LICENSE
-category:      Web
-version:       0.5.0
-synopsis:      Keera Hails Reactive bindings for HTML DOM via GHCJS
+category:      Development
+synopsis:      Reactive Haskell on Rails - CBMVars as reactive values
+description:
+  CBMVars are MVars enriched with a notion of callbacks that are
+  executed when the value in the MVar is altered.
+  .
+  This package wraps CBMVars into reactive values, making it easy
+  to use them as models of reactive applications.
 
 source-repository head
  type: git
  location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-reactive-htmldom
-
+ subdir: keera-hails-reactive-cbmvar
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
-  default: False
+  default: True
   manual:  True
 
 -- You can disable the haddock coverage test suite with -f-test-doc-coverage
 flag test-doc-coverage
-  default: False
+  default: True
   manual:  True
-
 
 library
 
   exposed-modules:
-    Hails.MVC.View.HTML
+    Data.CBMVar.Reactive
 
   build-depends:
-      base >=4.2 && <5
-    , ghcjs-dom >=0.2 && <0.10
+      base >= 4 && < 5
+    , lens
+    , keera-hails-reactivevalues
     , keera-callbacks
-    , keera-hails-reactivevalues >=0.1.0 && <0.6
-    , keera-hails-reactive-cbmvar
-    , mtl
-    , transformers >=0.4.3.0 && <0.6
 
-  hs-source-dirs:      src/
-  default-language:    Haskell2010
+  default-language: Haskell2010
+
+  hs-source-dirs: src/
+
+  ghc-options: -Wall
 
 test-suite hlint
 
