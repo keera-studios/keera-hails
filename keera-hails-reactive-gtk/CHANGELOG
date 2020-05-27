@@ -1,22 +1,30 @@
-2019-07-25 Sasha Pavlenko <myro@keera.co.uk>
-        * hails-reactive-gtk.cabal: version bump (0.5)
-        * src/Graphics/UI/Gtk/Reactive/Gtk2.hs: Add missing constraint.
+2020-05-27 Alexander Pavlenko <alexander@keera.co.uk>
 
-2019-07-25 Sasha Pavlenko <myro@keera.co.uk>
-        * hails-reactive-gtk.cabal: version bump (0.4)
-        * src/Graphics/UI/Gtk/Reactive/Gtk2.hs: Hide definitions unavailable on Mac
+    * keera-hails-reactive-gtk.cabal: Version hump (0.6.0).
+
+2019-07-25 Alexander Pavlenko <myro@keera.co.uk>
+
+    * hails-reactive-gtk.cabal: version bump (0.5)
+    * src/Graphics/UI/Gtk/Reactive/Gtk2.hs: Add missing constraint.
+
+2019-07-25 Alexander Pavlenko <myro@keera.co.uk>
+
+    * hails-reactive-gtk.cabal: version bump (0.4)
+    * src/Graphics/UI/Gtk/Reactive/Gtk2.hs: Hide definitions unavailable on Mac
 
 2015-08-20 Ivan Perez <ivan.perez@keera.co.uk>
-        * hails-reactive-gtk.cabal: version bump (0.3)
-        * src/Graphics/UI/Gtk/Reactive.hs: export more submodules
-        * src/Graphics/UI/Gtk/Reactive/Gtk2.hs: Bindings for 2072 reactive symbols.
-        * src/Graphics/UI/Gtk/Reactive/Property.hs: adds new generic binding functions.
+
+    * hails-reactive-gtk.cabal: version bump (0.3)
+    * src/Graphics/UI/Gtk/Reactive.hs: export more submodules
+    * src/Graphics/UI/Gtk/Reactive/Gtk2.hs: Bindings for 2072 reactive symbols.
+    * src/Graphics/UI/Gtk/Reactive/Property.hs: adds new generic binding functions.
 
 2015-06-18 Ivan Perez <ivan.perez@keera.co.uk>
-        * hails-reactive-gtk.cabal: version bump (0.0.3.6)
-        * src/Graphics/UI/Gtk/Reactive/Window.hs: Fixes bug.
+
+    * hails-reactive-gtk.cabal: version bump (0.0.3.6)
+    * src/Graphics/UI/Gtk/Reactive/Window.hs: Fixes bug.
 
 2015-05-05 Ivan Perez <ivan.perez@keera.co.uk>
 
-        * src/: Makes entry behave like text RV by default.
-        * hails-reactive-gtk.cabal: version bump (0.0.3.4)
+    * src/: Makes entry behave like text RV by default.
+    * hails-reactive-gtk.cabal: version bump (0.0.3.4)
