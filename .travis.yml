@@ -52,6 +52,7 @@ script:
       keera-hails-mvc-solutions-gtk/
       keera-hails-mvc-view/
       keera-hails-mvc-view-gtk/
+      keera-hails-reactive-cbmvar/
       keera-hails-reactive-gtk/
       keera-hails-reactive-network/
       keera-hails-reactive-polling/
@@ -78,6 +79,9 @@ deploy:
           cd keera-hails-mvc-solutions-gtk        && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
           cd keera-hails-mvc-view                 && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
           cd keera-hails-mvc-view-gtk             && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-mvc-view-html            && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-mvc-controller           && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
+          cd keera-hails-reactive-cbmvar          && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
           cd keera-hails-reactive-gtk             && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
           cd keera-hails-reactive-network         && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;
           cd keera-hails-reactive-polling         && cabal check && cabal sdist && cabal upload --publish dist/*.tar.gz || cd .. ;

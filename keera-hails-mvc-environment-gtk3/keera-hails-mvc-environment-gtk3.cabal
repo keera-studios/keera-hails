@@ -1,0 +1,114 @@
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : All Rights Reserved
+-- Maintainer  : support@keera.co.uk
+--
+cabal-version: >= 1.10
+build-type:    Simple
+
+name:          keera-hails-mvc-environment-gtk3
+version:       0.6.0
+author:        Ivan Perez
+maintainer:    support@keera.co.uk
+homepage:      http://www.keera.co.uk/blog/community/
+license:       BSD3
+license-file:  LICENSE
+category:      Development
+synopsis:      Haskell on Gtk rails - Gtk-based global environment for MVC applications
+description:
+  Keera Hails is a rapid application development system.
+  .
+  The idea behind Hails is that you should be able to build cross platform
+  applications with minimal effort, very quickly, and the result should be easy
+  to maintain.
+  .
+  This package defines an environment that combines a model and a view, where
+  the latter is implemented using GTK+. Users of this package can install
+  additional conditions that keep both in sync using keera-hails-reactivevalues
+  to define such conditions.
+
+
+source-repository head
+ type: git
+ location: git://github.com/keera-studios/keera-hails
+ subdir: keera-hails-mvc-environment-gtk
+
+
+-- You can disable the hlint test suite with -f-test-hlint
+flag test-hlint
+  default: False
+  manual:  True
+
+-- You can disable the haddock coverage test suite with -f-test-doc-coverage
+flag test-doc-coverage
+  default: False
+  manual:  True
+
+
+library
+
+  exposed-modules:
+    Hails.MVC.GenericCombinedEnvironment
+    Hails.MVC.DefaultGtkEnvironment
+
+  build-depends:
+      base >= 4 && < 5
+    , keera-hails-mvc-model-protectedmodel
+    , keera-hails-mvc-view
+    , keera-hails-mvc-view-gtk3
+
+  default-language: Haskell2010
+
+  hs-source-dirs: src/
+
+  ghc-options: -Wall -fno-warn-unused-do-bind -O2
+
+
+test-suite hlint
+
+  type:
+    exitcode-stdio-1.0
+
+  main-is:
+    HLintMain.hs
+
+  hs-source-dirs:
+    tests
+
+  if !flag(test-hlint)
+    buildable: False
+  else
+    build-depends:
+        base
+      , hlint                >= 1.7
+
+  default-language:
+    Haskell2010
+
+
+-- Verify that the code is thoroughly documented
+test-suite haddock-coverage
+
+  type:
+    exitcode-stdio-1.0
+
+  main-is:
+    HaddockCoverage.hs
+
+  ghc-options:
+    -Wall
+
+  hs-source-dirs:
+    tests
+
+  if !flag(test-doc-coverage)
+    buildable: False
+  else
+    build-depends:
+        base                 >= 4        && < 5
+      , directory
+      , filepath
+      , process
+      , regex-posix
+
+  default-language:
+    Haskell2010

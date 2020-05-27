@@ -1,0 +1,104 @@
+-- Copyright   : (C) Keera Studios Ltd, 2013
+-- License     : All Rights Reserved
+-- Maintainer  : support@keera.co.uk
+--
+cabal-version: >= 1.10
+build-type:    Simple
+
+name:          keera-hails-reactive-cbmvar
+version:       0.6.0
+author:        Sasha Pavlenko
+maintainer:    support@keera.co.uk
+homepage:      https://keera.co.uk/
+license:       BSD3
+license-file:  LICENSE
+category:      Development
+synopsis:      Reactive Haskell on Rails - CBMVars as reactive values
+description:
+  CBMVars are MVars enriched with a notion of callbacks that are
+  executed when the value in the MVar is altered.
+  .
+  This package wraps CBMVars into reactive values, making it easy
+  to use them as models of reactive applications.
+
+source-repository head
+ type: git
+ location: git://github.com/keera-studios/keera-hails
+ subdir: keera-hails-reactive-cbmvar
+
+-- You can disable the hlint test suite with -f-test-hlint
+flag test-hlint
+  default: True
+  manual:  True
+
+-- You can disable the haddock coverage test suite with -f-test-doc-coverage
+flag test-doc-coverage
+  default: True
+  manual:  True
+
+library
+
+  exposed-modules:
+    Data.CBMVar.Reactive
+
+  build-depends:
+      base >= 4 && < 5
+    , lens
+    , keera-hails-reactivevalues
+    , keera-callbacks
+
+  default-language: Haskell2010
+
+  hs-source-dirs: src/
+
+  ghc-options: -Wall
+
+test-suite hlint
+
+  type:
+    exitcode-stdio-1.0
+
+  main-is:
+    HLintMain.hs
+
+  hs-source-dirs:
+    tests
+
+  if !flag(test-hlint)
+    buildable: False
+  else
+    build-depends:
+        base
+      , hlint                >= 1.7
+
+  default-language:
+    Haskell2010
+
+
+-- Verify that the code is thoroughly documented
+test-suite haddock-coverage
+
+  type:
+    exitcode-stdio-1.0
+
+  main-is:
+    HaddockCoverage.hs
+
+  ghc-options:
+    -Wall
+
+  hs-source-dirs:
+    tests
+
+  if !flag(test-doc-coverage)
+    buildable: False
+  else
+    build-depends:
+        base                 >= 4        && < 5
+      , directory
+      , filepath
+      , process
+      , regex-posix
+
+  default-language:
+    Haskell2010

@@ -13,6 +13,70 @@ Webcams, etc).
 Keera Hails has been used to create large applications and is used commercially
 in production.
 
+# Hands-on example
+
+The two key ideas in Keera Hails are *Reactive Values* and *Reactive Rules*.
+Reactive value are data holders or action endpoints that will contain, provide
+and/or consume data.  Reactive Rules just connect these values so that changes
+propagate across.
+
+A very simple example of an RV is the following construction, in which a passive
+`IORef` is turned into active Reactive Value.
+
+```haskell
+do
+
+  -- Empower IORef with callback installation mechanism. This comes from the
+  -- keera-callbacks library.
+  --
+  -- passiveCBRef :: CBRRef Integer
+  passiveCBRef <- newCBRef 0
+
+  -- Turn IO Ref into active reactive value (RV).
+  --
+  -- RVs are type classes. We use the type of Reactive Fields, which have a
+  -- trivial RV implementation.
+  let activeCBRefRV :: ReactiveFieldReadWrite IO Integer
+      activeCBRefRV = ReactiveFieldReadWrite
+                        (writeCBRef           passiveCBRef)
+                        (readCBRef            passiveCBRef)
+                        (installCallbackCBRef passiveCBRef)
+```
+
+We now define an RV that encloses a trivial monadic action:
+
+```haskell
+  -- do continues
+
+  -- Define a write-only RV that prints whatever you put in it.
+  let printer :: Show a => ReactiveFieldWrite IO a
+      printer = wrapMW print
+```
+
+You can connect them together in a monadic environment:
+```haskell
+  -- Connect them using a reactive rule. In a GUI application, this code would
+  -- in the controller, and would define connections between the model and
+  -- the view.
+  --
+  -- For bi-directional connections, see (=:=).
+  activeCBRefRV =:> printer
+```
+
+If you now loop and put data in the `IORef`, it will be passed along
+the reactive connection and printed to the output:
+
+```haskell
+  forever $ do
+    threadDelay 1000000 -- 1 second
+    reactiveValueModify activeCBRefRV (+1)
+```
+
+Using the same, simple ideas, you can define a RVs for, and connect, the fields
+of GUI widgets, for files, for network sockets, etc.
+
+# Project Structure
+
 The toolkit is divided in three parts:
 * Reactive Values: they are typed mutable values with event dispatching and
 access properties. They can be modified by lifting functions and applying
