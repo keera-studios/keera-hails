@@ -8,7 +8,9 @@ module Hails.MVC.View.HTML where
 import Control.Applicative            ((<$>))
 import Control.Monad                  (void)
 import Control.Monad.IO.Class         (liftIO)
-import Data.CBMVar                    (newCBMVar, writeCBMVar)
+import Control.Monad.Reader           (ask)
+import Data.CBMVar                    (installCallbackCBMVar, newCBMVar,
+                                       readCBMVar, writeCBMVar)
 import Data.CBMVar.Reactive           (cbmvarReactiveRO, cbmvarReactiveRW)
 import Data.ReactiveValue
 import Data.String
@@ -19,9 +21,12 @@ import GHCJS.DOM.GlobalEventHandlers  (input, mouseDown, mouseMove)
 import GHCJS.DOM.HTMLElement          (setInnerText)
 import GHCJS.DOM.HTMLInputElement     (getValue, setValue)
 import GHCJS.DOM.HTMLParagraphElement (HTMLParagraphElement (..))
+import GHCJS.DOM.MessageEvent         (getData)
 import GHCJS.DOM.Types                (HTMLElement, HTMLInputElement (..),
                                        IsGlobalEventHandlers, IsHTMLElement,
-                                       MouseEvent, toHTMLElement, toJSString)
+                                       JSString, MouseEvent, fromJSValUnchecked,
+                                       toHTMLElement, toJSString)
+import GHCJS.DOM.WebSocket            (WebSocket, message, sendString)
 
 -- * GHCJS DOM Reactive API
 inputTextReactive :: HTMLInputElement -> ReactiveFieldReadWrite IO String
@@ -41,6 +46,17 @@ click = unsafeEventName (toJSString "click")
 paragraphTextReactive :: HTMLParagraphElement -> ReactiveFieldWrite IO String
 paragraphTextReactive x = ReactiveFieldWrite setter
  where setter = setInnerHTML x
+
+websocketReactive :: WebSocket -> IO (ReactiveFieldReadWrite IO String)
+websocketReactive socket = do
+    p <- newCBMVar ""
+    void $ on socket message (ask >>= \dt -> getData dt >>= \js -> liftIO (fromJSValUnchecked js) >>= \jss -> liftIO (writeCBMVar p (show (jss :: JSString))))
+    let getter     = readCBMVar p
+        notifier n = installCallbackCBMVar p n
+        setter x   = do
+           sendString socket (fromString x :: JSString)
+           writeCBMVar p x
+    return (ReactiveFieldReadWrite setter getter notifier)
 
 mouseDownReactive :: (IsGlobalEventHandlers a, IsElement a) => a -> ReactiveFieldRead IO ()
 mouseDownReactive s = eventR $ \p -> void $ on s mouseDown (liftIO p)
