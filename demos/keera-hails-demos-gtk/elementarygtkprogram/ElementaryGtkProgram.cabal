@@ -6,7 +6,7 @@ cabal-version: >= 1.10
 build-type:    Simple
 
 name:          ElementaryGtkProgram
-version:       0.5.0
+version:       0.6.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
 homepage:      -
