@@ -1,14 +1,19 @@
+2020-05-27 Alexander Pavlenko <alexander@keera.co.uk>
+
+    * keera-hails-mvc-model-protectedmodel.cabal: Version hump (0.6.0).
+
 2015-06-03 Ivan Perez <ivan.perez@keera.co.uk>
 
-        * Cabal file: Renames package. Adds description.
+    * keera-hails-mvc-model-protectedmodel.cabal: Renames package. Adds
+      description.
 
 2015-05-05 Ivan Perez <ivan.perez@keera.co.uk>
 
-		* src/: Adds monad to field accessor definition. Adds RV field
-		        generator that takes undo stack into account.
-        * Cabal file: version bump (0.3.5)
+    * src/: Adds monad to field accessor definition. Adds RV field
+      generator that takes undo stack into account.
+    * keera-hails-mvc-model-protectedmodel.cabal: version bump (0.3.5)
 
 2014-06-04 Ivan Perez <ivan.perez@keera.co.uk>
 
-        * Adds project to hudson-backed continuous integration server.
-        * Adds TODO file with pending tasks.
+    * Adds project to hudson-backed continuous integration server.
+    * Adds TODO file with pending tasks.
