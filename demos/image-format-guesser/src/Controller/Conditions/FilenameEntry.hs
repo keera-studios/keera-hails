@@ -12,7 +12,7 @@ import View.MainWindow.Objects
 import Model.ProtectedModel
 import qualified Extra.UI.Simplify.EntryBasic as Extra
 
-installHandlers :: CRef -> IO()
+installHandlers :: CEnv -> IO()
 installHandlers =
   Extra.installHandlers
     [ FilenameChanged ]

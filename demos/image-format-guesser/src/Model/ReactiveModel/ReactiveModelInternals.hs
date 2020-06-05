@@ -24,10 +24,10 @@ module Model.ReactiveModel.ReactiveModelInternals
    )
   where
 
+import qualified Hails.MVC.Model.ReactiveModel as GRM
+
 -- Internal imports
--- import GenericModel.GenericReactiveModel
 import Model.Model
 import Model.ReactiveModel.ModelEvents
-import qualified Control.Concurrent.Model.ReactiveModel as GRM
 
 type ReactiveModel = GRM.ReactiveModel Model ModelEvent
