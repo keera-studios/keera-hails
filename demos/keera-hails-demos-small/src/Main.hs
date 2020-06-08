@@ -6,7 +6,7 @@ import Data.FileEmbed (embedStringFile)
 import Data.String    (IsString)
 
 -- External imports: GHCJS
-import Data.Maybe                     (fromJust)
+import Data.Maybe                     (fromJust, fromMaybe)
 import GHCJS.DOM                      (currentDocumentUnchecked)
 import GHCJS.DOM.Document             (getBodyUnchecked, getHeadUnchecked)
 import GHCJS.DOM.Element              (setInnerHTML)
@@ -92,18 +92,50 @@ safeDiv x y = x `div` y
 data Action = Equals | Clear
 
 data Calculator = Calculator
+  { calcValue           :: Int
+  , calcCurrentInput    :: Maybe Int
+  , calcCurrentOperator :: Maybe (Int -> Int -> Int)
+  }
 
 mkCalculator :: Calculator
-mkCalculator = Calculator
+mkCalculator = Calculator 0 Nothing Nothing
 
 currentValue :: Calculator -> Int
-currentValue _ = 0
+currentValue calc = fromMaybe (calcValue calc) (calcCurrentInput calc)
 
 addDigit :: Calculator -> Int -> Calculator
-addDigit calc _ = calc
+addDigit calc d = calc { calcCurrentInput = Just (currentInputValue * 10 + d) }
+  where
+    currentInputValue = fromMaybe 0 $ calcCurrentInput calc
 
 applyOperator :: Calculator -> (Int -> Int -> Int) -> Calculator
-applyOperator calc _ = calc
+applyOperator calc op = case (calcCurrentOperator calc, calcCurrentInput calc) of
+  (_,        Nothing) -> calc { calcCurrentOperator = Just op }
+  (Nothing,  Just y)  -> calc { calcValue           = y
+                              , calcCurrentOperator = Just op
+                              , calcCurrentInput    = Nothing
+                              }
+  (Just op', Just y)  -> calc { calcValue           = op' (currentValue calc) y
+                              , calcCurrentOperator = Just op
+                              , calcCurrentInput    = Nothing
+                              }
 
 applyAction :: Calculator -> Action -> Calculator
-applyAction calc _ = calc
+applyAction calc Equals = calc { calcValue           = y'
+                               , calcCurrentOperator = Nothing
+                               , calcCurrentInput    = Nothing
+                               }
+  where
+    y' = case calcCurrentOperator calc of
+           Nothing -> currentValue calc
+           Just op -> op (calcValue calc)  (currentValue calc)
+
+applyAction calc Clear = case calcCurrentInput calc of
+  Nothing -> calc { calcValue = 0
+                  , calcCurrentOperator = Nothing
+                  }
+  Just 0  -> calc { calcValue = 0
+                  , calcCurrentOperator = Nothing
+                  , calcCurrentInput = Nothing
+                  }
+  Just _  -> calc { calcCurrentInput = Just 0 }
