@@ -84,3 +84,20 @@ safeDiv x y = x `div` y
 -- | Operator button in a calculator. We support both binary number
 -- operators and other operatots that whould return the final value.
 data Action = Equals | Clear
+
+data Calculator = Calculator
+
+mkCalculator :: Calculator
+mkCalculator = Calculator
+
+currentValue :: Calculator -> Int
+currentValue _ = 0
+
+addDigit :: Calculator -> Int -> Calculator
+addDigit calc _ = calc
+
+applyOperator :: Calculator -> (Int -> Int -> Int) -> Calculator
+applyOperator calc _ = calc
+
+applyAction :: Calculator -> Action -> Calculator
+applyAction calc _ = calc
