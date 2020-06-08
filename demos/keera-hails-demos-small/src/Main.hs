@@ -57,13 +57,19 @@ main = do
                [ ("acteq", Equals), ("actclr", Clear) ]
 
   -- Initialize model
-  model <- cbmvarReactiveRW <$> newCBMVar 0
+  model <- cbmvarReactiveRW <$> newCBMVar mkCalculator
 
   -- Connect model and text box
-  inputFieldText <:= (show <^> model)
+  inputFieldText <:= ((show . currentValue) <^> model)
 
   forM_ nums $ \button ->
-    button =:> modRW (+) model
+    button =:> modRW addDigit model
+
+  forM_ operators $ \button ->
+    button =:> modRW applyOperator model
+
+  forM_ actions $ \button ->
+    button =:> modRW applyAction model
 
 -- | Static partial loaded from file
 staticHeader :: IsString a => a
