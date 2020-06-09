@@ -16,7 +16,7 @@ in production.
 # Hands-on example
 
 The two key ideas in Keera Hails are *Reactive Values* and *Reactive Rules*.
-Reactive value are data holders or action endpoints that will contain, provide
+Reactive values are data holders or action endpoints that will contain, provide
 and/or consume data.  Reactive Rules just connect these values so that changes
 propagate across.
 
