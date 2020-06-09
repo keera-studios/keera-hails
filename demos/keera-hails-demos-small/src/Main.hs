@@ -54,7 +54,7 @@ main = do
 
   -- Add all action buttons
   actions <- mapM (uncurry constReactiveButton)
-               [ ("acteq", Equals), ("actclear", Clear) ]
+               [ ("acteq", Equals), ("actclr", Clear) ]
 
   -- Initialize model
   model <- cbmvarReactiveRW <$> newCBMVar 0
