@@ -8,6 +8,16 @@ license-file:  LICENSE
 
 executable keera-hails-demos-small
   main-is: Main.hs
+
+  other-modules:
+    Controller
+    Data.Calculator
+    Data.Action
+    Model
+    View
+    View.Types
+    View.HTML
+
   build-depends:
       base                          >= 4.11
     , file-embed
