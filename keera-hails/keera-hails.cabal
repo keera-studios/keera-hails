@@ -12,8 +12,15 @@ maintainer:    support@keera.co.uk
 homepage:      http://www.keera.co.uk/blog/community/
 license:       BSD3
 license-file:  LICENSE
+copyright:     (C) 2013 Keera Studios Ltd
 category:      Development
-synopsis:      Rapid Gtk Application Development
+synopsis:      Create interactive applications quickly from starting templates.
+description:
+  Keera Hails is a rapid application development for interactive Haskell
+  applications.
+  .
+  This package provides a command line program that generates a starting point
+  for your Haskell applications.
 
 data-files:
   templates/*.hs
@@ -41,7 +48,8 @@ flag test-doc-coverage
 
 executable hails
 
-  main-is: Main.hs
+  main-is:
+    Main.hs
 
   other-modules:
     AppDataBasic
@@ -57,11 +65,14 @@ executable hails
     , filepath
     , IfElse
 
-  default-language: Haskell2010
+  default-language:
+    Haskell2010
 
-  hs-source-dirs: src/
+  hs-source-dirs:
+    src/
 
-  ghc-options: -Wall -fno-warn-unused-do-bind -O2
+  ghc-options:
+    -Wall -fno-warn-unused-do-bind -O2
 
 
 test-suite hlint
@@ -72,6 +83,9 @@ test-suite hlint
   main-is:
     HLintMain.hs
 
+  default-language:
+    Haskell2010
+
   hs-source-dirs:
     tests
 
@@ -80,11 +94,7 @@ test-suite hlint
   else
     build-depends:
         base
-      , hlint                >= 1.7
-
-  default-language:
-    Haskell2010
-
+      , hlint      >= 1.7
 
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
@@ -95,21 +105,21 @@ test-suite haddock-coverage
   main-is:
     HaddockCoverage.hs
 
-  ghc-options:
-    -Wall
+  default-language:
+    Haskell2010
 
   hs-source-dirs:
     tests
+
+  ghc-options:
+    -Wall
 
   if !flag(test-doc-coverage)
     buildable: False
   else
     build-depends:
-        base                 >= 4        && < 5
+        base         >= 4 && < 5
       , directory
       , filepath
       , process
       , regex-posix
-
-  default-language:
-    Haskell2010
