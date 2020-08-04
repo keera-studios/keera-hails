@@ -12,8 +12,15 @@ maintainer:    support@keera.co.uk
 homepage:      http://www.keera.co.uk/blog/community/
 license:       BSD3
 license-file:  LICENSE
+copyright:     (C) 2013 Keera Studios Ltd
 category:      Development
-synopsis:      Rapid Gtk Application Development
+synopsis:      Create interactive applications quickly from starting templates.
+description:
+  Keera Hails is a rapid application development for interactive Haskell
+  applications.
+  .
+  This package provides a command line program that generates a starting point
+  for your Haskell applications.
 
 data-files:
   templates/*.hs
