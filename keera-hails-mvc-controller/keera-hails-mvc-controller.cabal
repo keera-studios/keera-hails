@@ -70,6 +70,9 @@ test-suite hlint
   main-is:
     HLintMain.hs
 
+  default-language:
+    Haskell2010
+
   hs-source-dirs:
     tests
 
@@ -80,10 +83,6 @@ test-suite hlint
         base
       , hlint                >= 1.7
 
-  default-language:
-    Haskell2010
-
-
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
 
@@ -93,11 +92,14 @@ test-suite haddock-coverage
   main-is:
     HaddockCoverage.hs
 
-  ghc-options:
-    -Wall
+  default-language:
+    Haskell2010
 
   hs-source-dirs:
     tests
+
+  ghc-options:
+    -Wall
 
   if !flag(test-doc-coverage)
     buildable: False
@@ -108,6 +110,3 @@ test-suite haddock-coverage
       , filepath
       , process
       , regex-posix
-
-  default-language:
-    Haskell2010
