@@ -12,6 +12,7 @@ maintainer:    support@keera.co.uk
 homepage:      http://www.keera.co.uk/blog/community/
 license:       BSD3
 license-file:  LICENSE
+copyright:     (C) 2013 Keera Studios Ltd
 category:      Development
 synopsis:      Haskell on Gtk rails - Gtk-based global environment for MVC applications
 description:
@@ -56,11 +57,14 @@ library
     , keera-hails-mvc-view
     , keera-hails-mvc-view-gtk
 
-  default-language: Haskell2010
+  default-language:
+    Haskell2010
 
-  hs-source-dirs: src/
+  hs-source-dirs:
+    src/
 
-  ghc-options: -Wall -fno-warn-unused-do-bind -O2
+  ghc-options:
+    -Wall -fno-warn-unused-do-bind -O2
 
 
 test-suite hlint
@@ -70,6 +74,9 @@ test-suite hlint
 
   main-is:
     HLintMain.hs
+
+  default-language:
+    Haskell2010
 
   hs-source-dirs:
     tests
@@ -81,10 +88,6 @@ test-suite hlint
         base
       , hlint                >= 1.7
 
-  default-language:
-    Haskell2010
-
-
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
 
@@ -94,11 +97,14 @@ test-suite haddock-coverage
   main-is:
     HaddockCoverage.hs
 
-  ghc-options:
-    -Wall
+  default-language:
+    Haskell2010
 
   hs-source-dirs:
     tests
+
+  ghc-options:
+    -Wall
 
   if !flag(test-doc-coverage)
     buildable: False
@@ -109,6 +115,3 @@ test-suite haddock-coverage
       , filepath
       , process
       , regex-posix
-
-  default-language:
-    Haskell2010
