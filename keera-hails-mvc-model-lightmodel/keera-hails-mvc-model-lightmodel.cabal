@@ -23,9 +23,9 @@ description:
   have an undo/redo queue.
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-mvc-model-lightmodel
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-mvc-model-lightmodel
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint

@@ -32,9 +32,9 @@ data-files:
   templates/View/*.hs
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
