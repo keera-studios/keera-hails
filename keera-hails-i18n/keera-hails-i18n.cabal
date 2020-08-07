@@ -33,9 +33,9 @@ description:
 
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-i18n
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-i18n
 
 
 -- You can disable the hlint test suite with -f-test-hlint

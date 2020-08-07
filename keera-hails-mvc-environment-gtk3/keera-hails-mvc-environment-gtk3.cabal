@@ -29,9 +29,9 @@ description:
 
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-mvc-environment-gtk
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-mvc-environment-gtk
 
 
 -- You can disable the hlint test suite with -f-test-hlint
