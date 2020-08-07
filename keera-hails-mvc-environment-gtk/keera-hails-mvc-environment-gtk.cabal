@@ -12,6 +12,7 @@ maintainer:    support@keera.co.uk
 homepage:      http://www.keera.co.uk/blog/community/
 license:       BSD3
 license-file:  LICENSE
+copyright:     (C) 2013 Keera Studios Ltd
 category:      Development
 synopsis:      Haskell on Gtk rails - Gtk-based global environment for MVC applications
 description:
