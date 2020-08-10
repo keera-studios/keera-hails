@@ -17,9 +17,9 @@ category:      Development
 synopsis:      Haskell on Gtk rails - Easy handling of configuration files
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-mvc-solutions-config
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-mvc-solutions-config
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
