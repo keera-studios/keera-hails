@@ -26,9 +26,9 @@ extra-source-files:
   examples/*.xrc
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-reactive-wx
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-reactive-wx
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
