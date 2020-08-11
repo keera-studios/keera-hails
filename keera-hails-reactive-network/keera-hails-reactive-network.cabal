@@ -56,12 +56,16 @@ library
 
 
 test-suite hlint
+
   type:
     exitcode-stdio-1.0
+
   main-is:
     HLintMain.hs
+
   hs-source-dirs:
     tests
+
   if !flag(test-hlint)
     buildable: False
   else
@@ -74,12 +78,16 @@ test-suite hlint
 
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
+
   type:
     exitcode-stdio-1.0
+
   main-is:
     HaddockCoverage.hs
+
   ghc-options:
     -Wall
+
   hs-source-dirs:
     tests
 
