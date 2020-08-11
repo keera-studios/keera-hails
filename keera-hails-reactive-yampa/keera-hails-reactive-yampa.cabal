@@ -12,6 +12,7 @@ maintainer:    support@keera.co.uk
 homepage:      http://www.keera.co.uk/blog/community/
 license:       BSD3
 license-file:  LICENSE
+copyright:     (C) 2013 Keera Studios Ltd
 category:      Development
 synopsis:      Haskell on Rails - FRP Yampa Signal Functions as RVs
 description:
