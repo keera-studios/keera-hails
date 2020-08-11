@@ -17,9 +17,9 @@ category:      Development
 synopsis:      Haskell on Rails - Reactive Fields for Qt
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-reactive-qt
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-reactive-qt
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
