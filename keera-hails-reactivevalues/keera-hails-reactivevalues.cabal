@@ -40,9 +40,9 @@ description:
 tested-with:         GHC == 7.6.3, GHC == 7.8.4, GHC == 7.10.2
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-reactivevalues
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-reactivevalues
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
