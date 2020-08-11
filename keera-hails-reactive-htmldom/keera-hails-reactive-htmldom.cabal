@@ -6,13 +6,14 @@ cabal-version: >= 1.10
 build-type:    Simple
 
 name:          keera-hails-reactive-htmldom
+version:       0.6.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
 homepage:      http://github.com/keera-studios/keera-hails
 license:       BSD3
 license-file:  LICENSE
+copyright:     (C) 2013 Keera Studios Ltd
 category:      Web
-version:       0.6.0
 synopsis:      Keera Hails Reactive bindings for HTML DOM via GHCJS
 description:
   A layer defining RVs for HTML element fields and actions.
