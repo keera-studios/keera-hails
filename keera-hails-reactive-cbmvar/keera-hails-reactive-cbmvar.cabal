@@ -12,6 +12,7 @@ maintainer:    support@keera.co.uk
 homepage:      https://keera.co.uk/
 license:       BSD3
 license-file:  LICENSE
+copyright:     (C) 2013 Keera Studios Ltd
 category:      Development
 synopsis:      Reactive Haskell on Rails - CBMVars as reactive values
 description:
@@ -22,9 +23,9 @@ description:
   to use them as models of reactive applications.
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-reactive-cbmvar
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-reactive-cbmvar
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
@@ -47,11 +48,14 @@ library
     , keera-hails-reactivevalues
     , keera-callbacks
 
-  default-language: Haskell2010
+  default-language:
+    Haskell2010
 
-  hs-source-dirs: src/
+  hs-source-dirs:
+    src/
 
-  ghc-options: -Wall
+  ghc-options:
+    -Wall
 
 test-suite hlint
 
@@ -60,6 +64,9 @@ test-suite hlint
 
   main-is:
     HLintMain.hs
+
+  default-language:
+    Haskell2010
 
   hs-source-dirs:
     tests
@@ -71,10 +78,6 @@ test-suite hlint
         base
       , hlint                >= 1.7
 
-  default-language:
-    Haskell2010
-
-
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
 
@@ -84,11 +87,14 @@ test-suite haddock-coverage
   main-is:
     HaddockCoverage.hs
 
-  ghc-options:
-    -Wall
+  default-language:
+    Haskell2010
 
   hs-source-dirs:
     tests
+
+  ghc-options:
+    -Wall
 
   if !flag(test-doc-coverage)
     buildable: False
@@ -99,6 +105,3 @@ test-suite haddock-coverage
       , filepath
       , process
       , regex-posix
-
-  default-language:
-    Haskell2010
