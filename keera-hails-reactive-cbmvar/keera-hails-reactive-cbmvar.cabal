@@ -12,6 +12,7 @@ maintainer:    support@keera.co.uk
 homepage:      https://keera.co.uk/
 license:       BSD3
 license-file:  LICENSE
+copyright:     (C) 2013 Keera Studios Ltd
 category:      Development
 synopsis:      Reactive Haskell on Rails - CBMVars as reactive values
 description:
