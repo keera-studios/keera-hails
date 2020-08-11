@@ -23,9 +23,9 @@ description:
   to use them as models of reactive applications.
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-reactive-cbmvar
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-reactive-cbmvar
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
