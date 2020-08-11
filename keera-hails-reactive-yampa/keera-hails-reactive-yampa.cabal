@@ -19,9 +19,9 @@ description:
   Yampa-driven Functional Reactive Signal Functions, as reactive values.
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-reactive-yampa
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-reactive-yampa
 
 
 -- You can disable the hlint test suite with -f-test-hlint
