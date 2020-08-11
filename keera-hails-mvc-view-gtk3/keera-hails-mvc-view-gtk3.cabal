@@ -17,9 +17,9 @@ category:      Development
 synopsis:      Haskell on Gtk rails - Gtk-based View for MVC applications
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-mvc-view-gtk
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-mvc-view-gtk
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
