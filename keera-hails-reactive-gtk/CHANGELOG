@@ -1,6 +1,11 @@
 2020-05-27 Alexander Pavlenko <alexander@keera.co.uk>
 
-    * keera-hails-reactive-gtk.cabal: Version hump (0.6.0).
+    * CHANGELOG: Fix typo in 2020-05-27 entry.
+    * keera-hails-reactive-gtk.cabal: Cleaning. Version bump (0.7.0).
+
+2020-05-27 Alexander Pavlenko <alexander@keera.co.uk>
+
+    * keera-hails-reactive-gtk.cabal: Version bump (0.6.0).
 
 2019-07-25 Alexander Pavlenko <myro@keera.co.uk>
 
