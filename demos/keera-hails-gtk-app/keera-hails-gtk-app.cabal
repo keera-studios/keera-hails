@@ -6,7 +6,7 @@ cabal-version: >=1.10
 build-type:    Simple
 
 name:          keera-hails-gtk-app
-version:       0.6.0
+version:       0.7.0
 author:        Myro Pavlenko
 maintainer:    support@keera.co.uk
 homepage:      https://github.com/keera-studios/keera-hails
