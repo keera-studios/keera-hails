@@ -6,12 +6,13 @@ cabal-version: >= 1.10
 build-type:    Simple
 
 name:          keera-hails-reactive-wx
-version:       0.6.0
+version:       0.7.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
 homepage:      http://www.keera.co.uk/blog/community/
 license:       BSD3
 license-file:  LICENSE
+copyright:     (C) 2013 Keera Studios Ltd
 category:      Development
 synopsis:      Haskell on Rails - Reactive Fields for WX widgets
 description:
@@ -25,9 +26,9 @@ extra-source-files:
   examples/*.xrc
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-reactive-wx
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-reactive-wx
 
 -- You can disable the hlint test suite with -f-test-hlint
 flag test-hlint
@@ -50,11 +51,15 @@ library
     , wx
     , keera-hails-reactivevalues
 
-  default-language: Haskell2010
+  default-language:
+    Haskell2010
 
-  hs-source-dirs: src/
+  hs-source-dirs:
+    src/
 
-  ghc-options: -Wall -fno-warn-unused-do-bind
+  ghc-options:
+    -Wall -fno-warn-unused-do-bind -O2
+
 
 test-suite hlint
 
@@ -63,6 +68,9 @@ test-suite hlint
 
   main-is:
     HLintMain.hs
+
+  default-language:
+    Haskell2010
 
   hs-source-dirs:
     tests
@@ -74,10 +82,6 @@ test-suite hlint
         base
       , hlint                >= 1.7
 
-  default-language:
-    Haskell2010
-
-
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
 
@@ -87,11 +91,14 @@ test-suite haddock-coverage
   main-is:
     HaddockCoverage.hs
 
-  ghc-options:
-    -Wall
+  default-language:
+    Haskell2010
 
   hs-source-dirs:
     tests
+
+  ghc-options:
+    -Wall
 
   if !flag(test-doc-coverage)
     buildable: False
@@ -102,6 +109,3 @@ test-suite haddock-coverage
       , filepath
       , process
       , regex-posix
-
-  default-language:
-    Haskell2010

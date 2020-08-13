@@ -2,17 +2,18 @@
 -- License     : All Rights Reserved
 -- Maintainer  : support@keera.co.uk
 --
-cabal-version: >=1.10
+cabal-version: >= 1.10
 build-type:    Simple
 
 name:          keera-hails-reactive-htmldom
+version:       0.7.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
 homepage:      http://github.com/keera-studios/keera-hails
 license:       BSD3
 license-file:  LICENSE
+copyright:     (C) 2013 Keera Studios Ltd
 category:      Web
-version:       0.6.0
 synopsis:      Keera Hails Reactive bindings for HTML DOM via GHCJS
 description:
   A layer defining RVs for HTML element fields and actions.
@@ -32,9 +33,9 @@ description:
   and Relations", by Ivan Perez and Henrik Nilsson at Haskell Symposium 2015.
 
 source-repository head
- type: git
- location: git://github.com/keera-studios/keera-hails
- subdir: keera-hails-reactive-htmldom
+  type: git
+  location: git://github.com/keera-studios/keera-hails
+  subdir: keera-hails-reactive-htmldom
 
 
 -- You can disable the hlint test suite with -f-test-hlint
@@ -54,16 +55,19 @@ library
     Hails.MVC.View.HTML
 
   build-depends:
-      base >=4.2 && <5
-    , ghcjs-dom >=0.2 && <0.10
+      base                        >= 4.2     && < 5
+    , ghcjs-dom                   >= 0.2     && < 0.10
     , keera-callbacks
-    , keera-hails-reactivevalues >=0.1.0 && <0.6
+    , keera-hails-reactivevalues  >= 0.1.0   && < 0.6
     , keera-hails-reactive-cbmvar
     , mtl
-    , transformers >=0.4.3.0 && <0.6
+    , transformers                >= 0.4.3.0 && < 0.6
 
-  hs-source-dirs:      src/
-  default-language:    Haskell2010
+  default-language:
+    Haskell2010
+
+  hs-source-dirs:
+    src/
 
 test-suite hlint
 
@@ -72,6 +76,9 @@ test-suite hlint
 
   main-is:
     HLintMain.hs
+
+  default-language:
+    Haskell2010
 
   hs-source-dirs:
     tests
@@ -83,10 +90,6 @@ test-suite hlint
         base
       , hlint                >= 1.7
 
-  default-language:
-    Haskell2010
-
-
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
 
@@ -96,11 +99,14 @@ test-suite haddock-coverage
   main-is:
     HaddockCoverage.hs
 
-  ghc-options:
-    -Wall
+  default-language:
+    Haskell2010
 
   hs-source-dirs:
     tests
+
+  ghc-options:
+    -Wall
 
   if !flag(test-doc-coverage)
     buildable: False
@@ -111,6 +117,3 @@ test-suite haddock-coverage
       , filepath
       , process
       , regex-posix
-
-  default-language:
-    Haskell2010

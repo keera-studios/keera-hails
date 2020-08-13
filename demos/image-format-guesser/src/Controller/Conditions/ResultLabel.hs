@@ -18,24 +18,24 @@ import View
 import View.MainWindow.Objects
 import Model.ProtectedModel
 
-installHandlers :: CRef -> IO()
-installHandlers cref = do
-  pm <- fmap model $ readIORef cref
-  onEvent pm FilenameChanged $ condition cref
+installHandlers :: CEnv -> IO()
+installHandlers cenv = do
+  let pm = model cenv
+  onEvent pm FilenameChanged $ condition cenv
 
-condition :: CRef -> IO()
-condition cref = do
-  (v, pm) <- fmap (view &&& model) $ readIORef cref
+condition :: CEnv -> IO()
+condition cenv = do
+  let (v, pm) = (view &&& model) cenv
   lbl <- mainWindowMessageLbl $ mainWindowBuilder v
   fn  <- getFilename pm
   exists <- doesFileExist fn
   if exists
    then do f <- getImageType fn
            set lbl [ labelLabel := show f ]
-   else set lbl [ labelLabel := "unknown file" ] 
+   else set lbl [ labelLabel := "unknown file" ]
 
 getImageType :: String -> IO (Maybe Format)
-getImageType s = 
+getImageType s =
  untilSuccess [ loadJpegFile s >> return JPEG
               , loadPngFile s  >> return PNG
               , loadGifFile s  >> return GIF

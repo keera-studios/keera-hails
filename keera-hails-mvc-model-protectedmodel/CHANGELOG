@@ -1,6 +1,12 @@
+2020-08-13 Alexander Pavlenko <alexander@keera.co.uk>
+
+    * CHANGELOG: Fix typo in 2020-05-27 entry.
+    * keera-hails-mvc-model-protectedmodel.cabal: Cleaning. Version bump
+      (0.7.0).
+
 2020-05-27 Alexander Pavlenko <alexander@keera.co.uk>
 
-    * keera-hails-mvc-model-protectedmodel.cabal: Version hump (0.6.0).
+    * keera-hails-mvc-model-protectedmodel.cabal: Version bump (0.6.0).
 
 2015-06-03 Ivan Perez <ivan.perez@keera.co.uk>
 

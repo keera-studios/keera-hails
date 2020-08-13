@@ -9,12 +9,12 @@ import qualified Model.Model as M
 import Model.ReactiveModel.ReactiveModelInternals
 import Model.ReactiveModel.ModelEvents
 
-setFilename :: ReactiveModel -> String -> ReactiveModel
+setFilename :: ReactiveModel c -> String -> ReactiveModel c
 setFilename rm s'
   | s == s'   = rm
   | otherwise = rm' `triggerEvent` FilenameChanged
  where s   = M.fileName $ basicModel rm
        rm' = onBasicModel rm (\b -> b { M.fileName = s' })
 
-getFilename :: ReactiveModel -> String
+getFilename :: ReactiveModel c -> String
 getFilename = M.fileName . basicModel

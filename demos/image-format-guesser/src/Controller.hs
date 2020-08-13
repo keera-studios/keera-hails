@@ -26,11 +26,10 @@ startController :: IO ()
 startController = do
 
   initView
-  cref <- createCRef emptyBM
-  readIORef cref
-    >>= mainWindow.mainWindowBuilder.view
+  cenv <- createCEnv emptyBM
+  mainWindow (mainWindowBuilder (view cenv))
     >>= widgetShowAll
 
-  installHandlers cref
+  installHandlers cenv
 
   startView
