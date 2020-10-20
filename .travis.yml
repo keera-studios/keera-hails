@@ -18,7 +18,13 @@ matrix:
       addons: {apt: {packages: [cabal-install-2.4,ghc-8.2.2,alex,happy,libgtk2.0-dev, gtk2hs-buildtools], sources: [hvr-ghc]}}
     - env: GHCVER=8.4.4 CABALVER=2.4
       addons: {apt: {packages: [cabal-install-2.4,ghc-8.4.4,alex,happy,libgtk2.0-dev, gtk2hs-buildtools], sources: [hvr-ghc]}}
-
+    - env: GHCVER=8.6.5 CABALVER=2.4
+      addons: {apt: {packages: [cabal-install-2.4,ghc-8.6.5,alex,happy,libgtk2.0-dev, gtk2hs-buildtools], sources: [hvr-ghc]}}
+    - env: GHCVER=8.8.4 CABALVER=2.4
+      addons: {apt: {packages: [cabal-install-2.4,ghc-8.8.4,alex,happy,libgtk2.0-dev, gtk2hs-buildtools], sources: [hvr-ghc]}}
+    - env: GHCVER=8.10.2 CABALVER=2.4
+      addons: {apt: {packages: [cabal-install-2.4,ghc-8.10.2,alex,happy,libgtk2.0-dev, gtk2hs-buildtools], sources: [hvr-ghc]}}
+ 
 before_install:
  - unset CC
  - openssl aes-256-cbc -K $encrypted_3ed86c537adf_key -iv $encrypted_3ed86c537adf_iv -in .cabal-conf/hackage.enc -out .cabal-conf/hackage -d
