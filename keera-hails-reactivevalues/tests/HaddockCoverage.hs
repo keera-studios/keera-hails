@@ -16,7 +16,6 @@
 -----------------------------------------------------------------------------
 module Main where
 
-import Control.Applicative
 import Control.Monad
 import Data.List
 import System.Directory
@@ -38,10 +37,7 @@ main = do
   -- https://github.com/keera-studios/haddock/commit/d5d752943c4e5c6c9ffcdde4dc136fcee967c495
   -- https://github.com/haskell/haddock/issues/309#issuecomment-150811929
   files <- getSources
-
-  let haddockArgs = [ "--no-warnings" ] ++ files
-  let cabalArgs   = [ "exec", "--", "haddock" ] ++ haddockArgs
-  (code, out, _err) <- readProcessWithExitCode "cabal" cabalArgs ""
+  (code, out, _err) <- readProcessWithExitCode "haddock" files ""
 
   -- Filter out coverage lines, and find those that denote undocumented
   -- modules.
@@ -51,7 +47,7 @@ main = do
   let isIncompleteModule :: String -> Bool
       isIncompleteModule line = isCoverageLine line && not (line =~ "^ *100%")
         where isCoverageLine :: String -> Bool
-              isCoverageLine line = line =~ "^ *[0-9]+%"
+              isCoverageLine l = l =~ "^ *[0-9]+%"
 
   let incompleteModules :: [String]
       incompleteModules = filter isIncompleteModule $ lines out

@@ -21,7 +21,7 @@ cbmvarReactiveRO :: CBMVar a -> ReactiveFieldRead IO a
 cbmvarReactiveRO mvar = ReactiveFieldRead getter notifier
   where
     getter     = readCBMVar mvar
-    notifier n = installCallbackCBMVar mvar n
+    notifier   = installCallbackCBMVar mvar
 
 -- | Return a read-write reactive value wrapping a CBMVar.
 cbmvarReactiveRW :: CBMVar a -> ReactiveFieldReadWrite IO a
@@ -29,4 +29,4 @@ cbmvarReactiveRW mvar = ReactiveFieldReadWrite setter getter notifier
   where
     setter     = writeCBMVar mvar
     getter     = readCBMVar mvar
-    notifier n = installCallbackCBMVar mvar n
+    notifier   = installCallbackCBMVar mvar
