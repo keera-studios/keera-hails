@@ -149,6 +149,7 @@ Please contact Keera Studios if you wish to use them.
 
 ## Tutorials, papers and publications
 
+* [Building a reactive calculator in Haskell](https://keera.co.uk/2020/05/28/building-a-reactive-calculator-in-haskell-1-5/)
 * [The Arpeggigon: Declarative Programming of A Full-Fledged Musical Application (PADL 2017)](http://eprints.nottingham.ac.uk/38657/1/padl2017-techreport.pdf)
 * [Bridging the GUI gap with reactive values and relations (Haskell Symposium 2015)](http://dl.acm.org/citation.cfm?id=2804316)
 * [Readme for Reactive Value library](http://github.com/keera-studios/hails-reactivevalues)
