@@ -17,8 +17,8 @@ category:      Development
 synopsis:      Haskell on Rails - Reactive Values
 description:
   This package contains a general definition of Reactive Values and several
-  useful combinators. A reactive value is a /typed mutable value with access
-  properties and change propagation/. Access property can be read-only,
+  useful combinators. A reactive value is a /typed mutable value with access/
+  /properties and change propagation/. Access property can be read-only,
   read-write or read-write.
   .
   How an RV is actually implemented, and when and how change propagation is
