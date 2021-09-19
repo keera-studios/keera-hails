@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 -- | Install/load the right Gettext files for your chosen language and
 --   application.
 --
@@ -35,8 +36,16 @@ installLanguage appName = void $ do
     unless (null lang) $ E.handle (anyway (return ())) $ do
       setLocale LC_ALL (Just lang)
       setEnv "LANGUAGE" lang
+#if MIN_VERSION_hgettext(0,1,5)
     bindTextDomain appName $ Just "."
+#else
+    bindTextDomain appName "."
+#endif
+#if MIN_VERSION_hgettext(0,1,6)
     textDomain $ Just appName
+#else
+    textDomain appName
+#endif
 
   where
 
