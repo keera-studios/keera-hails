@@ -126,10 +126,10 @@ passivePropertyGE :: Eq b
                  => self
                  -> (self -> b -> IO ()) -> (self -> IO b)
                  -> ReactiveFieldReadWrite IO b
-passivePropertyGE e set get =
+passivePropertyGE e set' get' =
   ReactiveFieldReadWrite setter getter notifier
- where getter     = get e
+ where getter     = get' e
        setter v   = postGUIAsync $ do
                       p <- getter
-                      when (p /= v) $ set e v
+                      when (p /= v) $ set' e v
        notifier _ = return ()
