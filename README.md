@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/keera-studios/keera-hails.svg?branch=master)](https://travis-ci.org/keera-studios/keera-hails)
 
 Keera Hails is a toolkit to create *Reactive Applications in Haskell*.
-It facilitates combining User Interfaces, external devices, networks
+It facilitates combining User Interfaces, external devices, network
 connections, files and, optionally, FRP networks.
 
 Keera Hails is modular and extensible. It is cross platform (Windows, Linux,
