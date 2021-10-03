@@ -19,7 +19,7 @@ executable keera-hails-demos-small
     View.HTML
 
   build-depends:
-      base                          >= 4.11
+      base                          >= 4.11 && < 5
     , file-embed
     , ghcjs-dom                     >= 0.9
     , ghcjs-base

@@ -48,7 +48,7 @@ library
     Graphics.UI.Gtk.Reactive.ToggleButton
 
   build-depends:
-      base >= 4
+      base                       >= 4 && < 5
     , mtl
     , gtk3
     , gtk3-helpers
@@ -83,7 +83,7 @@ test-suite hlint
     buildable: False
   else
     build-depends:
-        base
+        base                 >= 4   && < 5
       , hlint                >= 1.7
 
 -- Verify that the code is thoroughly documented

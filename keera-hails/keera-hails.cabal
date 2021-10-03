@@ -57,7 +57,7 @@ executable hails
     HailsArgs
 
   build-depends:
-      base >= 4
+      base         >= 4 && < 5
     , bytestring
     , cmdargs
     , data-default
@@ -93,7 +93,7 @@ test-suite hlint
     buildable: False
   else
     build-depends:
-        base
+        base       >= 4   && < 5
       , hlint      >= 1.7
 
 -- Verify that the code is thoroughly documented
