@@ -31,7 +31,7 @@ executable ElementaryGtkProgram
   Main-is: Main.hs
 
   build-depends:
-      base >= 4.0
+      base      >= 4 && < 5
     , directory
     , gd
     , gtk
@@ -66,7 +66,7 @@ test-suite hlint
     buildable: False
   else
     build-depends:
-        base
+        base                 >= 4   && < 5
       , hlint                >= 1.7
 
   default-language:
