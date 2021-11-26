@@ -48,11 +48,12 @@ library
     Graphics.UI.Gtk.Reactive.ToggleButton
 
   build-depends:
-      base                       >= 4 && < 5
+      base  >= 4 && < 5
     , mtl
     , gtk3
-    , gtk3-helpers
     , pango
+
+    , gtk3-helpers
     , keera-hails-reactivevalues
 
   default-language:
@@ -83,8 +84,8 @@ test-suite hlint
     buildable: False
   else
     build-depends:
-        base                 >= 4   && < 5
-      , hlint                >= 1.7
+        base  >= 4   && < 5
+      , hlint >= 1.7
 
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
@@ -108,7 +109,7 @@ test-suite haddock-coverage
     buildable: False
   else
     build-depends:
-        base                 >= 4        && < 5
+        base        >= 4 && < 5
       , directory
       , filepath
       , process
