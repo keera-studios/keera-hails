@@ -93,8 +93,8 @@ test-suite hlint
     buildable: False
   else
     build-depends:
-        base       >= 4   && < 5
-      , hlint      >= 1.7
+        base  >= 4   && < 5
+      , hlint >= 1.7
 
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
@@ -118,7 +118,7 @@ test-suite haddock-coverage
     buildable: False
   else
     build-depends:
-        base         >= 4 && < 5
+        base        >= 4 && < 5
       , directory
       , filepath
       , process
