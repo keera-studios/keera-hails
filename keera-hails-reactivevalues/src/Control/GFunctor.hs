@@ -10,10 +10,6 @@ module Control.GFunctor where
 
 infixl 8 <$$>
 
--- class ContravariantFunctor f where
---   cmap :: (b -> a) -> f a -> f b
---
-
 -- | A class for Functors in which the morphisms in the source category do not
 -- have to be of kind arrow '(->)', but can be anything (see the parameter
 -- 'm').
@@ -29,7 +25,3 @@ instance Functor a => GFunctor a (->) where
 -- | A more readable (ignorable) name for 'gmap'.
 (<$$>) :: GFunctor f m => m a b -> f a -> f b
 (<$$>) = gmap
-
--- class GFunctor f m => GApplicative f m where
---   gpure :: a -> f a
---   (<**>) :: f (m a b) -> f a -> f b
