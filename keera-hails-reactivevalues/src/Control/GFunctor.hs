@@ -1,5 +1,5 @@
-{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FlexibleInstances     #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 -- | Functors parameterised over the morphisms in the source category.
 --
 -- Copyright   : (C) Keera Studios Ltd, 2013
