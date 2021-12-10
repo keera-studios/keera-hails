@@ -23,7 +23,7 @@ class GFunctor f m where
 
 -- | Trivial instance for the arrow morphism '(->)'. Anything
 -- that is a functor is also a GFunctor in the trivial way.
-instance (Functor a) => GFunctor a (->) where
+instance Functor a => GFunctor a (->) where
   gmap = fmap
 
 -- | A more readable (ignorable) name for 'gmap'.
