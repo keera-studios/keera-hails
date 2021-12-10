@@ -1,10 +1,11 @@
 {-# LANGUAGE FlexibleInstances     #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
--- | Functors parameterised over the morphisms in the source category.
---
+-- |
 -- Copyright   : (C) Keera Studios Ltd, 2013
 -- License     : BSD3
 -- Maintainer  : support@keera.co.uk
+--
+-- Functors parameterised over the morphisms in the source category.
 module Control.GFunctor where
 
 infixl 8 <$$>
