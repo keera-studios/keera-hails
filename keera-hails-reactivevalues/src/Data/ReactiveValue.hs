@@ -377,10 +377,6 @@ infix 9 <:=
   -- guarantee that they will be refreshed in that order.
   v1 =:> v2
   v1 <:= v2
-  -- reactiveValueOnCanRead v1 sync1
-  -- reactiveValueOnCanRead v2 sync2
-  -- where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
-  --       sync2 = reactiveValueRead v2 >>= reactiveValueWrite v1
 
 -- $fields
 -- This is a specific implementation of RVs that does not have a custom event
@@ -828,7 +824,6 @@ instance (Functor m, Monad m) => Functor (ReactiveFieldRead m) where
 
 -- FIXME: I might not want to provide this: the contravariant library
 -- depends on transformers.
--- (ReactiveFieldRead getter notifier) = ReactiveFieldRead (fmap f getter) notifier
 instance (Monad m) => Contravariant (ReactiveFieldWrite m) where
   contramap = liftW
 
