@@ -198,12 +198,11 @@ module Data.ReactiveValue
  where
 
 -- External imports
-import Control.Monad
-import Data.Functor.Contravariant
+import Control.Monad              (liftM, void, when)
+import Data.Functor.Contravariant (Contravariant (contramap))
 
 -- Internal imports
-import Control.GFunctor -- Functors parameterised over the morphisms
-                        -- in the source category
+import Control.GFunctor (GFunctor (gmap))
 
 -- $rvs
 --
