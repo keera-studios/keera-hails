@@ -79,123 +79,123 @@
 -- <https://github.com/keera-studios/keera-hails/tree/develop/demos the demos>
 -- in our repository.
 module Data.ReactiveValue
-  ( -- * Reactive Values
-    -- $rvs
+    ( -- * Reactive Values
+      -- $rvs
 
-    -- ** Readable Reactive Values
-    -- $readablervs
-    ReactiveValueRead(..)
+      -- ** Readable Reactive Values
+      -- $readablervs
+      ReactiveValueRead(..)
 
-    -- ** Writable Reactive Values
+      -- ** Writable Reactive Values
 
-    -- $writablervs
-  , ReactiveValueWrite(..)
+      -- $writablervs
+    , ReactiveValueWrite(..)
 
-    -- ** Read-Write Reactive Values
+      -- ** Read-Write Reactive Values
 
-    -- $readwritervs
-  , ReactiveValueReadWrite
+      -- $readwritervs
+    , ReactiveValueReadWrite
 
-    -- * Reactive Relations or Rules
+      -- * Reactive Relations or Rules
 
-    -- $rules
-  , (=:>)
-  , (=:=)
-  , (<:=)
-
-
-    -- * Reactive Fields (pure RVs)
-
-    -- $fields
-  , ReactiveFieldRead(..)
-  , ReactiveFieldWrite(..)
-  , ReactiveFieldReadWrite(..)
-
-    -- $settersgetters
-  , FieldGetter
-  , FieldSetter
-  , FieldNotifier
-
-    -- * RV creation and manipulation
-
-    -- ** Readable RVs
-
-    -- $readablecombinators
-  , constR
-  , initRW
-  , liftR
-  , (<^>)
-  , liftR2
-  , liftR3
-  , liftMR
-  , readOnly
-  , wrapMR
-  , wrapMRPassive
-  , eventR
-  , lMerge
-  , rMerge
-
-    -- ** Writable RVs
-
-    -- $writablecombinators
-  , constW
-  , liftW
-  , liftW2
-  , (&.&)
-  , liftMW
-  , writeOnly
-  , wrapMW
-  , wrapDo
-  , wrapDo_
+      -- $rules
+    , (=:>)
+    , (=:=)
+    , (<:=)
 
 
-    -- ** Read-write RVs
+      -- * Reactive Fields (pure RVs)
 
-    -- $readwritecombinators
-  , liftRW
-  , liftRW2
-  , pairRW
-  , modRW
+      -- $fields
+    , ReactiveFieldRead(..)
+    , ReactiveFieldWrite(..)
+    , ReactiveFieldReadWrite(..)
 
-    -- **** Bijective functions
-  , BijectiveFunc
-  , bijection
-  , direct
-  , inverse
-  , Involution
-  , involution
+      -- $settersgetters
+    , FieldGetter
+    , FieldSetter
+    , FieldNotifier
 
-    -- **** Low-level operations
-  , reactiveValueModify
+      -- * RV creation and manipulation
+
+      -- ** Readable RVs
+
+      -- $readablecombinators
+    , constR
+    , initRW
+    , liftR
+    , (<^>)
+    , liftR2
+    , liftR3
+    , liftMR
+    , readOnly
+    , wrapMR
+    , wrapMRPassive
+    , eventR
+    , lMerge
+    , rMerge
+
+      -- ** Writable RVs
+
+      -- $writablecombinators
+    , constW
+    , liftW
+    , liftW2
+    , (&.&)
+    , liftMW
+    , writeOnly
+    , wrapMW
+    , wrapDo
+    , wrapDo_
 
 
-    -- * Controlling change
+      -- ** Read-write RVs
 
-    -- $changecontrol
+      -- $readwritecombinators
+    , liftRW
+    , liftRW2
+    , pairRW
+    , modRW
 
-    -- ** Stopping change propagation
-  , eqCheck
-  , passivelyR
-  , passivelyRW
+      -- **** Bijective functions
+    , BijectiveFunc
+    , bijection
+    , direct
+    , inverse
+    , Involution
+    , involution
 
-    -- ** Governing
-  , governingR
-  , governingRW
+      -- **** Low-level operations
+    , reactiveValueModify
 
-    -- ** Guarding
-  , ifRW
-  , ifRW_
-  , guardRO
-  , guardRO'
 
-    -- * Activatable RVs
+      -- * Controlling change
 
-    -- $activatable
-  , ReactiveValueActivatable(..)
-  , ReactiveFieldActivatable
-  , mkActivatable
-  )
- where
+      -- $changecontrol
+
+      -- ** Stopping change propagation
+    , eqCheck
+    , passivelyR
+    , passivelyRW
+
+      -- ** Governing
+    , governingR
+    , governingRW
+
+      -- ** Guarding
+    , ifRW
+    , ifRW_
+    , guardRO
+    , guardRO'
+
+      -- * Activatable RVs
+
+      -- $activatable
+    , ReactiveValueActivatable(..)
+    , ReactiveFieldActivatable
+    , mkActivatable
+    )
+  where
 
 -- External imports
 import Control.Monad              (liftM, void, when)
@@ -427,8 +427,8 @@ type FieldNotifier m a = m () -> m ()
 -- | Create an activatable RV from a handler installer.
 mkActivatable :: Monad m => (m () -> m ()) -> ReactiveFieldActivatable m
 mkActivatable f = ReactiveFieldRead getter notifier
- where getter   = return ()
-       notifier = f
+  where getter   = return ()
+        notifier = f
 
 -- $readablecombinators
 
@@ -438,22 +438,22 @@ mkActivatable f = ReactiveFieldRead getter notifier
 -- lifted into RVs explicitly.
 constR :: Monad m => a ->  ReactiveFieldRead m a
 constR e = ReactiveFieldRead getter notifier
- where notifier _ = return ()
-       getter     = return e
+  where notifier _ = return ()
+        getter     = return e
 
 -- | TODO: Bad name. Should be eliminated or extended with a setter.
 initRW :: Monad m => a ->  ReactiveFieldRead m a
 initRW e = ReactiveFieldRead getter notifier
- where notifier _ = return ()
-       getter     = return e
+  where notifier _ = return ()
+        getter     = return e
 
 {-# ANN liftR "HLint: ignore Use fmap" #-}
 -- | Lift a transformation onto a RV. Note that this creates a new
 -- RV, it does not modify the existing RV.
 liftR :: (Monad m, ReactiveValueRead a b m) => (b -> c) -> a -> ReactiveFieldRead m c
 liftR f e = ReactiveFieldRead getter notifier
- where notifier = reactiveValueOnCanRead e
-       getter   = liftM f (reactiveValueRead e)
+  where notifier = reactiveValueOnCanRead e
+        getter   = liftM f (reactiveValueRead e)
 
 -- | Shorter name for 'liftR'
 (<^>) :: (Monad m, ReactiveValueRead a b m) => (b -> c) -> a -> ReactiveFieldRead m c
@@ -491,8 +491,8 @@ liftR3 f e1 e2 e3 = ReactiveFieldRead getter notifier
 -- Same as lifting join . f?
 liftMR :: (Monad m, ReactiveValueRead a b m) => (b -> m c) -> a -> ReactiveFieldRead m c
 liftMR f e = ReactiveFieldRead getter notifier
- where notifier = reactiveValueOnCanRead e
-       getter   = f =<< reactiveValueRead e
+  where notifier = reactiveValueOnCanRead e
+        getter   = f =<< reactiveValueRead e
 
 -- *** Lifting (source) computations into readable RVs.
 
@@ -640,8 +640,8 @@ pairRW = liftRW2 (bijection (id, id))
 {-# INLINE eqCheck #-}
 eqCheck :: (Eq v, Monad m) => ReactiveFieldReadWrite m v -> ReactiveFieldReadWrite m v
 eqCheck (ReactiveFieldReadWrite setter getter notifier) = ReactiveFieldReadWrite setter' getter notifier
- where setter' v = do o <- getter
-                      when (o /= v) $ setter v
+  where setter' v = do o <- getter
+                       when (o /= v) $ setter v
 
 
 -- | Lift a function that takes an old value and a new input and creates a new
@@ -733,9 +733,9 @@ ifRW c r = ReactiveFieldReadWrite setter getter notifier
         notifier p = do reactiveValueOnCanRead c (when' p)
                         reactiveValueOnCanRead r (when' p)
 
-        -- Propagate only if the condition holds
-         where when' m = do b <- reactiveValueRead c
-                            when b m
+           -- Propagate only if the condition holds
+           where when' m = do b <- reactiveValueRead c
+                              when b m
 
 -- | Check condition and notify only when holds (but writing occurs
 -- regardless).
@@ -749,9 +749,9 @@ ifRW_ c r = ReactiveFieldReadWrite setter getter notifier
         notifier p = do reactiveValueOnCanRead c (when' p)
                         reactiveValueOnCanRead r (when' p)
 
-        -- Propagate only if the condition holds
-         where when' m = do x <- reactiveValueRead c
-                            when x m
+           -- Propagate only if the condition holds
+           where when' m = do x <- reactiveValueRead c
+                              when x m
 
 -- | Check RV carrying a 'Bool', and notify only when it changes and it is
 -- 'True'.
@@ -763,9 +763,9 @@ guardRO c = ReactiveFieldRead getter notifier
         -- If either changes, the value *may* be propagated
         notifier = reactiveValueOnCanRead c . when'
 
-        -- Propagate only if the condition holds
-         where when' m = do x <- reactiveValueRead c
-                            when x m
+           -- Propagate only if the condition holds
+           where when' m = do x <- reactiveValueRead c
+                              when x m
 
 -- | Check RV and notify only when condition on the value holds (stops
 -- propagation by filtering on the new value).
@@ -778,9 +778,9 @@ guardRO' c p = ReactiveFieldRead getter notifier
         -- If either changes, the value *may* be propagated
         notifier = reactiveValueOnCanRead c . when'
 
-        -- Propagate only if the condition holds
-         where when' m = do x <- reactiveValueRead c
-                            when (p x) m
+           -- Propagate only if the condition holds
+           where when' m = do x <- reactiveValueRead c
+                              when (p x) m
 
 -- Category theoretic definitions
 
