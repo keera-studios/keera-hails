@@ -451,6 +451,10 @@ constR e = ReactiveFieldRead getter notifier
   where notifier _ = return ()
         getter     = return e
 
+-- | A trivial RV builder with a constant value (i.e., initialized). We need
+-- this because we cannot have overlapping instances with a default case, and
+-- because the interpretation of lifting with RVs could be very confusing
+-- unless values are lifted into RVs explicitly.
 initRW :: Monad m => a ->  ReactiveFieldRead m a
 initRW e = ReactiveFieldRead getter notifier
   where notifier _ = return ()
