@@ -78,7 +78,6 @@
 -- <http://dl.acm.org/citation.cfm?id=2804316 Haskell Symposium paper> and
 -- <https://github.com/keera-studios/keera-hails/tree/develop/demos the demos>
 -- in our repository.
-
 module Data.ReactiveValue
   ( -- * Reactive Values
     -- $rvs
