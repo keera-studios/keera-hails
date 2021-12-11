@@ -300,8 +300,10 @@ instance (Functor m, Monad m) => ReactiveValueWrite (a -> m b) a m where
 
 -- | To facilitate creating RW reactive values from monadic actions, pairs
 -- of a getter and a setter are also RVs.
-instance ReactiveValueWrite (a -> m b) a m => ReactiveValueWrite (m a, a -> m b) a m where
-  reactiveValueWrite (_, f) = reactiveValueWrite f
+instance ReactiveValueWrite (a -> m b) a m
+      => ReactiveValueWrite (m a, a -> m b) a m
+  where
+    reactiveValueWrite (_, f) = reactiveValueWrite f
 
 -- $readwritervs
 --
@@ -312,7 +314,8 @@ instance ReactiveValueWrite (a -> m b) a m => ReactiveValueWrite (m a, a -> m b)
 -- | Read-write Reactive Values are trivially defined. This class only captures
 -- the constraints of both the other classes. There is no need to implement any
 -- methods.
-class (ReactiveValueRead a b m, ReactiveValueWrite a b m) => ReactiveValueReadWrite a b m
+class (ReactiveValueRead a b m, ReactiveValueWrite a b m)
+   => ReactiveValueReadWrite a b m
 
 -- | Pairs of a monadic action and a parametric monadic action are also RVs
 instance (Functor m, Monad m) => ReactiveValueReadWrite (m a, a -> m b) a m
@@ -344,19 +347,31 @@ infix 9 <:=
 
 -- | Left to right RV synchronisation function. If the value on the left
 -- changes, the one on the right is updated accordingly.
-(=:>) :: Monad m => (ReactiveValueRead a b m, ReactiveValueWrite c b m) => a -> c -> m ()
+(=:>) :: Monad m
+      => (ReactiveValueRead a b m, ReactiveValueWrite c b m)
+      => a
+      -> c
+      -> m ()
 (=:>) v1 v2 = reactiveValueOnCanRead v1 sync1
   where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
 
 -- | Right-to-left RV synchronisation function. If the value on the right
 -- changes, the one on the left is updated accordingly.
-(<:=) :: Monad m => (ReactiveValueRead a b m, ReactiveValueWrite c b m) => c -> a -> m ()
+(<:=) :: Monad m
+      => (ReactiveValueRead a b m, ReactiveValueWrite c b m)
+      => c
+      -> a
+      -> m ()
 (<:=) v2 v1 = reactiveValueOnCanRead v1 sync1
   where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
 
 -- | Bidirectional synchronisation. When either value changes, the other
 -- is updated accordingly.
-(=:=) :: Monad m => (ReactiveValueReadWrite a b m, ReactiveValueReadWrite c b m) => a -> c -> m ()
+(=:=) :: Monad m
+      => (ReactiveValueReadWrite a b m, ReactiveValueReadWrite c b m)
+      => a
+      -> c
+      -> m ()
 (=:=) v1 v2 = do
   -- This is often async, so the fact that one comes before the other does not
   -- guarantee that they will be refreshed in that order.
@@ -450,13 +465,19 @@ initRW e = ReactiveFieldRead getter notifier
 {-# ANN liftR "HLint: ignore Use fmap" #-}
 -- | Lift a transformation onto a RV. Note that this creates a new
 -- RV, it does not modify the existing RV.
-liftR :: (Monad m, ReactiveValueRead a b m) => (b -> c) -> a -> ReactiveFieldRead m c
+liftR :: (Monad m, ReactiveValueRead a b m)
+      => (b -> c)
+      -> a
+      -> ReactiveFieldRead m c
 liftR f e = ReactiveFieldRead getter notifier
   where notifier = reactiveValueOnCanRead e
         getter   = liftM f (reactiveValueRead e)
 
 -- | Shorter name for 'liftR'
-(<^>) :: (Monad m, ReactiveValueRead a b m) => (b -> c) -> a -> ReactiveFieldRead m c
+(<^>) :: (Monad m, ReactiveValueRead a b m)
+      => (b -> c)
+      -> a
+      -> ReactiveFieldRead m c
 (<^>) = liftR
 
 -- | Lift a transformation onto two RVs. Note that this creates a new RV, it
@@ -489,7 +510,10 @@ liftR3 f e1 e2 e3 = ReactiveFieldRead getter notifier
 -- | Lift a parameterised monadic transformation onto an RV.
 --
 -- Same as lifting join . f?
-liftMR :: (Monad m, ReactiveValueRead a b m) => (b -> m c) -> a -> ReactiveFieldRead m c
+liftMR :: (Monad m, ReactiveValueRead a b m)
+       => (b -> m c)
+       -> a
+       -> ReactiveFieldRead m c
 liftMR f e = ReactiveFieldRead getter notifier
   where notifier = reactiveValueOnCanRead e
         getter   = f =<< reactiveValueRead e
@@ -520,7 +544,10 @@ readOnly r = ReactiveFieldRead (reactiveValueRead r) (reactiveValueOnCanRead r)
 
 -- | Create a constant writable RV.
 --
-constW :: (Monad m, ReactiveValueWrite v a m) => a -> v -> ReactiveFieldWrite m b
+constW :: (Monad m, ReactiveValueWrite v a m)
+       => a
+       -> v
+       -> ReactiveFieldWrite m b
 constW c v = ReactiveFieldWrite $ \_ -> reactiveValueWrite v c
 
 -- | Lift a transformation onto an RV. This creates a new RV, it does not
@@ -615,14 +642,16 @@ involution f = BijectiveFunc (f, f)
 -- | Lift a bijection onto a read-write RV
 liftRW :: (Monad m, ReactiveValueReadWrite a b m)
        => BijectiveFunc b c -> a -> ReactiveFieldReadWrite m c
-liftRW (BijectiveFunc (f1, f2)) e = ReactiveFieldReadWrite setter getter notifier
+liftRW (BijectiveFunc (f1, f2)) e =
+    ReactiveFieldReadWrite setter getter notifier
   where ReactiveFieldRead getter notifier = liftR f1 e
         ReactiveFieldWrite setter         = liftW f2 e
 
 -- | Lift a bijection onto two read-write RVs
 liftRW2 :: (Monad m, ReactiveValueReadWrite a b m, ReactiveValueReadWrite c d m)
         => BijectiveFunc e (b,d) -> a -> c -> ReactiveFieldReadWrite m e
-liftRW2 (BijectiveFunc (f1, f2)) e1 e2 = ReactiveFieldReadWrite setter getter notifier
+liftRW2 (BijectiveFunc (f1, f2)) e1 e2 =
+    ReactiveFieldReadWrite setter getter notifier
   where ReactiveFieldRead getter notifier = liftR2 (curry f2) e1 e2
         ReactiveFieldWrite setter         = liftW2 f1 e1 e2
 
@@ -638,8 +667,11 @@ pairRW = liftRW2 (bijection (id, id))
 -- stopping all unnecessary change (the RV is not modified if it has not
 -- changed).
 {-# INLINE eqCheck #-}
-eqCheck :: (Eq v, Monad m) => ReactiveFieldReadWrite m v -> ReactiveFieldReadWrite m v
-eqCheck (ReactiveFieldReadWrite setter getter notifier) = ReactiveFieldReadWrite setter' getter notifier
+eqCheck :: (Eq v, Monad m)
+        => ReactiveFieldReadWrite m v
+        -> ReactiveFieldReadWrite m v
+eqCheck (ReactiveFieldReadWrite setter getter notifier) =
+    ReactiveFieldReadWrite setter' getter notifier
   where setter' v = do o <- getter
                        when (o /= v) $ setter v
 
@@ -657,7 +689,10 @@ modRW f rv = ReactiveFieldWrite setter
 -- | Apply a modification to an RV. This modification is not attached to the
 -- RV, and there are no guarantees that it will be atomic (if you need
 -- atomicity, check out STM).
-reactiveValueModify :: (Monad m, ReactiveValueReadWrite a b m) => a -> (b -> b) -> m ()
+reactiveValueModify :: (Monad m, ReactiveValueReadWrite a b m)
+                    => a
+                    -> (b -> b)
+                    -> m ()
 reactiveValueModify r f = reactiveValueWrite r . f =<< reactiveValueRead r
 
 {-# ANN lMerge "HLint: ignore Use const" #-}
@@ -698,7 +733,10 @@ passivelyR rv =
 passivelyRW :: (Monad m, ReactiveValueReadWrite a b m)
             => a -> ReactiveFieldReadWrite m b
 passivelyRW rv =
-  ReactiveFieldReadWrite (reactiveValueWrite rv) (reactiveValueRead rv) (\_ -> return ())
+  ReactiveFieldReadWrite
+    (reactiveValueWrite rv)
+    (reactiveValueRead rv)
+    (\_ -> return ())
 
 -- | A form of binary readable lifting that passifies the second RV but reads
 -- exclusively from it.
