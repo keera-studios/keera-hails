@@ -433,7 +433,6 @@ type FieldSetter m a   = a -> m ()
 
 -- | The type of an event handler installer
 type FieldNotifier m a = m () -> m ()
-  -- FIXME: why does fieldnotifier have an argument
 
 -- | Create an activatable RV from a handler installer.
 mkActivatable :: Monad m => (m () -> m ()) -> ReactiveFieldActivatable m
@@ -452,7 +451,6 @@ constR e = ReactiveFieldRead getter notifier
   where notifier _ = return ()
         getter     = return e
 
--- | TODO: Bad name. Should be eliminated or extended with a setter.
 initRW :: Monad m => a ->  ReactiveFieldRead m a
 initRW e = ReactiveFieldRead getter notifier
   where notifier _ = return ()
@@ -822,8 +820,6 @@ guardRO' c p = ReactiveFieldRead getter notifier
 instance (Functor m, Monad m) => Functor (ReactiveFieldRead m) where
   fmap = liftR
 
--- FIXME: I might not want to provide this: the contravariant library
--- depends on transformers.
 instance (Monad m) => Contravariant (ReactiveFieldWrite m) where
   contramap = liftW
 
