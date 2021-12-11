@@ -197,10 +197,13 @@ module Data.ReactiveValue
   )
  where
 
+-- External imports
 import Control.Monad
+import Data.Functor.Contravariant
+
+-- Internal imports
 import Control.GFunctor -- Functors parameterised over the morphisms
                         -- in the source category
-import Data.Functor.Contravariant
 
 -- $rvs
 --
