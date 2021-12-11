@@ -47,7 +47,8 @@
 --
 --   -- Turn IORef into active reactive value (RV).
 --   --
---   -- We use the type of Reactive Fields, which have a trivial RV implementation.
+--   -- We use the type of Reactive Fields, which have a trivial RV
+--   -- implementation.
 --   let activeCBRefRV :: ReactiveFieldReadWrite IO Integer
 --       activeCBRefRV = ReactiveFieldReadWrite
 --                         (writeCBRef           passiveCBRef)
@@ -58,9 +59,9 @@
 --   let printer :: Show a => ReactiveFieldWrite IO a
 --       printer = wrapMW print
 --
---   -- Connect them using a reactive rule. In a GUI application, this code would
---   -- in the controller, and would define connections between the model and
---   -- the view.
+--   -- Connect them using a reactive rule. In a GUI application, this code
+--   -- would in the controller, and would define connections between the model
+--   -- and the view.
 --   --
 --   -- For bi-directional connections, see (=:=).
 --   activeCBRefRV =:> printer
@@ -260,8 +261,8 @@ class Monad m => ReactiveValueRead a b m | a -> b, a -> m where
 
   {-# MINIMAL reactiveValueRead #-}
 
--- | Monadic actions are readable, but they do not provide any
--- change notification.
+-- | Monadic actions are readable, but they do not provide any change
+-- notification.
 instance ReactiveValueRead (IO a) a IO where
   -- | Executes the monadic action and provides a value.
   reactiveValueRead = id
@@ -272,19 +273,17 @@ instance (Functor m, Monad m) => ReactiveValueRead (m a, a -> m b) a m where
 
 -- $writablervs
 --
--- Writable reactive values are those that we can write to.
--- They behave like sinks: there are no guarantees that anything happens,
--- or result codes.
+-- Writable reactive values are those that we can write to. They behave like
+-- sinks: there are no guarantees that anything happens, or result codes.
 --
--- You are responsible of installing any potential thread-safety
--- mechanisms when you implement instances, and to ensure that operations
--- are executed in the right thread (some GUI toolkits may require that).
--- It is important that the way that ensured that monadic actions are
--- executed in the right thread can be nested; otherwise, some propagation can
--- block.
+-- You are responsible of installing any potential thread-safety mechanisms
+-- when you implement instances, and to ensure that operations are executed in
+-- the right thread (some GUI toolkits may require that). It is important that
+-- the way that ensured that monadic actions are executed in the right thread
+-- can be nested; otherwise, some propagation can block.
 
--- | A minimal type class for all mutable values. Use a monad with error
--- if changing the value can fail.
+-- | A minimal type class for all mutable values. Use a monad with error if
+-- changing the value can fail.
 class ReactiveValueWrite a b m | a -> b, a -> m where
   reactiveValueWrite :: a -> b -> m ()
 
@@ -312,8 +311,8 @@ instance ReactiveValueWrite (a -> m b) a m => ReactiveValueWrite (m a, a -> m b)
 --
 
 -- | Read-write Reactive Values are trivially defined. This class only captures
--- the constraints of both the other classes. There is no need to implement
--- any methods.
+-- the constraints of both the other classes. There is no need to implement any
+-- methods.
 class (ReactiveValueRead a b m, ReactiveValueWrite a b m) => ReactiveValueReadWrite a b m
 
 -- | Pairs of a monadic action and a parametric monadic action are also RVs
@@ -324,15 +323,15 @@ instance (Functor m, Monad m) => ReactiveValueReadWrite (m a, a -> m b) a m
 -- Activatable RVs are values that never hold any data, but whose change (or
 -- activation, or some sort of internal event) we need to be aware of).
 
--- | A class for things with a trivial field that carries unit. Buttons
--- (in any GUI library), for instance, could be a member of this class.
+-- | A class for things with a trivial field that carries unit. Buttons (in any
+-- GUI library), for instance, could be a member of this class.
 class ReactiveValueActivatable m a where
    defaultActivation :: a -> ReactiveFieldActivatable m
 
 -- $rules
 --
--- Reactive Rules are data dependency (data-passing) building combinators.
--- By executing them, you install the right event handlers on the right RVs, so
+-- Reactive Rules are data dependency (data-passing) building combinators. By
+-- executing them, you install the right event handlers on the right RVs, so
 -- that values pass to the other RV.
 --
 -- Reactive Relations cannot be independently removed. If the event-dispatching
@@ -360,8 +359,8 @@ infix 9 <:=
 -- is updated accordingly.
 (=:=) :: Monad m => (ReactiveValueReadWrite a b m, ReactiveValueReadWrite c b m) => a -> c -> m ()
 (=:=) v1 v2 = do
-  -- This is often async, so the fact that one comes before the other does not guarantee
-  -- that they will be refreshed in that order.
+  -- This is often async, so the fact that one comes before the other does not
+  -- guarantee that they will be refreshed in that order.
   v1 =:> v2
   v1 <:= v2
   -- reactiveValueOnCanRead v1 sync1
@@ -370,7 +369,8 @@ infix 9 <:=
   --       sync2 = reactiveValueRead v2 >>= reactiveValueWrite v1
 
 -- $fields
--- This is a specific implementation of RVs that does not have a custom event queue.
+-- This is a specific implementation of RVs that does not have a custom event
+-- queue.
 --
 -- It can be used to return RVs in the combinators, by relying on the underlying
 -- change detection and event notification system (underlying meaning or the RV
@@ -410,10 +410,10 @@ instance Monad m => ReactiveValueReadWrite (ReactiveFieldReadWrite m a) a m
 
 -- $settersgetters
 --
--- These are used internally for combinators that need to return RV instances. They can
--- also be used to write new backends and library extensions, but they are not
--- recommended to enclose application models. For that purpose, see light models and
--- protected models instead.
+-- These are used internally for combinators that need to return RV instances.
+-- They can also be used to write new backends and library extensions, but they
+-- are not recommended to enclose application models. For that purpose, see
+-- light models and protected models instead.
 
 -- | The type of a monadic value producer (a getter, a source).
 type FieldGetter m a   = m a
@@ -422,7 +422,8 @@ type FieldGetter m a   = m a
 type FieldSetter m a   = a -> m ()
 
 -- | The type of an event handler installer
-type FieldNotifier m a = m () -> m () -- FIXME: why does fieldnotifier have an argument
+type FieldNotifier m a = m () -> m ()
+  -- FIXME: why does fieldnotifier have an argument
 
 -- | Create an activatable RV from a handler installer.
 mkActivatable :: Monad m => (m () -> m ()) -> ReactiveFieldActivatable m
@@ -432,10 +433,10 @@ mkActivatable f = ReactiveFieldRead getter notifier
 
 -- $readablecombinators
 
--- | A trivial RV builder with a constant value. We need this because
--- we cannot have overlapping instances with a default case, and because
--- the interpretation of lifting with RVs could be very confusing unless
--- values are lifted into RVs explicitly.
+-- | A trivial RV builder with a constant value. We need this because we cannot
+-- have overlapping instances with a default case, and because the
+-- interpretation of lifting with RVs could be very confusing unless values are
+-- lifted into RVs explicitly.
 constR :: Monad m => a ->  ReactiveFieldRead m a
 constR e = ReactiveFieldRead getter notifier
  where notifier _ = return ()
@@ -459,9 +460,9 @@ liftR f e = ReactiveFieldRead getter notifier
 (<^>) :: (Monad m, ReactiveValueRead a b m) => (b -> c) -> a -> ReactiveFieldRead m c
 (<^>) = liftR
 
--- | Lift a transformation onto two RVs. Note that this creates a new
--- RV, it does not modify the existing RVs. When either RV changes,
--- the new one triggers a change.
+-- | Lift a transformation onto two RVs. Note that this creates a new RV, it
+-- does not modify the existing RVs. When either RV changes, the new one
+-- triggers a change.
 liftR2 :: (Monad m, ReactiveValueRead a b m, ReactiveValueRead c d m)
        => (b -> d -> e) -> a -> c -> ReactiveFieldRead m e
 liftR2 f e1 e2 = ReactiveFieldRead getter notifier
@@ -471,9 +472,9 @@ liftR2 f e1 e2 = ReactiveFieldRead getter notifier
         notifier p = do reactiveValueOnCanRead e1 p
                         reactiveValueOnCanRead e2 p
 
--- | Lift a transformation onto three RVs. Note that this creates a new
--- RV, it does not modify the existing RVs. When either RV changes,
--- the new one triggers a change.
+-- | Lift a transformation onto three RVs. Note that this creates a new RV, it
+-- does not modify the existing RVs. When either RV changes, the new one
+-- triggers a change.
 liftR3 :: ( Monad m, ReactiveValueRead a b m, ReactiveValueRead c d m
           , ReactiveValueRead e f m)
        => (b -> d -> f -> g) -> a -> c -> e -> ReactiveFieldRead m g
@@ -497,14 +498,13 @@ liftMR f e = ReactiveFieldRead getter notifier
 -- *** Lifting (source) computations into readable RVs.
 
 {-# ANN wrapMR "HLint: ignore Eta reduce" #-}
--- | Wrap an reading operation and an notification installer in
--- a readable reactive value.
+-- | Wrap an reading operation and an notification installer in a readable
+-- reactive value.
 wrapMR :: m a -> (m () -> m ()) -> ReactiveFieldRead m a
 wrapMR f p = ReactiveFieldRead f p
 
--- | Wrap an reading operation into an RV. Because there is
--- no way to detect changes, the resulting RV is passive (does
--- not push updates).
+-- | Wrap an reading operation into an RV. Because there is no way to detect
+-- changes, the resulting RV is passive (does not push updates).
 wrapMRPassive :: Monad m => m a -> ReactiveFieldRead m a
 wrapMRPassive f = ReactiveFieldRead f (const (return ()))
 
@@ -524,17 +524,17 @@ readOnly r = ReactiveFieldRead (reactiveValueRead r) (reactiveValueOnCanRead r)
 constW :: (Monad m, ReactiveValueWrite v a m) => a -> v -> ReactiveFieldWrite m b
 constW c v = ReactiveFieldWrite $ \_ -> reactiveValueWrite v c
 
--- | Lift a transformation onto an RV. This creates a new RV, it does
--- not actually modify the old RV (when this one is written to, so will
--- be the old one, but both will keep existing somewhat independently).
+-- | Lift a transformation onto an RV. This creates a new RV, it does not
+-- actually modify the old RV (when this one is written to, so will be the old
+-- one, but both will keep existing somewhat independently).
 liftW :: (Monad m, ReactiveValueWrite a b m)
       => (c -> b) -> a -> ReactiveFieldWrite m c
 liftW f e = ReactiveFieldWrite setter
   where setter = reactiveValueWrite e . f
 
--- | Lift a transformation onto two RVs. This creates a new RV, it does
--- not actually modify the old RVs (when this one is written to, so will
--- be the old ones, but both will keep existing somewhat independently).
+-- | Lift a transformation onto two RVs. This creates a new RV, it does not
+-- actually modify the old RVs (when this one is written to, so will be the old
+-- ones, but both will keep existing somewhat independently).
 liftW2 :: (Monad m, ReactiveValueWrite a b m, ReactiveValueWrite d e m)
        => (c -> (b,e)) -> a -> d -> ReactiveFieldWrite m c
 liftW2 f e1 e2 = ReactiveFieldWrite setter
@@ -569,21 +569,20 @@ writeOnly r = ReactiveFieldWrite (reactiveValueWrite r)
 wrapMW :: (a -> m ()) -> ReactiveFieldWrite m a
 wrapMW = ReactiveFieldWrite
 
--- | Wrap a monadic computation in a writable reactive value.
--- It discards the written value and executes the operation.
+-- | Wrap a monadic computation in a writable reactive value. It discards the
+-- written value and executes the operation.
 --
--- Note: Because the value is discarded, the resulting RV is
--- polymorphic in the value that may be written to it. Using
--- 'wrapDo_' may save you some extra type signatures.
+-- Note: Because the value is discarded, the resulting RV is polymorphic in the
+-- value that may be written to it. Using 'wrapDo_' may save you some extra
+-- type signatures.
 --
--- NOTE: this should be unnecessary since the introduction
--- of a default 'ReactiveValueWrite' instance for monadic
--- actions.
+-- NOTE: this should be unnecessary since the introduction of a default
+-- 'ReactiveValueWrite' instance for monadic actions.
 wrapDo :: m () -> ReactiveFieldWrite m a
 wrapDo = wrapMW . const
 
--- | Wrap a monadic computation in a writable reactive value of type
--- unit. It discards the written value and executes the operation.
+-- | Wrap a monadic computation in a writable reactive value of type unit. It
+-- discards the written value and executes the operation.
 wrapDo_ :: m () -> ReactiveFieldWrite m ()
 wrapDo_ = wrapDo
 
@@ -636,8 +635,9 @@ pairRW :: (Monad m,
        -> ReactiveFieldReadWrite m (b, d)
 pairRW = liftRW2 (bijection (id, id))
 
--- | Add an equality check to the setter of a Read-Write RV, effectively stopping
--- all unnecessary change (the RV is not modified if it has not changed).
+-- | Add an equality check to the setter of a Read-Write RV, effectively
+-- stopping all unnecessary change (the RV is not modified if it has not
+-- changed).
 {-# INLINE eqCheck #-}
 eqCheck :: (Eq v, Monad m) => ReactiveFieldReadWrite m v -> ReactiveFieldReadWrite m v
 eqCheck (ReactiveFieldReadWrite setter getter notifier) = ReactiveFieldReadWrite setter' getter notifier
@@ -655,8 +655,8 @@ modRW f rv = ReactiveFieldWrite setter
                       let b' = f b c
                       reactiveValueWrite rv b'
 
--- | Apply a modification to an RV. This modification is not attached to
--- the RV, and there are no guarantees that it will be atomic (if you need
+-- | Apply a modification to an RV. This modification is not attached to the
+-- RV, and there are no guarantees that it will be atomic (if you need
 -- atomicity, check out STM).
 reactiveValueModify :: (Monad m, ReactiveValueReadWrite a b m) => a -> (b -> b) -> m ()
 reactiveValueModify r f = reactiveValueWrite r . f =<< reactiveValueRead r
@@ -674,19 +674,18 @@ rMerge = liftR2 (\_ b -> b)
 
 -- $changecontrol
 --
--- Sometimes you need to create complex liftings between RVs in which
--- only changes to one of them should provoke change propagation.
--- These combinators allow you to stop propagation (making RVs passive),
--- make one RV control the change propagation of another (governance),
--- filter propagation based on some condition (guards) and have a
--- boolean-carrying RV guard another.
+-- Sometimes you need to create complex liftings between RVs in which only
+-- changes to one of them should provoke change propagation. These combinators
+-- allow you to stop propagation (making RVs passive), make one RV control the
+-- change propagation of another (governance), filter propagation based on some
+-- condition (guards) and have a boolean-carrying RV guard another.
 
--- Turning an active RV into a passive one (does not propagate changes)
--- Note that this does not really affect the RV itself, only produces a new
--- RV that will not propagate changes. So, if used in a reactive relation,
--- values will not get propagated when they change. It is useful in combination
--- with lifts, to achieve things similar to Yampa's tagging, but this might
--- be more general.
+-- Turning an active RV into a passive one (does not propagate changes). Note
+-- that this does not really affect the RV itself, only produces a new RV that
+-- will not propagate changes. So, if used in a reactive relation, values will
+-- not get propagated when they change. It is useful in combination with lifts,
+-- to achieve things similar to Yampa's tagging, but this might be more
+-- general.
 
 -- | Create a passive RO RV backed by another Readable RV by disabling change
 -- propagation.
@@ -713,8 +712,8 @@ governingR r c = ReactiveFieldRead getter notifier
   where getter   = reactiveValueRead c
         notifier = reactiveValueOnCanRead r
 
--- | A form of binary read-writable lifting that passifies the second RV but reads
--- exclusively from it.
+-- | A form of binary read-writable lifting that passifies the second RV but
+-- reads exclusively from it.
 
 governingRW :: (ReactiveValueRead a b m,  ReactiveValueReadWrite c d m)
            => a -> c -> ReactiveFieldReadWrite m d
@@ -769,9 +768,8 @@ guardRO c = ReactiveFieldRead getter notifier
          where when' m = do x <- reactiveValueRead c
                             when x m
 
--- | Check RV and notify only when condition on the value holds.
---
--- (stops propagation by filtering on the new value).
+-- | Check RV and notify only when condition on the value holds (stops
+-- propagation by filtering on the new value).
 guardRO' :: (Monad m, ReactiveValueRead c a m)
          => c
          -> (a -> Bool)
