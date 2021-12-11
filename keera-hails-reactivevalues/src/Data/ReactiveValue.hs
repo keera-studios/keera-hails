@@ -353,7 +353,8 @@ infix 9 <:=
       -> c
       -> m ()
 (=:>) v1 v2 = reactiveValueOnCanRead v1 sync1
-  where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
+  where
+    sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
 
 -- | Right-to-left RV synchronisation function. If the value on the right
 -- changes, the one on the left is updated accordingly.
@@ -363,7 +364,8 @@ infix 9 <:=
       -> a
       -> m ()
 (<:=) v2 v1 = reactiveValueOnCanRead v1 sync1
-  where sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
+  where
+    sync1 = reactiveValueRead v1 >>= reactiveValueWrite v2
 
 -- | Bidirectional synchronisation. When either value changes, the other
 -- is updated accordingly.
@@ -437,8 +439,9 @@ type FieldNotifier m a = m () -> m ()
 -- | Create an activatable RV from a handler installer.
 mkActivatable :: Monad m => (m () -> m ()) -> ReactiveFieldActivatable m
 mkActivatable f = ReactiveFieldRead getter notifier
-  where getter   = return ()
-        notifier = f
+  where
+    getter   = return ()
+    notifier = f
 
 -- $readablecombinators
 
@@ -448,8 +451,9 @@ mkActivatable f = ReactiveFieldRead getter notifier
 -- lifted into RVs explicitly.
 constR :: Monad m => a ->  ReactiveFieldRead m a
 constR e = ReactiveFieldRead getter notifier
-  where notifier _ = return ()
-        getter     = return e
+  where
+    notifier _ = return ()
+    getter     = return e
 
 -- | A trivial RV builder with a constant value (i.e., initialized). We need
 -- this because we cannot have overlapping instances with a default case, and
@@ -457,8 +461,9 @@ constR e = ReactiveFieldRead getter notifier
 -- unless values are lifted into RVs explicitly.
 initRW :: Monad m => a ->  ReactiveFieldRead m a
 initRW e = ReactiveFieldRead getter notifier
-  where notifier _ = return ()
-        getter     = return e
+  where
+    notifier _ = return ()
+    getter     = return e
 
 {-# ANN liftR "HLint: ignore Use fmap" #-}
 -- | Lift a transformation onto a RV. Note that this creates a new
@@ -468,8 +473,9 @@ liftR :: (Monad m, ReactiveValueRead a b m)
       -> a
       -> ReactiveFieldRead m c
 liftR f e = ReactiveFieldRead getter notifier
-  where notifier = reactiveValueOnCanRead e
-        getter   = liftM f (reactiveValueRead e)
+  where
+    notifier = reactiveValueOnCanRead e
+    getter   = liftM f (reactiveValueRead e)
 
 -- | Shorter name for 'liftR'
 (<^>) :: (Monad m, ReactiveValueRead a b m)
@@ -484,11 +490,12 @@ liftR f e = ReactiveFieldRead getter notifier
 liftR2 :: (Monad m, ReactiveValueRead a b m, ReactiveValueRead c d m)
        => (b -> d -> e) -> a -> c -> ReactiveFieldRead m e
 liftR2 f e1 e2 = ReactiveFieldRead getter notifier
-  where getter = do v1 <- reactiveValueRead e1
-                    v2 <- reactiveValueRead e2
-                    return (f v1 v2)
-        notifier p = do reactiveValueOnCanRead e1 p
-                        reactiveValueOnCanRead e2 p
+  where
+    getter = do v1 <- reactiveValueRead e1
+                v2 <- reactiveValueRead e2
+                return (f v1 v2)
+    notifier p = do reactiveValueOnCanRead e1 p
+                    reactiveValueOnCanRead e2 p
 
 -- | Lift a transformation onto three RVs. Note that this creates a new RV, it
 -- does not modify the existing RVs. When either RV changes, the new one
@@ -497,13 +504,14 @@ liftR3 :: ( Monad m, ReactiveValueRead a b m, ReactiveValueRead c d m
           , ReactiveValueRead e f m)
        => (b -> d -> f -> g) -> a -> c -> e -> ReactiveFieldRead m g
 liftR3 f e1 e2 e3 = ReactiveFieldRead getter notifier
-  where getter = do v1 <- reactiveValueRead e1
-                    v2 <- reactiveValueRead e2
-                    v3 <- reactiveValueRead e3
-                    return (f v1 v2 v3)
-        notifier p = do reactiveValueOnCanRead e1 p
-                        reactiveValueOnCanRead e2 p
-                        reactiveValueOnCanRead e3 p
+  where
+    getter = do v1 <- reactiveValueRead e1
+                v2 <- reactiveValueRead e2
+                v3 <- reactiveValueRead e3
+                return (f v1 v2 v3)
+    notifier p = do reactiveValueOnCanRead e1 p
+                    reactiveValueOnCanRead e2 p
+                    reactiveValueOnCanRead e3 p
 
 -- | Lift a parameterised monadic transformation onto an RV.
 --
@@ -513,8 +521,9 @@ liftMR :: (Monad m, ReactiveValueRead a b m)
        -> a
        -> ReactiveFieldRead m c
 liftMR f e = ReactiveFieldRead getter notifier
-  where notifier = reactiveValueOnCanRead e
-        getter   = f =<< reactiveValueRead e
+  where
+    notifier = reactiveValueOnCanRead e
+    getter   = f =<< reactiveValueRead e
 
 -- *** Lifting (source) computations into readable RVs.
 
@@ -554,7 +563,8 @@ constW c v = ReactiveFieldWrite $ \_ -> reactiveValueWrite v c
 liftW :: (Monad m, ReactiveValueWrite a b m)
       => (c -> b) -> a -> ReactiveFieldWrite m c
 liftW f e = ReactiveFieldWrite setter
-  where setter = reactiveValueWrite e . f
+  where
+    setter = reactiveValueWrite e . f
 
 -- | Lift a transformation onto two RVs. This creates a new RV, it does not
 -- actually modify the old RVs (when this one is written to, so will be the old
@@ -562,9 +572,10 @@ liftW f e = ReactiveFieldWrite setter
 liftW2 :: (Monad m, ReactiveValueWrite a b m, ReactiveValueWrite d e m)
        => (c -> (b, e)) -> a -> d -> ReactiveFieldWrite m c
 liftW2 f e1 e2 = ReactiveFieldWrite setter
-  where setter x = do let (v1, v2) = f x
-                      reactiveValueWrite e1 v1
-                      reactiveValueWrite e2 v2
+  where
+    setter x = do let (v1, v2) = f x
+                  reactiveValueWrite e1 v1
+                  reactiveValueWrite e2 v2
 
 -- | Binary writable replicator.
 --
@@ -581,7 +592,8 @@ liftW2 f e1 e2 = ReactiveFieldWrite setter
 liftMW :: (Monad m, ReactiveValueWrite a b m)
        => (c -> m b) -> a -> ReactiveFieldWrite m c
 liftMW f e = ReactiveFieldWrite setter
-  where setter x = reactiveValueWrite e =<< f x
+  where
+    setter x = reactiveValueWrite e =<< f x
 
 -- | Make a RW RV write only
 writeOnly :: ReactiveValueWrite r a m => r -> ReactiveFieldWrite m a
@@ -642,16 +654,18 @@ liftRW :: (Monad m, ReactiveValueReadWrite a b m)
        => BijectiveFunc b c -> a -> ReactiveFieldReadWrite m c
 liftRW (BijectiveFunc (f1, f2)) e =
     ReactiveFieldReadWrite setter getter notifier
-  where ReactiveFieldRead getter notifier = liftR f1 e
-        ReactiveFieldWrite setter         = liftW f2 e
+  where
+    ReactiveFieldRead getter notifier = liftR f1 e
+    ReactiveFieldWrite setter         = liftW f2 e
 
 -- | Lift a bijection onto two read-write RVs
 liftRW2 :: (Monad m, ReactiveValueReadWrite a b m, ReactiveValueReadWrite c d m)
         => BijectiveFunc e (b, d) -> a -> c -> ReactiveFieldReadWrite m e
 liftRW2 (BijectiveFunc (f1, f2)) e1 e2 =
     ReactiveFieldReadWrite setter getter notifier
-  where ReactiveFieldRead getter notifier = liftR2 (curry f2) e1 e2
-        ReactiveFieldWrite setter         = liftW2 f1 e1 e2
+  where
+    ReactiveFieldRead getter notifier = liftR2 (curry f2) e1 e2
+    ReactiveFieldWrite setter         = liftW2 f1 e1 e2
 
 -- | Pair two read-write RVs
 pairRW :: (Monad m,
@@ -670,8 +684,9 @@ eqCheck :: (Eq v, Monad m)
         -> ReactiveFieldReadWrite m v
 eqCheck (ReactiveFieldReadWrite setter getter notifier) =
     ReactiveFieldReadWrite setter' getter notifier
-  where setter' v = do o <- getter
-                       when (o /= v) $ setter v
+  where
+    setter' v = do o <- getter
+                   when (o /= v) $ setter v
 
 
 -- | Lift a function that takes an old value and a new input and creates a new
@@ -680,9 +695,10 @@ eqCheck (ReactiveFieldReadWrite setter getter notifier) =
 modRW :: (Monad m, ReactiveValueReadWrite a b m)
       => (b -> c -> b) -> a -> ReactiveFieldWrite m c
 modRW f rv = ReactiveFieldWrite setter
-  where setter c = do b <- reactiveValueRead rv
-                      let b' = f b c
-                      reactiveValueWrite rv b'
+  where
+    setter c = do b <- reactiveValueRead rv
+                  let b' = f b c
+                  reactiveValueWrite rv b'
 
 -- | Apply a modification to an RV. This modification is not attached to the
 -- RV, and there are no guarantees that it will be atomic (if you need
@@ -744,8 +760,9 @@ passivelyRW rv =
 governingR :: (ReactiveValueRead a b m,  ReactiveValueRead c d m)
            => a -> c -> ReactiveFieldRead m d
 governingR r c = ReactiveFieldRead getter notifier
-  where getter   = reactiveValueRead c
-        notifier = reactiveValueOnCanRead r
+  where
+    getter   = reactiveValueRead c
+    notifier = reactiveValueOnCanRead r
 
 -- | A form of binary read-writable lifting that passifies the second RV but
 -- reads exclusively from it.
@@ -753,25 +770,27 @@ governingR r c = ReactiveFieldRead getter notifier
 governingRW :: (ReactiveValueRead a b m,  ReactiveValueReadWrite c d m)
            => a -> c -> ReactiveFieldReadWrite m d
 governingRW r c = ReactiveFieldReadWrite setter getter notifier
-  where getter   = reactiveValueRead c
-        setter   = reactiveValueWrite c
-        notifier = reactiveValueOnCanRead r
+  where
+    getter   = reactiveValueRead c
+    setter   = reactiveValueWrite c
+    notifier = reactiveValueOnCanRead r
 
 -- | Check condition, and write or notify only when it holds.
 ifRW :: (Monad m, ReactiveValueRead c Bool m, ReactiveValueReadWrite v a m)
      => c -> v
      -> ReactiveFieldReadWrite m a
 ifRW c r = ReactiveFieldReadWrite setter getter notifier
-  where setter x   = do b <- reactiveValueRead c
-                        when b $ reactiveValueWrite r x
-        getter     = reactiveValueRead r
-        -- If either changes, the value *may* be propagated
-        notifier p = do reactiveValueOnCanRead c (when' p)
-                        reactiveValueOnCanRead r (when' p)
-
-           -- Propagate only if the condition holds
-           where when' m = do b <- reactiveValueRead c
-                              when b m
+  where
+    setter x   = do b <- reactiveValueRead c
+                    when b $ reactiveValueWrite r x
+    getter     = reactiveValueRead r
+    -- If either changes, the value *may* be propagated
+    notifier p = do reactiveValueOnCanRead c (when' p)
+                    reactiveValueOnCanRead r (when' p)
+      where
+        -- Propagate only if the condition holds
+        when' m = do b <- reactiveValueRead c
+                     when b m
 
 -- | Check condition and notify only when holds (but writing occurs
 -- regardless).
@@ -779,15 +798,16 @@ ifRW_ :: (Monad m, ReactiveValueRead c Bool m, ReactiveValueReadWrite v a m)
       => c -> v
       -> ReactiveFieldReadWrite m a
 ifRW_ c r = ReactiveFieldReadWrite setter getter notifier
-  where setter = reactiveValueWrite r
-        getter = reactiveValueRead r
-        -- If either changes, the value *may* be propagated
-        notifier p = do reactiveValueOnCanRead c (when' p)
-                        reactiveValueOnCanRead r (when' p)
-
-           -- Propagate only if the condition holds
-           where when' m = do x <- reactiveValueRead c
-                              when x m
+  where
+    setter = reactiveValueWrite r
+    getter = reactiveValueRead r
+    -- If either changes, the value *may* be propagated
+    notifier p = do reactiveValueOnCanRead c (when' p)
+                    reactiveValueOnCanRead r (when' p)
+      where
+        -- Propagate only if the condition holds
+        when' m = do x <- reactiveValueRead c
+                     when x m
 
 -- | Check RV carrying a 'Bool', and notify only when it changes and it is
 -- 'True'.
@@ -795,13 +815,14 @@ guardRO :: (Monad m, ReactiveValueRead c Bool m)
         => c
         -> ReactiveFieldRead m Bool
 guardRO c = ReactiveFieldRead getter notifier
-  where getter   = reactiveValueRead c
-        -- If either changes, the value *may* be propagated
-        notifier = reactiveValueOnCanRead c . when'
-
-           -- Propagate only if the condition holds
-           where when' m = do x <- reactiveValueRead c
-                              when x m
+  where
+    getter   = reactiveValueRead c
+    -- If either changes, the value *may* be propagated
+    notifier = reactiveValueOnCanRead c . when'
+      where
+        -- Propagate only if the condition holds
+        when' m = do x <- reactiveValueRead c
+                     when x m
 
 -- | Check RV and notify only when condition on the value holds (stops
 -- propagation by filtering on the new value).
@@ -810,13 +831,15 @@ guardRO' :: (Monad m, ReactiveValueRead c a m)
          -> (a -> Bool)
          -> ReactiveFieldRead m a
 guardRO' c p = ReactiveFieldRead getter notifier
-  where getter   = reactiveValueRead c
-        -- If either changes, the value *may* be propagated
-        notifier = reactiveValueOnCanRead c . when'
+  where
+    getter   = reactiveValueRead c
+    -- If either changes, the value *may* be propagated
+    notifier = reactiveValueOnCanRead c . when'
 
-           -- Propagate only if the condition holds
-           where when' m = do x <- reactiveValueRead c
-                              when (p x) m
+      -- Propagate only if the condition holds
+      where
+        when' m = do x <- reactiveValueRead c
+                     when (p x) m
 
 -- Category theoretic definitions
 
