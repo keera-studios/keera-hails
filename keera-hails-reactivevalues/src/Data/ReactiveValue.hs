@@ -560,15 +560,15 @@ liftW f e = ReactiveFieldWrite setter
 -- actually modify the old RVs (when this one is written to, so will be the old
 -- ones, but both will keep existing somewhat independently).
 liftW2 :: (Monad m, ReactiveValueWrite a b m, ReactiveValueWrite d e m)
-       => (c -> (b,e)) -> a -> d -> ReactiveFieldWrite m c
+       => (c -> (b, e)) -> a -> d -> ReactiveFieldWrite m c
 liftW2 f e1 e2 = ReactiveFieldWrite setter
-  where setter x = do let (v1,v2) = f x
+  where setter x = do let (v1, v2) = f x
                       reactiveValueWrite e1 v1
                       reactiveValueWrite e2 v2
 
 -- | Binary writable replicator.
 --
--- r1 &.& r2 = liftW2 (\x -> (x,x)) r1 r2
+-- r1 &.& r2 = liftW2 (\x -> (x, x)) r1 r2
 --
 (&.&) :: (Monad m, ReactiveValueWrite a b m, ReactiveValueWrite c b m)
       => a -> c -> ReactiveFieldWrite m b
@@ -647,7 +647,7 @@ liftRW (BijectiveFunc (f1, f2)) e =
 
 -- | Lift a bijection onto two read-write RVs
 liftRW2 :: (Monad m, ReactiveValueReadWrite a b m, ReactiveValueReadWrite c d m)
-        => BijectiveFunc e (b,d) -> a -> c -> ReactiveFieldReadWrite m e
+        => BijectiveFunc e (b, d) -> a -> c -> ReactiveFieldReadWrite m e
 liftRW2 (BijectiveFunc (f1, f2)) e1 e2 =
     ReactiveFieldReadWrite setter getter notifier
   where ReactiveFieldRead getter notifier = liftR2 (curry f2) e1 e2
