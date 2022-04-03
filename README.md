@@ -13,6 +13,87 @@ Webcams, etc).
 Keera Hails has been used to create large applications and is used commercially
 in production.
 
+# At a glance
+
+<table>
+  <tr>
+    <td>
+    <p align="center">
+      Keera Studios' Gale Studio!
+      <br /><br />
+      <a href="http://keera.co.uk" target="_blank">
+        <img src="https://keera.co.uk/wp-content/uploads/2011/10/Screenshot.png" height="auto" alt="Gale Studio screenshot" style="max-height:175px;"></a>
+      <img width="441" height="1">
+      <br />
+    </p>
+    </td>
+    <td>
+    <p align="center">
+      Guerric Chupin's Arpeggigon
+      <br /><br />
+      <a href="https://gitlab.com/chupin/arpeggigon" target="_blank">
+        <img src="https://keera.co.uk/wp-content/uploads/2020/05/arpeggigon.png" height="auto" alt="Arpeggigon screenshot" style="max-height:175px;"></a>
+      <img width="441" height="1">
+      <br />
+    </p>
+    </td>
+    <td>
+    <p align="center">
+      SoOSim simulator
+      <br />
+      <br />
+      <img src="https://keera.co.uk/wp-content/uploads/2011/10/Screenshot-from-2014-09-24-142046.png" height="auto" alt="CAES group's SoOSim" style="max-height: 175px;">
+      <img width="441" height="1">
+      <br />
+    </p>
+    </td>
+    </tr>
+  <tr>
+    <td>
+    <p align="center">
+      iOS demo
+      <br /><br />
+      <a href="http://keera.co.uk" target="_blank">
+        <img src="https://keera.co.uk/wp-content/uploads/2022/04/keera-hails-ios-demo-capture.gif" height="auto" alt="Keera Hails iOS demo app screenshot" style="max-height:175px;"></a>
+      <img width="441" height="1">
+      <br />
+    </p>
+    </td>
+    <td>
+    <p align="center">
+      Android demo
+      <br /><br />
+      <a href="http://keera.co.uk" target="_blank">
+        <img src="https://keera.co.uk/wp-content/uploads/2022/04/keera-hails-android-demo-capture.gif" height="auto" alt="Keera Hails Android demo app screenshot" style="max-height:175px;"></a>
+      <img width="441" height="1">
+      <br />
+    </p>
+    </td>
+    <td>
+    <p align="center">
+      Web demo
+      <br />
+      <br />
+      <a href="http://keera.co.uk" target="_blank">
+      <img src="https://keera.co.uk/wp-content/uploads/2022/04/hello-hails-web-calculator-css-final-orig-midres-short.gif" height="auto" alt="Keera Hails web demo app capture" style="max-height: 175px;"></a>
+      <img width="441" height="1">
+      <br />
+    </p>
+    </td>
+    </tr>
+    <tr>
+    <td colspan="3">
+      <sub>
+        <sup>
+	  Image from Gale Studio and Keera Hails demos are Copyright © 2011 -
+	  2022 Keera Studios Ltd. All Rights Reserved. Keera, Keera Studios,
+          Keera Hails, Gale, Gale Studio are trademarks of Keera Studios Ltd.
+        </sup>
+      </sub>
+    </td>
+  </tr>
+</table>
+
 # Hands-on example
 
 The two key ideas in Keera Hails are *Reactive Values* and *Reactive Rules*.
@@ -158,6 +239,24 @@ Please contact Keera Studios if you wish to use them.
 core ideas and problems that remain to be solved.)
 * [TFP 2014 Pre-proceedings, pages 59-68](http://www.staff.science.uu.nl/~hage0101/preproceedingstfp2014.pdf)
 * [Reactive Programming using Reactive Values (blog post)](http://keera.co.uk/blog/2014/05/24/reactive-programming-using-reactive-values/)
+
+
+<table>
+  <tr>
+    <td>
+    <p align="center">
+      Building a reactive calculator in Haskell!
+      <br /><br />
+      <a href="https://keera.co.uk/2020/05/28/building-a-reactive-calculator-in-haskell-1-5/" target="_blank">
+        <img src="https://keera.co.uk/wp-content/uploads/2022/04/hello-hails-web-calculator-css-final-orig-midres-short.gif" height="auto" alt="Keera Hails web demo app capture" style="max-height:175px;"></a>
+      <img width="441" height="1">
+      <br />
+      <sup>Copyright © 2020 - 2021 Keera Studios Ltd. All Rights Reserved.</sup>
+      <br />
+    </p>
+    </td>
+  </tr>
+</table>
 
 For bibtex references to these articles, see Publications in http://www.cs.nott.ac.uk/~ixp/.
 
