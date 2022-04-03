@@ -455,6 +455,7 @@ constR e = ReactiveFieldRead getter notifier
     notifier _ = return ()
     getter     = return e
 
+{-# DEPRECATED initRW "Deprecated in keera-hails-reactivevalues 0.8.0, use constR instead" #-}
 -- | A trivial RV builder with a constant value (i.e., initialized). We need
 -- this because we cannot have overlapping instances with a default case, and
 -- because the interpretation of lifting with RVs could be very confusing
