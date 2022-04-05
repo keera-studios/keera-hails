@@ -58,7 +58,7 @@ library
       base                        >= 4.2     && < 5
     , ghcjs-dom                   >= 0.2     && < 0.10
     , keera-callbacks
-    , keera-hails-reactivevalues  >= 0.1.0   && < 0.6
+    , keera-hails-reactivevalues  >= 0.1.0   && < 0.8
     , keera-hails-reactive-cbmvar
     , mtl
     , transformers                >= 0.4.3.0 && < 0.6
