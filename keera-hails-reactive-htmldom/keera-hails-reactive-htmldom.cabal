@@ -6,7 +6,7 @@ cabal-version: >= 1.10
 build-type:    Simple
 
 name:          keera-hails-reactive-htmldom
-version:       0.7.0
+version:       0.8.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
 homepage:      http://github.com/keera-studios/keera-hails
@@ -58,7 +58,7 @@ library
       base                        >= 4.2     && < 5
     , ghcjs-dom                   >= 0.2     && < 0.10
     , keera-callbacks
-    , keera-hails-reactivevalues  >= 0.1.0   && < 0.8
+    , keera-hails-reactivevalues  >= 0.1.0   && < 0.9
     , keera-hails-reactive-cbmvar
     , mtl
     , transformers                >= 0.4.3.0 && < 0.6
