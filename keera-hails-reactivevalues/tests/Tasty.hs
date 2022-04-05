@@ -1,4 +1,3 @@
------------------------------------------------------------------------------
 -- |
 -- Module      :  Main (Tasty)
 -- Copyright   :  (C) 2015 Ivan Perez
@@ -12,7 +11,6 @@
 -- See the following links for instructions and documentation:
 --   https://github.com/feuerbach/tasty
 --   https://ocharles.org.uk/blog/posts/2013-12-03-24-days-of-hackage-tasty.html
------------------------------------------------------------------------------
 
 -- Testing libraries
 import Test.Tasty

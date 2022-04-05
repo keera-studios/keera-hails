@@ -6,7 +6,7 @@ cabal-version: >= 1.10
 build-type:    Simple
 
 name:          keera-hails-i18n
-version:       0.7.0
+version:       0.8.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
 homepage:      http://www.keera.co.uk/blog/community/
@@ -56,7 +56,7 @@ library
     Hails.I18N.Language
 
   build-depends:
-      base >= 4 && < 5
+      base         >= 4 && < 5
     , directory
     , filepath
     , glib
@@ -94,8 +94,8 @@ test-suite hlint
     buildable: False
   else
     build-depends:
-        base
-      , hlint                >= 1.7
+        base  >= 4   && < 5
+      , hlint >= 1.7
 
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
@@ -119,7 +119,7 @@ test-suite haddock-coverage
     buildable: False
   else
     build-depends:
-        base                 >= 4        && < 5
+        base        >= 4 && < 5
       , directory
       , filepath
       , process

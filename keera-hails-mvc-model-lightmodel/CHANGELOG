@@ -1,3 +1,8 @@
+2022-04-05 Alexander Pavlenko <alexander@keera.co.uk>
+
+    * keera-hails-mvc-model-lightmodel.cabal: Add constraints on dependency
+      on base. Version bump (0.8.0). Conform to new style guide.
+
 2020-08-13 Alexander Pavlenko <alexander@keera.co.uk>
 
     * CHANGELOG: Fix errors in 2020-05-27 entry.

@@ -6,7 +6,7 @@ cabal-version: >= 1.10
 build-type:    Simple
 
 name:          keera-hails-reactive-htmldom
-version:       0.7.0
+version:       0.8.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
 homepage:      http://github.com/keera-studios/keera-hails
@@ -58,7 +58,7 @@ library
       base                        >= 4.2     && < 5
     , ghcjs-dom                   >= 0.2     && < 0.10
     , keera-callbacks
-    , keera-hails-reactivevalues  >= 0.1.0   && < 0.6
+    , keera-hails-reactivevalues  >= 0.1.0   && < 0.9
     , keera-hails-reactive-cbmvar
     , mtl
     , transformers                >= 0.4.3.0 && < 0.6
@@ -87,8 +87,8 @@ test-suite hlint
     buildable: False
   else
     build-depends:
-        base
-      , hlint                >= 1.7
+        base  >= 4   && < 5
+      , hlint >= 1.7
 
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
@@ -112,7 +112,7 @@ test-suite haddock-coverage
     buildable: False
   else
     build-depends:
-        base                 >= 4        && < 5
+        base        >= 4 && < 5
       , directory
       , filepath
       , process

@@ -6,7 +6,7 @@ cabal-version: >= 1.10
 build-type:    Simple
 
 name:          ElementaryGtkProgram
-version:       0.7.0
+version:       0.8.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
 homepage:      -
@@ -31,7 +31,7 @@ executable ElementaryGtkProgram
   Main-is: Main.hs
 
   build-depends:
-      base >= 4.0
+      base                                 >= 4 && < 5
     , keera-hails-mvc-environment-gtk3
     , keera-hails-mvc-solutions-gtk3
     , keera-hails-mvc-model-protectedmodel
@@ -66,7 +66,7 @@ test-suite hlint
     buildable: False
   else
     build-depends:
-        base
+        base                 >= 4   && < 5
       , hlint                >= 1.7
 
   default-language:

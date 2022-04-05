@@ -1,3 +1,9 @@
+2022-04-05 Alexander Pavlenko <alexander@keera.co.uk>
+
+    * keera-hails-reactive-gtk.cabal: Add constraints on dependency on base.
+      Version bump (0.8.0). Conform to new style guide.
+    * src/Graphics/UI/Gtk/Reactive/Property.hs: Avoid name shadowing.
+
 2020-05-27 Alexander Pavlenko <alexander@keera.co.uk>
 
     * CHANGELOG: Fix typo in 2020-05-27 entry.

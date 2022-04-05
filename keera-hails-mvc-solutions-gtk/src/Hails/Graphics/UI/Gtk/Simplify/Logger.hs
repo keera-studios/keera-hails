@@ -45,9 +45,9 @@ installHandlers cenv mF = void $ do
   let (vw, pm) = (view &&& model) cenv
 
   lsLogHandler <- listStoreLogHandlerNew
-  log <- getLog pm
-  -- let nl = setHandlers [lsLogHandler] log
-  let nl = addHandler lsLogHandler log
+  log' <- getLog pm
+  -- let nl = setHandlers [lsLogHandler] log'
+  let nl = addHandler lsLogHandler log'
   saveGlobalLogger nl
 
   w  <- createLogWindow $ lslhStore lsLogHandler

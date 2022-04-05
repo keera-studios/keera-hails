@@ -6,7 +6,7 @@ cabal-version: >= 1.10
 build-type:    Simple
 
 name:          keera-hails-mvc-solutions-gtk3
-version:       0.7.0
+version:       0.8.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
 homepage:      http://www.keera.co.uk/blog/community/
@@ -15,6 +15,20 @@ license-file:  LICENSE
 copyright:     (C) 2013 Keera Studios Ltd
 category:      Development
 synopsis:      Haskell on Gtk rails - Common solutions to recurrent problems in Gtk applications
+description:
+  Keera Hails is a rapid application development system.
+  .
+  The idea behind Hails is that you should be able to build cross platform
+  applications with minimal effort, very quickly, and the result should be easy
+  to maintain.
+  .
+  Large Hails applications are structured following an optimized MVC
+  architecture. Values are updated either from the view to the model, or from
+  the model to the view. Internally, rules use a notion of direction in the
+  update to determine how different components must be updated.
+  .
+  This library provides standard solutions to common synchronization needs
+  found in Gtk3 applications.
 
 source-repository head
   type: git
@@ -47,7 +61,7 @@ library
     Hails.Graphics.UI.Gtk.Simplify.UpdateCheck
 
   build-depends:
-      base >= 4 && < 5
+      base             >= 4 && < 5
     , template-haskell
     , gtk3
     , hslogger
@@ -91,8 +105,8 @@ test-suite hlint
     buildable: False
   else
     build-depends:
-        base
-      , hlint                >= 1.7
+        base  >= 4   && < 5
+      , hlint >= 1.7
 
 -- Verify that the code is thoroughly documented
 test-suite haddock-coverage
@@ -116,7 +130,7 @@ test-suite haddock-coverage
     buildable: False
   else
     build-depends:
-        base                 >= 4        && < 5
+        base        >= 4 && < 5
       , directory
       , filepath
       , process
