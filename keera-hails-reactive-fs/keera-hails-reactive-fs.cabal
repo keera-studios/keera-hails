@@ -6,7 +6,7 @@ cabal-version: >= 1.10
 build-type:    Simple
 
 name:          keera-hails-reactive-fs
-version:       0.7.0
+version:       0.8.0
 author:        Ivan Perez
 maintainer:    support@keera.co.uk
 homepage:      http://www.keera.co.uk/blog/community/
